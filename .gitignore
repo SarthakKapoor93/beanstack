@@ -4,3 +4,4 @@ tests_*.py
 decorators.py
 test_utils.py
 run_tests.py
+*.pyc
