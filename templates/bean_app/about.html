@@ -7,16 +7,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{% static '/assets/bootstrap/css/bootstrap.min.css' %}" >
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora" >
+    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="{% static '/assets/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static '/assets/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}" >
     <link rel="stylesheet" href="{% static 'assets/css/Article-Dual-Column.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/Contact-Form-Clean.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/Footer-Clean.css' %}">
-    <link rel="stylesheet" href="{% static '/assets/css/Header-Blue.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'assets/css/Header-Blue.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit1.css' %}">
@@ -40,8 +40,8 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav">
-                            <li role="presentation"><a href="{% url 'about' %}">About </a></li>
-                            <li class="dropdown open"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">Beans <span class="caret"></span></a>
+                            <li class="active" role="presentation"><a href="{'bean_app/templates/home.html'}">About </a></li>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Beans <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li role="presentation"><a href="#">Reviews and Ratings</a></li>
                                     <li role="presentation"><a href="#">Bean Types </a></li>
@@ -55,45 +55,55 @@
                                 <input class="form-control search-field" type="search" name="search" id="search-field">
                             </div>
                         </form>
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="#">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
+                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="#">My Account</a> <a class="btn btn-default action-button" role="button" href="#">Log out </a></p>
                     </div>
                 </div>
             </nav>
-            <div class="container hero">
-                <div class="row">
-                    <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-                        <h1>What's your favourite coffee!</h1>
-                        <p> </p>
-                        <button class="btn btn-default btn-lg action-button" type="button">Rate and review your favourite coffee beans!</button>
-                    </div>
-                    <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder"><img src="{% static 'assets/img/BeanStackLogo3.png'%}">
-                        <div class="iphone-mockup">
-                            <div class="screen"></div>
+        </div>
+    </div>
+    <div class="team-grid">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">About us - The Bean Stack Team </h2>
+                <p class="text-center">About us.&nbsp; </p>
+            </div>
+            <div class="row people">
+                <div class="col-md-3 col-sm-4 item">
+                    <div class="box" style="background-image:url(1.jpg)">
+                        <div class="cover">
+                            <h3 class="name">Sarthak Kapoor</h3>
+                            <p class="title"> </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="article-list">
-        <div class="container">
-            <div class="intro">
-                <h2 class="text-center">Most popular coffee beans!</h2>
-                <p class="text-center">This section will show the top three coffee beans </p>
-            </div>
-            <div class="row articles">
-                <div class="col-md-4 col-sm-6 item">
-                    <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType1.png'%}" width="293px" height="195px"></a>
-                    <h3 class="name">Coffee Bean 1</h3>
-                    <p class="description">About the bean 1.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
-                <div class="col-md-4 col-sm-6 item">
-                    <a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px">
-                    <h3 class="name">Coffee Bean 2</h3>
-                    <p class="description">About the bean 2.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
-                <div class="col-md-4 col-sm-6 item">
-                    <a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType3.png' %}" width="293px" height="195px">
-                    <h3 class="name">Coffee Bean 3</h3>
-                    <p class="description">About the bean 3.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
+                <div class="col-md-3 col-sm-4 item">
+                    <div class="box" style="background-image:url(2.jpg)">
+                        <div class="cover">
+                            <h3 class="name">Stuart Miller</h3>
+                            <p class="title"> </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 item">
+                    <div class="box" style="background-image:url(3.jpg)">
+                        <div class="cover">
+                            <h3 class="name">Andreas Kontopolous</h3>
+                            <p class="title"> </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-4 item">
+                    <div class="box" style="background-image:url(4.jpg)">
+                        <div class="cover">
+                            <h3 class="name">Sumedh Mane</h3>
+                            <p class="title"> </p>
+                            <div class="social"><a href="#"><i class="fa fa-facebook-official"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-instagram"></i></a></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -111,7 +121,7 @@
                     </div>
                     <div class="col-md-3 col-sm-4 item">
                         <ul>
-                            <li><a href="#">School of Computing Science, University of Glasgow </a></li>
+                            <li><a href="#">School of Computing Science, University of Glasgow, Glasgow, United Kingdom </a></li>
                             <li><a href="#">Team</a></li>
                         </ul>
                     </div>
@@ -135,5 +145,4 @@
     <script src="{% static 'assets/js/Profile-Edit.js' %}"></script>
     <script src="{% static 'assets/js/Reviewbtn.js' %}"></script>
 </body>
-
 </html>

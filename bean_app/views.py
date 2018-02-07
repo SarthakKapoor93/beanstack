@@ -1,6 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.urlresolvers import reverse
 
 
 def home(request):
     return render(request, 'bean_app/Home.html', {})
+
+
+def about(request):
+    return render(request, 'bean_app/about.html', {})
+
+
+def contact(request):
+    return render(request, 'bean_app/contact.html', {})
+
