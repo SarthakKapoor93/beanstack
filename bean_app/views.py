@@ -14,3 +14,21 @@ def about(request):
 def contact(request):
     return render(request, 'bean_app/contact.html', {})
 
+
+def browse(request):
+    return render(request, 'bean_app/browse.html', {})
+
+
+def login(request):
+    return render(request, 'bean_app/login.html', {})
+
+
+def myaccount(request):
+    return render(request, 'bean_app/myaccount.html', {})
+
+
+def signup(request):
+    return render(request, 'bean_app/signup.html', {})
+
+
+

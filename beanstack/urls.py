@@ -24,5 +24,9 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^$', views.about, name='about'),
     url(r'^$', views.contact, name='contact'),
+    url(r'^$', views.browse, name='browse'),
+    url(r'^$', views.login, name='login'),
+    url(r'^$', views.myaccount, name='myaccount'),
+    url(r'^$', views.signup, name='signup'),
     url(r'^bean_app/', include('bean_app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
