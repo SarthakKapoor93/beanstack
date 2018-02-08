@@ -7,16 +7,6 @@ django.setup()
 from bean_app.models import CoffeeBean, Review, Customer, Vendor, Tag
 
 
-'''
-todo:
-create a list of twenty tags
-create list of coffee beans
-create a list of customers
-
-'''
-
-# list of tags
-
 tag_groups = [
             ("sweet", "salt", "mellow"),
             ("acidic", "wine", "sour"),
@@ -25,8 +15,6 @@ tag_groups = [
             ("spicy", "honey", "buttery", "bitter"),
             ("pepper", "cedar", "dark chocolate", "roasted peanuts")
     ]
-
-# list of coffee beans
 
 coffee_beans = [
     {
@@ -128,15 +116,36 @@ review_texts = [
     "Really nice, smooth tasting. Enjoy it very much, long live the bean!!!!",
 ]
 
-# owner_name = models.CharField(max_length=128)
-# email = models.EmailField(unique=True)
-# business_name = models.CharField(max_length=128, unique=True)
-# # password = models.CharField()
-# url_online_shop = models.URLField()
-# address = models.CharField(max_length=128)
-# # telephone = models.CharField()
-# description = models.CharField(max_length=128, blank=True)
-# products_in_stock = models.ManyToManyField(CoffeeBean)
+vendors = [
+    {
+        'owner_name': "Robert Roaster",
+        'business_name': 'Artisan Beans',
+        'description': "Conceived in the Highlands, Founded in Glasgow. "
+                       "Artisan Beans are Speciality Coffee Shops in "
+                       "Glasgow with big heart and eager ambitions.",
+        'products': (1, 3),
+    },
+    {
+        'owner_name': "Kate Cappuccino",
+        'business_name': 'Papercup Coffee',
+        'description': "Papercup Coffee Company is a specialty coffee roaster "
+                       "located in Glasgow, Scotland. We opened in 2012 and our"
+                       " motivation was to give folk a place to drink world class "
+                       "coffee and get amazing service. Our home is in Glasgow's "
+                       "West End where we operate our cafe and our coffee roasting "
+                       "facility close by.",
+        'products': (2, 4),
+    },
+    {
+        'owner_name': "Mike Macchiato",
+        'business_name': 'Kember and Jones',
+        'description': "The doors to K & J were opened on June 4th 2004 by owners "
+                       "Claire Jones from Glasgow and Phil Kember from Portsmouth. "
+                       "We set up our Fine Food Emporium to provide a destination "
+                       "for people to enjoy high quality food to eat and buy.",
+        'products': (3, 5),
+    }
+]
 
 
 def populate():
@@ -179,6 +188,16 @@ def populate():
         print("\t", r)
 
     print("Creating the vendors...")
+    for vendor in vendors:
+        v = Vendor.objects.get_or_create(owner_name=vendor['owner_name'],
+                                         business_name=vendor['business_name'],
+                                         email=vendor['owner_name'].replace(' ', '').lower() + "@" + vendor['business_name'].replace(' ', '').lower() + ".com",
+                                         description=vendor['description'])[0]
+        start, end = vendor['products']
+        for bean in CoffeeBean.objects.all()[start: end + 1]:
+            v.products_in_stock.add(bean)
+        v.save()
+        print("\t", v)
 
 
 if __name__ == '__main__':

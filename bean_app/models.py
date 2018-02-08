@@ -61,10 +61,10 @@ class Vendor(models.Model):
     email = models.EmailField(unique=True)
     business_name = models.CharField(max_length=128, unique=True)
     # password = models.CharField()
-    url_online_shop = models.URLField()
-    address = models.CharField(max_length=128)
+    url_online_shop = models.URLField(blank=True)
+    address = models.CharField(max_length=128, blank=True)
     # telephone = models.CharField()
-    description = models.CharField(max_length=128, blank=True)
+    description = models.TextField(max_length=128, blank=True)
     products_in_stock = models.ManyToManyField(CoffeeBean)
 
     # This could be useful, if we can implement it
