@@ -23,7 +23,7 @@ def login(request):
     return render(request, 'bean_app/login.html', {})
 
 
-def myaccount(request):
+def my_account(request):
     return render(request, 'bean_app/myaccount.html', {})
 
 
