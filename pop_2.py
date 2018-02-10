@@ -171,7 +171,7 @@ def populate():
     print("Creating the customers and reviews...")
     for i, customer_name in enumerate(names):
 
-        # There are 10 customers and only 5 reviewers, so each coffee gets two reviews
+        # There are 10 customers and only 5 coffees, so each coffee gets two reviews
         j = int(i % (len(names) / 2))
 
         c = Customer.objects.get_or_create(fullname=customer_name,
