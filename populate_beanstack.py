@@ -1,33 +1,43 @@
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanstack.settings')
 import django
+
 django.setup()
-from bean_app.models import CoffeeProduct, ProductReview
+from bean_app.models import CoffeeBean, Review, Customer, Vendor, Tag
 
 
+tag_groups = [
+            ("sweet", "salt", "mellow"),
+            ("acidic", "wine", "sour"),
+            ("flowery", "fruity", "herby"),
+            ("nutty", "caramel", "chocolate"),
+            ("spicy", "honey", "buttery", "bitter"),
+            ("pepper", "cedar", "dark chocolate", "roasted peanuts")
+    ]
 
-# This is obviously just a basic version of the script. It will have to be changed depending on
-# the models. But it gives us a starting point anyway.
-
-
-coffee_products = [
-     {
+coffee_beans = [
+    {
         'name': "BRAZIL DATERRA MASTERPIECES FRANCISCA - COFFEE BEANS",
         'description': "Daterra sets the benchmark for sustainable coffee farming and over its 216 small "
                        "plantations in the Cerrado region they have the perfect growing conditions for speciality "
                        "coffee. Each year our masterful Cuppers search the vast potential of Daterra for unique small "
                        "lots of coffee, Our Masterpieces.",
-        'origin': "Brazil",
+        'location': "Brazil",
         'price': 12.50,
-     },
+        'average_rating': 4,
+        'tags': tag_groups[0]
+    },
 
     {
         'name': "BRAZIL DATERRA SUNRISE - COFFEE BEANS",
         'description': "Grown in Cerrado, Mogiana at an altitude of 1150 metres, this delightful coffee has a"
                        " beautiful creamy milk chocolate and vanilla flavour with a caramel sweetness.  "
                        "It is smooth and well balanced with soft acidity.",
-        'origin': "Brazil",
-        'price': 5.75
+        'location': "Brazil",
+        'price': 5.75,
+        'average_rating': 4,
+        'tags': tag_groups[1]
     },
 
     {
@@ -38,8 +48,10 @@ coffee_products = [
                        "the lagoon. The farm is located between the Apenaca and Ateno mountain ranges at "
                        "an altitude between 1450 and 1780 meters in the region of the Santa Ana volcano, "
                        "El Salvador. The family also own the washing station, Las Cruces.",
-        'origin': "El Salvador",
-        'price': 5.50
+        'location': "El Salvador",
+        'price': 5.50,
+        'average_rating': 4,
+        'tags': tag_groups[2]
     },
 
     {
@@ -47,8 +59,10 @@ coffee_products = [
         'description': "A beautiful aroma of amaretto and honeycomb on grinding with sweet plum notes "
                        "and a soft clementine acidity. A smooth and satisfying cup with depth of body and "
                        "a nutty and balanced flavour.",
-        'origin': "Columbia",
-        'price': 5.75
+        'location': "Columbia",
+        'price': 5.75,
+        'average_rating': 4,
+        'tags': tag_groups[3]
     },
 
     {
@@ -59,10 +73,14 @@ coffee_products = [
                        "coffee beans and studied the Geisha variety in Boquete, Panama before taking it back to "
                        "grow in Colombia.  It is a relatively low yielding variety but makes up for that in "
                        "flavour and quality.",
-        'origin': "Panama",
-        'price': 25.00
+        'location': "Panama",
+        'price': 25.00,
+        'average_rating': 4,
+        'tags': tag_groups[4]
     },
 ]
+
+names = ["Frank", "Phil J", "Utku", "Andrew P", "Valerie W", "Ingrid M", "Dave", "Susan", "Maggie", "Alpha"]
 
 review_texts = [
 
@@ -89,60 +107,100 @@ review_texts = [
     "Fantastic coffee as are all the Bean Shop products!!",
 
     "Came in a lovely box and lovely packaging. The coffee beans were lovely and I will definitely purchase more",
-    
+
     "Not my choice for the first hit of the day. For a second coffee later in the day I'm loving it. Packed with"
     " flavour and smooth",
 
     "one of the best beans I have ever tasted, smooth and deep - will order again",
 
     "Really nice, smooth tasting. Enjoy it very much, long live the bean!!!!",
-
 ]
 
-reviewer_names = [
-    "Mrs B",
-    "Phil J",
-    "Utku",
-    "Andrew P",
-    "Valerie W",
-    "Ingrid M",
-    "Dave",
-    "Susan",
-    "Maggie",
-    "Alpha"
+vendors = [
+    {
+        'owner_name': "Robert Roaster",
+        'business_name': 'Artisan Beans',
+        'description': "Conceived in the Highlands, Founded in Glasgow. "
+                       "Artisan Beans are Speciality Coffee Shops in "
+                       "Glasgow with big heart and eager ambitions.",
+        'products': (1, 3),
+    },
+    {
+        'owner_name': "Kate Cappuccino",
+        'business_name': 'Papercup Coffee',
+        'description': "Papercup Coffee Company is a specialty coffee roaster "
+                       "located in Glasgow, Scotland. We opened in 2012 and our"
+                       " motivation was to give folk a place to drink world class "
+                       "coffee and get amazing service. Our home is in Glasgow's "
+                       "West End where we operate our cafe and our coffee roasting "
+                       "facility close by.",
+        'products': (2, 4),
+    },
+    {
+        'owner_name': "Mike Macchiato",
+        'business_name': 'Kember and Jones',
+        'description': "The doors to K & J were opened on June 4th 2004 by owners "
+                       "Claire Jones from Glasgow and Phil Kember from Portsmouth. "
+                       "We set up our Fine Food Emporium to provide a destination "
+                       "for people to enjoy high quality food to eat and buy.",
+        'products': (3, 5),
+    }
 ]
 
 
 def populate():
-    # Create the list of coffee objects
-    products = []
-    for product in coffee_products:
-        cp = CoffeeProduct.objects.get_or_create(**product)[0]
-        cp.save()
-        list.append(cp)
 
-    # Create two reviews for each coffee product
-    iterator = 0
-    for cp in products:
-        kwargs = {
-            'coffee_product': cp,
-            'description': review_texts[iterator],
-            'rating': 5,
-            'reviewer': reviewer_names[iterator]
-        }
-        pr_1 = ProductReview.objects.get_or_create(**kwargs)[0]
-        pr_1.save()
-        iterator += 1
+    print("Creating the beans and the tags...")
+    for bean in coffee_beans:
+        b = CoffeeBean.objects.get_or_create(name=bean['name'],
+                                             description=bean['description'],
+                                             location=bean['location'],
+                                             price=bean['price'],
+                                             average_rating=bean['average_rating'])[0]
+        print("\t", b)
 
-        kwargs['description'] = review_texts[iterator]
-        kwargs['rating'] = 4
-        kwargs['reviewer'] = reviewer_names[iterator]
-        pr_2 = ProductReview.objects.get_or_create(**kwargs)[0]
-        pr_2.save()
-        iterator += 1
+        # For each bean, get the tags, create the tags in the database
+        # and then add them to the bean.
+
+        for tag in bean['tags']:
+            t = Tag.objects.get_or_create(name=tag)[0]
+            b.tags.add(t)
+            print("\t", t)
+        b.save()
+
+    print("Creating the customers and reviews...")
+    for i, customer_name in enumerate(names):
+
+        # There are 10 customers and only 5 coffees, so each coffee gets two reviews
+        j = int(i % (len(names) / 2))
+
+        c = Customer.objects.get_or_create(fullname=customer_name,
+                                           email=customer_name + "@gmail.com",
+                                           favourite_coffee=CoffeeBean.objects.get(name=coffee_beans[j]['name']))[0]
+        print("\t", c)
+
+        b = CoffeeBean.objects.get_or_create(name=coffee_beans[j]['name'])[0]
+
+        r = Review.objects.get_or_create(customer=c,
+                                         coffee_bean=b,
+                                         rating=5,
+                                         comment=review_texts[0])[0]
+        print("\t", r)
+
+    print("Creating the vendors...")
+    for vendor in vendors:
+        v = Vendor.objects.get_or_create(owner_name=vendor['owner_name'],
+                                         business_name=vendor['business_name'],
+                                         email=vendor['owner_name'].replace(' ', '').lower() + "@" + vendor['business_name'].replace(' ', '').lower() + ".com",
+                                         description=vendor['description'])[0]
+        start, end = vendor['products']
+        for bean in CoffeeBean.objects.all()[start: end + 1]:
+            v.products_in_stock.add(bean)
+        v.save()
+        print("\t", v)
 
 
 if __name__ == '__main__':
-    print("Stacking on the beans...")
+    print("Stacking up all those lovely beans...")
     populate()
-    print("All stacked up nice and high.")
+    print("... that's some BeanStack you've got there!")

@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
+from bean_app.models import CoffeeBean
 
 
 def home(request):
-    return render(request, 'bean_app/Home.html', {})
+    return render(request, 'bean_app/home.html', {})
 
 
 def about(request):
@@ -16,7 +17,8 @@ def contact(request):
 
 
 def browse(request):
-    return render(request, 'bean_app/browse.html', {})
+    beans = CoffeeBean.objects.all()
+    return render(request, 'bean_app/browse.html', {'beans': beans})
 
 
 def login(request):

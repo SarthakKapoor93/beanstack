@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title_block %}
+            BeanStack
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static '/assets/bootstrap/css/bootstrap.min.css' %}" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{% static '/assets/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Article-Dual-Column.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Contact-Form-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Footer-Clean.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/css/Header-Blue.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit1.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Registration-Form-with-Photo.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn1.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Slides_home.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Tag-cloud.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Team-Grid.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/User-Chat.css' %}">
+</head>
+
+<body>
+    <!--Header Div-->
+    <div>
+        <!--nav bar-->
+        <div class="header-blue">
+            <nav class="navbar navbar-default navigation-clean-search">
+                <div class="container">
+                    <div class="navbar-header"><a class="navbar-brand navbar-link" href="{% url 'home' %}">Bean Stack</a>
+                        <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav">
+                            <li role="presentation"><a href="{% url 'about' %}">About </a></li>
+                            <li class="dropdown open"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">Beans <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation"><a href="#">Reviews and Ratings</a></li>
+                                    <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
+                                    <li role="presentation"><a href="#">Brewing </a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="navbar-form navbar-left" target="_self">
+                            <div class="form-group">
+                                <label class="control-label" for="search-field"><i class="glyphicon glyphicon-search"></i></label>
+                                <input class="form-control search-field" type="search" name="search" id="search-field">
+                            </div>
+                        </form>
+                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="#">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
+                    </div>
+                </div>
+            </nav>
+
+            <!--This block is to accommodate the banner on the home page that doesn't appear anywhere else-->
+            {% block banner_block %}
+            {% endblock%}
+
+            <!--This is an alternative body block browse.html requires that the body sits within the header blue tag
+            to get the 'full length header effect'-->
+            {% block body_block_alt %}
+            {% endblock %}
+
+        </div>
+    </div>
+
+    <!--Body Div-->
+    <div class="article-list">
+        {% block body_block %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer Div-->
+    <div class="footer-clean">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 item">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="{% url 'contact' %}">Contact us</a></li>
+                            <li><a href="#">Reviews </a></li>
+                            <li><a href="#">Bean Types</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4 item">
+                        <ul>
+                            <li><a href="#">School of Computing Science, University of Glasgow </a></li>
+                            <li><a href="#">Team</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-4 item">
+                        <ul>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
+                        <p class="copyright">All rights reserved &nbsp; </p>
+                        <p class="copyright">Bean Stack © 2018 </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/Profile-Edit.js' %}"></script>
+    <script src="{% static 'assets/js/Reviewbtn.js' %}"></script>
+</body>
+
+</html>
