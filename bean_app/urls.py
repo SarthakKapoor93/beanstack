@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^browse', views.browse, name='browse'),
     url(r'^login', views.login, name='login'),
     url(r'^myaccount', views.my_account, name='my_account'),
+    url(r'^$', views.addproduct, name='addproduct'),
     url(r'^signup', views.signup, name='signup'),
 ]
