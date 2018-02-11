@@ -35,4 +35,9 @@ def addproduct(request):
     return render(request, 'bean_app/addproduct.html', {})
 
 
+def signupselection(request):
+    return render(request, 'bean_app/signupselection.html', {})
 
+
+def vendorsignup(request):
+    return render(request, 'bean_app/vendorsignup.html', {})
