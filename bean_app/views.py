@@ -41,3 +41,7 @@ def signupselection(request):
 
 def vendorsignup(request):
     return render(request, 'bean_app/vendorsignup.html', {})
+
+
+def product(request):
+    return render(request, 'bean_app/product.html', {})
