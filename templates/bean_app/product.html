@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load bean_app_template_tags %}
 <html>
 
 <head>
@@ -61,9 +62,22 @@
             <div class="container hero">
                 <div class="row">
                     <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-                        <h1>About the product.</h1>
-                        <p>Details of the product.</p>
-                        <p>Rating of product.</p>
+                        <h2>{{ bean.name }}</h2>
+                        <p>{{ bean.description }}</p>
+                        <p>{{ bean.location }}</p>
+                        <p>£{{ bean.price }}</p>
+                        <p>
+                            average rating: {{ average_rating }}
+                            {% autoescape off %}
+                                <span>{% get_stars bean.average_rating %}</span>
+                            {% endautoescape %}
+                        </p>
+                        <p>
+                            {% for tag in tags %}
+                                <span class="btn btn-default action-button">{{ tag }}</span>
+                            {% endfor %}
+                        </p>
+
                         <button class="btn btn-default btn-lg action-button" type="button">Add a review</button>
                     </div>
                     <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder"><img class="img-responsive" src="assets/img/BeanType2.png">
@@ -79,55 +93,31 @@
         <div class="container">
             <div class="intro">
                 <h2 class="text-center">Reviews </h2>
-                <p class="text-center">This section will show the top three coffee beans </p>
+                <!--<p class="text-center">This section will show the top three coffee beans </p>-->
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+
+                {% for review in reviews %}
+                    <div class="col-md-12">
                     <div class="media">
                         <div class="media-left">
                             <a><img></a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">User 1</h4>
-                            <p>Review 1. </p>
+                            <h class="media-heading">{{ review.customer }}</h>
+                            <p>{{ review.rating }}</p>
+                            <p>{{ review.comment }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="media">
-                        <div class="media-left">
-                            <a><img></a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">User 2</h4>
-                            <p>Review 2. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="media">
-                        <div class="media-left">
-                            <a><img></a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">User 3</h4>
-                            <p>Review 3.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="media">
-                        <div class="media-left">
-                            <a><img></a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">User n</h4>
-                            <p>Review 4.</p>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+
+
+
+
+
             </div>
         </div>
     </div>
