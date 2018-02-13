@@ -41,7 +41,7 @@
                         <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px"></a>
                         <h3 class="name">{{ bean.name }}</h3>
                         <p class="description">{{ bean.description }}</p>
-                        <a href="{% url 'show_details' bean.slug %}" class="action">
+                        <a href="{% url 'product' bean.slug %}" class="action">
                             <i class="glyphicon glyphicon-circle-arrow-right"></i>
                         </a>
                     </div>

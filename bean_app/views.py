@@ -50,18 +50,14 @@ def vendorsignup(request):
     return render(request, 'bean_app/vendorsignup.html', {})
 
 
-def product(request):
-    return render(request, 'bean_app/product.html', {})
-
-
-def show_coffee_details(request, coffee_name_slug):
+def product(request, coffee_name_slug):
 
     bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': bean,
                'tags': bean.tags.all(),
                'reviews': Review.objects.filter(coffee_bean=bean)
                }
-    return render(request, 'bean_app/bean_details.html', context)
+    return render(request, 'bean_app/product.html', context)
 
 
 def maps(request):
