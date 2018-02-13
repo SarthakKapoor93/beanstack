@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^myaccount', views.my_account, name='my_account'),
     url(r'^$', views.addproduct, name='addproduct'),
     url(r'^signup', views.signup, name='signup'),
-]
+    url(r'^showdetails/(?P<coffee_name_slug>[\w\-]+)/$', views.show_coffee_details, name='show_details'),
+    url(r'^maps', views.maps, name='maps'),
+    ]
+

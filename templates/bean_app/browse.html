@@ -1,5 +1,6 @@
 {% extends 'bean_app/base.html' %}
 {% load staticfiles %}
+{% load bean_app_template_tags %}
 
 {% block title_block %}
     Browse
@@ -49,8 +50,12 @@
                 <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
                     <h2 class="text-left">{{ bean.name }}</h2>
                     <p>{{ bean.description }}</p>
-                    <p>{{ bean.average_rating }}</p>
-                    <button class="btn btn-default btn-lg action-button" type="button">Add a review</button>
+                    <p>
+                        {% autoescape off %}
+                            {% get_stars bean.average_rating %}
+                        {% endautoescape %}
+                        <button class="btn btn-default btn-lg action-button pull-right" type="button">Add a review</button>
+                    </p>
                 </div>
                 <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
                     <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">

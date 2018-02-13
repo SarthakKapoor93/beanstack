@@ -36,18 +36,16 @@
                 <p class="text-center">This section will show the top three coffee beans </p>
             </div>
             <div class="row articles">
-                <div class="col-md-4 col-sm-6 item">
-                    <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType1.png'%}" width="293px" height="195px"></a>
-                    <h3 class="name">Coffee Bean 1</h3>
-                    <p class="description">About the bean 1.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
-                <div class="col-md-4 col-sm-6 item">
-                    <a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px">
-                    <h3 class="name">Coffee Bean 2</h3>
-                    <p class="description">About the bean 2.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
-                <div class="col-md-4 col-sm-6 item">
-                    <a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType3.png' %}" width="293px" height="195px">
-                    <h3 class="name">Coffee Bean 3</h3>
-                    <p class="description">About the bean 3.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
+                {% for bean in beans %}
+                    <div class="col-md-4 col-sm-6 item">
+                        <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px"></a>
+                        <h3 class="name">{{ bean.name }}</h3>
+                        <p class="description">{{ bean.description }}</p>
+                        <a href="{% url 'show_details' bean.slug %}" class="action">
+                            <i class="glyphicon glyphicon-circle-arrow-right"></i>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
 {% endblock %}

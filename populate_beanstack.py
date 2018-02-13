@@ -16,6 +16,8 @@ tag_groups = [
             ("pepper", "cedar", "dark chocolate", "roasted peanuts")
     ]
 
+
+names = ["Frank", "Phil J", "Utku", "Andrew P", "Valerie W", "Ingrid M", "Dave", "Susan", "Maggie", "Alpha"]
 coffee_beans = [
     {
         'name': "BRAZIL DATERRA MASTERPIECES FRANCISCA - COFFEE BEANS",
@@ -79,8 +81,6 @@ coffee_beans = [
         'tags': tag_groups[4]
     },
 ]
-
-names = ["Frank", "Phil J", "Utku", "Andrew P", "Valerie W", "Ingrid M", "Dave", "Susan", "Maggie", "Alpha"]
 
 review_texts = [
 

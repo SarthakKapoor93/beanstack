@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 '''
     *** NOTES: ***
@@ -26,6 +27,14 @@ class CoffeeBean(models.Model):
     average_rating = models.FloatField(default=0)
     t_type = models.CharField(max_length=128, blank=True)  # what is type exactly? Need different name/ clashes with python built in type
     tags = models.ManyToManyField(Tag)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(CoffeeBean, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ('average_rating',)
 
     def __str__(self):
         return "Coffee bean: {} - {}".format(self.pk, self.name)

@@ -6,6 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head_block %}
+    {% endblock %}
     <title>
         {% block title_block %}
             BeanStack
@@ -52,6 +54,8 @@
                                     <li role="presentation"><a href="#">Reviews and Ratings</a></li>
                                     <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
                                     <li role="presentation"><a href="#">Brewing </a></li>
+                                    <li role="presentation"><a href="{% url 'maps' %}">Maps</a></li>
+
                                 </ul>
                             </li>
                         </ul>
@@ -84,6 +88,11 @@
         {% endblock %}
     </div>
 
+    <!--The map block is a little bit of a hack because the map can't be in the article list tag. Maybe you can pass that tag
+    into the template for the pages that need it rather than having it always there?-->
+    {% block map_block %}
+    {% endblock %}
+
     <!-- Footer Div-->
     <div class="footer-clean">
         <footer>
@@ -94,7 +103,7 @@
                         <ul>
                             <li><a href="{% url 'contact' %}">Contact us</a></li>
                             <li><a href="#">Reviews </a></li>
-                            <li><a href="#">Bean Types</a></li>
+                            <li><a href="{% url 'browse' %}">Bean Types</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 item">
