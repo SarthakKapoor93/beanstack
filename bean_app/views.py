@@ -60,7 +60,7 @@ def maps(request):
     beanstack_cafes = request.GET.get('beanstack-cafes', False)
     if beanstack_cafes:
         # Access the lat and long values from all cafes in the database
-        positions = [{'lat': 55.8308988, 'lng': -4.0756677}, {'lat': 55.860081, 'lng': -4.254018}]
+        positions = [{'lat': vendor.lat, 'lng': vendor.long} for vendor in Vendor.objects.all()]
 
     # If they want to see a specific beanstack cafe on the map,
     # get the id from the request
@@ -91,8 +91,3 @@ def load_api(request):
     :return:
     """
     return HttpResponse(mapper.get_javascript())
-
-
-
-
-

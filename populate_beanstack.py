@@ -124,6 +124,8 @@ vendors = [
                        "Artisan Beans are Speciality Coffee Shops in "
                        "Glasgow with big heart and eager ambitions.",
         'products': (1, 3),
+        'lat': 55.860081,
+        'long': -4.254018
     },
     {
         'owner_name': "Kate Cappuccino",
@@ -135,6 +137,8 @@ vendors = [
                        "West End where we operate our cafe and our coffee roasting "
                        "facility close by.",
         'products': (2, 4),
+        'lat': 55.866500,
+        'long': -4.270674
     },
     {
         'owner_name': "Mike Macchiato",
@@ -144,6 +148,8 @@ vendors = [
                        "We set up our Fine Food Emporium to provide a destination "
                        "for people to enjoy high quality food to eat and buy.",
         'products': (3, 5),
+        'lat': 55.861418,
+        'long': -4.253596
     }
 ]
 
@@ -192,7 +198,9 @@ def populate():
         v = Vendor.objects.get_or_create(owner_name=vendor['owner_name'],
                                          business_name=vendor['business_name'],
                                          email=vendor['owner_name'].replace(' ', '').lower() + "@" + vendor['business_name'].replace(' ', '').lower() + ".com",
-                                         description=vendor['description'])[0]
+                                         description=vendor['description'],
+                                         lat=vendor['lat'],
+                                         long=vendor['long'])[0]
         start, end = vendor['products']
         for bean in CoffeeBean.objects.all()[start: end + 1]:
             v.products_in_stock.add(bean)

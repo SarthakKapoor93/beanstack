@@ -12,7 +12,8 @@ class Mapper:
 
     def __init__(self):
         self.google_maps_api_key = None
-        self.url = "https://maps.googleapis.com/maps/api/js?key={}&libraries=places&callback=initMap"
+        self.url = "https://maps.googleapis.com/maps/api/js" \
+                   "?key={}&libraries=places&callback=initMap"
         self.javascript = None
 
     def get_api_key(self):
@@ -43,3 +44,12 @@ class Mapper:
             self.javascript = requests.get(url)
 
         return self.javascript
+
+    def get_coordinates(self, address):
+        """
+        Use the  google geocoding api to convert the address into
+        lat and long coordinates.
+        :param address:
+        :return: lat, long
+        """
+        pass

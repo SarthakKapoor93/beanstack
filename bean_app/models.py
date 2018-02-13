@@ -75,6 +75,15 @@ class Vendor(models.Model):
     # telephone = models.CharField()
     description = models.TextField(max_length=128, blank=True)
     products_in_stock = models.ManyToManyField(CoffeeBean)
+    # In order to display the vendor on the map we need to save the lat and long coordinates
+    lat = models.FloatField(default=None)
+    long = models.FloatField(default=None)
+
+    # Override the save method of this class as with CoffeeBean so that
+    # each time the vendors addresss is saved, we convert the address into coordinates
+    # The googlemap has a way of getting the coords from the address (Geocoding). This function
+    # could be built into the google_maps_api.py file and imported to use here
+
 
     # This could be useful, if we can implement it
     # def has_online_shop(self):
