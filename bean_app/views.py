@@ -68,10 +68,8 @@ def maps(request):
     selected_cafe = bool(selected_cafe_id)
     if selected_cafe_id:
         # retrieve the cafe from the database
-        # cafe = Vendor.objects.get(pk=selected_cafe_id);
-        # selected_cafe = {'lat': cafe.lat, 'lng': cafe.lng}
-
-        positions = [{'lat': 55.8308988, 'lng': -4.0756677}]
+        cafe = Vendor.objects.get(pk=selected_cafe_id)
+        positions = [{'lat': cafe.lat, 'lng': cafe.long}]
 
     context = {
         'beanstack_cafes': beanstack_cafes,

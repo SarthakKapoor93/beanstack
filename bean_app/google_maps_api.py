@@ -4,10 +4,11 @@ import requests
 class Mapper:
     """
     This is just a simple class to separate out some of the
-    functionality of the google maps api. We may need to
+    functionality of the google maps api. We may need to add to
     it later. Although it is possible to make the api call directly
     from the client side, a server side call avoids having to expose
-    the api in the html page.
+    the api in the html page. You can get your own key from here:
+    https://developers.google.com/maps/web-services/
     """
 
     def __init__(self):
