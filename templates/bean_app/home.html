@@ -43,8 +43,8 @@
                             <li role="presentation"><a href="{% url 'about' %}">About </a></li>
                             <li class="dropdown open"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">Beans <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation"><a href="#">Reviews and Ratings</a></li>
-                                    <li role="presentation"><a href="#">Bean Types </a></li>
+                                    <li role="presentation"><a href="{% url 'browse' %}">Reviews and Ratings</a></li>
+                                    <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
                                     <li role="presentation"><a href="#">Brewing </a></li>
                                 </ul>
                             </li>
@@ -55,7 +55,7 @@
                                 <input class="form-control search-field" type="search" name="search" id="search-field">
                             </div>
                         </form>
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="#">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
+                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'login' %}">Log In</a> <a class="btn btn-default action-button" role="button" href="{% url 'signupselection' %}">Sign Up</a></p>
                     </div>
                 </div>
             </nav>
@@ -85,15 +85,15 @@
                 <div class="col-md-4 col-sm-6 item">
                     <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType1.png'%}" width="293px" height="195px"></a>
                     <h3 class="name">Coffee Bean 1</h3>
-                    <p class="description">About the bean 1.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
+                    <p class="description">About the bean 1.</p><a href="{% url 'product' %}" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
                 <div class="col-md-4 col-sm-6 item">
                     <a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px">
                     <h3 class="name">Coffee Bean 2</h3>
-                    <p class="description">About the bean 2.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
+                    <p class="description">About the bean 2.</p><a href="{% url 'product' %}" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
                 <div class="col-md-4 col-sm-6 item">
                     <a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType3.png' %}" width="293px" height="195px">
                     <h3 class="name">Coffee Bean 3</h3>
-                    <p class="description">About the bean 3.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
+                    <p class="description">About the bean 3.</p><a href="{% url 'product' %}" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>
             </div>
         </div>
     </div>
@@ -106,13 +106,13 @@
                         <ul>
                             <li><a href="{% url 'contact' %}">Contact us</a></li>
                             <li><a href="{% url 'browse' %}">Reviews </a></li>
-                            <li><a href="#">Bean Types</a></li>
+                            <li><a href="{% url 'browse' %}">Bean Types</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 item">
                         <ul>
-                            <li><a href="#">School of Computing Science, University of Glasgow </a></li>
-                            <li><a href="#">Team</a></li>
+                            <li><a href="https://www.gla.ac.uk/schools/computing/">School of Computing Science, University of Glasgow </a></li>
+                            <li><a href="{% url {about} %}">Team</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 item">

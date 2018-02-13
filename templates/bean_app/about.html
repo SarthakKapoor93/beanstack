@@ -44,8 +44,8 @@
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Beans <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li role="presentation"><a href="{% url 'product' %}">Products</a></li>
-                                    <li role="presentation"><a href="#">Bean Types </a></li>
-                                    <li role="presentation"><a href="#">Brewing </a></li>
+                                    <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
+                                    <li role="presentation"><a href="{% url 'browse' %}">Brewing </a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -55,7 +55,7 @@
                                 <input class="form-control search-field" type="search" name="search" id="search-field">
                             </div>
                         </form>
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'myaccount' %}">My Account</a> <a class="btn btn-default action-button" role="button" href="#">Log out </a></p>
+                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'myaccount' %}">My Account</a> <a class="btn btn-default action-button" role="button" href="{% url {home} %}">Log out </a></p>
                     </div>
                 </div>
             </nav>
@@ -121,8 +121,8 @@
                     </div>
                     <div class="col-md-3 col-sm-4 item">
                         <ul>
-                            <li><a href="#">School of Computing Science, University of Glasgow, Glasgow, United Kingdom </a></li>
-                            <li><a href="#">Team</a></li>
+                            <li><a href="https://www.gla.ac.uk/schools/computing/">School of Computing Science, University of Glasgow, Glasgow, United Kingdom </a></li>
+                            <li><a href="{% url 'about' %}">Team</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 item">
