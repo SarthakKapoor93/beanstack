@@ -1,155 +1,65 @@
-<!DOCTYPE html>
+{% extends 'bean_app/base.html' %}
 {% load staticfiles %}
-<html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beanstack Add Product</title>
-    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Article-Dual-Column.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Contact-Form-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Footer-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Header-Blue.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit1.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Registration-Form-with-Photo.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn1.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Slides_home.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Tag-cloud.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Team-Grid.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/User-Chat.css' %}">
-</head>
+{% block title_block %}
+    Login
+{% endblock %}
 
-<body>
-    <div>
-        <div class="header-blue">
-            <nav class="navbar navbar-default navigation-clean-search">
-                <div class="container">
-                    <div class="navbar-header"><a class="navbar-brand navbar-link" href="{% url 'home' %}">Bean Stack</a>
-                        <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navcol-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active" role="presentation"><a href="{% url 'about' %}">About </a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Beans <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation"><a href="{% url 'browse' %}">Reviews and Ratings</a></li>
-                                    <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
-                                    <li role="presentation"><a href="#">Brewing </a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="navbar-form navbar-left" target="_self">
-                            <div class="form-group">
-                                <label class="control-label" for="search-field"><i class="glyphicon glyphicon-search"></i></label>
-                                <input class="form-control search-field" type="search" name="search" id="search-field">
-                            </div>
-                        </form>
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'myaccount' %}">My Account</a> <a class="btn btn-default action-button" role="button" href="{% url 'home' %}">Log out </a></p>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <div class="article-dual-column">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="intro">
-                        <h1 class="text-center">Add Product</h1>
-                        <div class="form-group">
-                            <input class="input-lg" type="text" value="Bean Product Title">
-                        </div>
-                        <input class="input-sm" type="text" value="By Brand's name">
-                        <input class="input-sm" type="text" value="Date on which added">
-                        <p class="text-center">
-                            <a href="#"> </a>
-                        </p><img src="assets/img/BeanType2.png"></div>
-                    <input type="file" value="Upload Product Picture" required="" class="form-control" name="avatar-file">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2 col-lg-offset-2 col-md-offset-1 col-sm-3">
-                    <div class="toc">
-                        <h2>Features </h2>
-                        <div class="form-group">
-                            <input type="text" value="Flavours">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" value="Origin/Location">
-                        </div>
-                        <ul></ul>
-                        <div class="form-group">
-                            <input type="text" value="Brand">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" value="Rating ">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-7 col-sm-9">
-                    <div class="text">
-                        <h2>About </h2>
-                        <div class="form-group">
-                            <textarea class="input-lg" required="">About the product</textarea>
-                        </div>
-                        <figure></figure>
-                    </div>
-                    <div class="form-group"></div>
-                </div>
-                <div class="col-md-7 content-right">
-                    <button class="btn btn-primary form-btn" type="submit">SAVE </button>
-                    <button class="btn btn-danger form-btn" type="reset">CANCEL </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-clean">
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-4 item">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="{% url 'contact'  %}">Contact us</a></li>
-                            <li><a href="{% url 'browse' %}">Reviews </a></li>
-                            <li><a href="{% url 'browse' %}">Bean Types</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-sm-4 item">
-                        <ul>
-                            <li><a href="https://www.gla.ac.uk/schools/computing/">School of Computing Science, University of Glasgow </a></li>
-                            <li><a href="{% url 'about' %}">Team</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-sm-4 item">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
-                        <p class="copyright">All rights reserved &nbsp; </p>
-                        <p class="copyright">Bean Stack © 2018 </p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/js/Profile-Edit.js' %}"></script>
-    <script src="{% static 'assets/js/Reviewbtn.js' %}"></script>
-</body>
 
-</html>
+{% block body_block %}
+     <div class="article-dual-column">
+         <div class="container">
+             <div class="row">
+                 <div class="col-lg-5 col-lg-offset-2 col-md-10 col-md-offset-1">
+                     <div class="intro">
+                         <h1 class="text-center">Add Product</h1>
+                         <div class="form-group">
+                             <input class="input-lg" type="text" value="Bean Product Title">
+                         </div>
+                         <input class="input-sm" type="text" value="By Brand's name">
+                         <input class="input-sm" type="text" value="Date on which added">
+                         <p class="text-center">
+                             <a href="#"> </a>
+                         </p><img src="assets/img/BeanType2.png"></div>
+                     <input type="file" value="Upload Product Picture" required="" class="form-control" name="avatar-file">
+                 </div>
+             </div>
+             <div class="row">
+                 <div class="col-lg-2 col-lg-offset-2 col-md-offset-1 col-sm-3">
+                     <div class="toc">
+                         <h2>Features </h2>
+                         <div class="form-group">
+                             <input type="text" value="Flavours">
+                         </div>
+                         <div class="form-group">
+                             <input type="text" value="Origin/Location">
+                         </div>
+                         <ul></ul>
+                         <div class="form-group">
+                             <input type="text" value="Brand">
+                         </div>
+                         <div class="form-group">
+                             <input type="text" value="Rating ">
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-lg-6 col-md-7 col-sm-9">
+                     <div class="text">
+                         <h2>About </h2>
+                         <div class="form-group">
+                             <textarea class="input-lg" required="">About the product</textarea>
+                         </div>
+                         <figure></figure>
+                     </div>
+                     <div class="form-group"></div>
+                 </div>
+                 <div class="col-md-7 content-right">
+                     <button class="btn btn-primary form-btn" type="submit">SAVE </button>
+                     <button class="btn btn-danger form-btn" type="reset">CANCEL </button>
+                 </div>
+             </div>
+         </div>
+     </div>
+{% endblock %}
+
+
