@@ -43,7 +43,7 @@
                             <li role="presentation"><a href="{% url 'about' %}">About </a></li>
                             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Beans <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation"><a href="#">Reviews and Ratings</a></li>
+                                    <li role="presentation"><a href="{% url 'product' %}">Products</a></li>
                                     <li role="presentation"><a href="#">Bean Types </a></li>
                                     <li role="presentation"><a href="#">Brewing </a></li>
                                 </ul>
@@ -55,7 +55,7 @@
                                 <input class="form-control search-field" type="search" name="search" id="search-field">
                             </div>
                         </form>
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="#">My Account</a> <a class="btn btn-default action-button" role="button" href="#">Log out </a></p>
+                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'myaccount' %}">My Account</a> <a class="btn btn-default action-button" role="button" href="#">Log out </a></p>
                     </div>
                 </div>
             </nav>
@@ -114,9 +114,9 @@
                     <div class="col-md-3 col-sm-4 item">
                         <h3>Quick Links</h3>
                         <ul>
-                            <li><a href="#">Contact us</a></li>
-                            <li><a href="#">Reviews </a></li>
-                            <li><a href="#">Bean Types</a></li>
+                            <li><a href="{% url 'contact' %}">Contact us</a></li>
+                            <li><a href="{% url 'browse' %}">Reviews </a></li>
+                            <li><a href="{% url 'browse' %}">Bean Types</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 item">
