@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from bean_app.models import CoffeeBean, Review, Vendor
-import requests
-from xml.etree import ElementTree
+from bean_app.google_maps_api import Mapper
+
+mapper = Mapper()
 
 
 def home(request):
@@ -82,24 +83,14 @@ def maps(request):
     return render(request, 'bean_app/maps.html', context)
 
 
-# def get_nearby(request):
-#     lat = request.GET['lat']
-#     long = request.GET['long']
-#
-#     url = "https://maps.googleapis.com/maps/api/place/textsearch/xml?query=coffee+shops&radius=1000" \
-#           "&location=" + lat + "," + long + " &key=AIzaSyAjPKmaEJcP6rXu-pud3Mfp-HbXekUm4Cw"
-#
-#     r = requests.get(url)
-#     xml = r.text.encode('utf-8')
-#     root = ElementTree.fromstring(xml)
-#     lat = root[1].find('geometry').find('location').find('lat').text
-#     long = root[1].find('geometry').find('location').find('lng').text
-#
-#     return HttpResponse({'lat': lat, 'long': long})
-
-
-
-
+def load_api(request):
+    """
+    Takes makes a call to the mapper object in order
+    to retrieve javascript from the api.
+    :param request:
+    :return:
+    """
+    return HttpResponse(mapper.get_javascript())
 
 
 

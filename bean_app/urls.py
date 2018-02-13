@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^signup', views.signup, name='signup'),
     url(r'^showdetails/(?P<coffee_name_slug>[\w\-]+)/$', views.show_coffee_details, name='show_details'),
     url(r'^maps', views.maps, name='maps'),
+    url(r'^load_api', views.load_api, name='load_api')
     ]
 

@@ -41,6 +41,9 @@
             {% endfor %}
         ]
     </script>
+    <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present on the main base.html page
+    We need to change the order of the imports to fix this-->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/maps.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=ADD-KEY-HERE&libraries=places&callback=initMap" async defer></script>
+    <script src="{% url 'load_api' %}" async defer></script>
 {% endblock %}

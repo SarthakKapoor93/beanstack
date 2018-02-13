@@ -1,12 +1,3 @@
-// This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-// There are three functions that I need from this js.
-//    - create a map with a user and other coffee shops
-//    - create a map with the user and one beanstack coffee shop
-//    - create a map with all beanstack coffee shops and the user
-
 var map;
 var infowindow;
 
