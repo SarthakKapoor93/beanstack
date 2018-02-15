@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse
 from bean_app.models import CoffeeBean, Review, Vendor
 from bean_app.google_maps_api import Mapper
+import json
 
 mapper = Mapper()
 
@@ -97,3 +98,17 @@ def load_api(request):
     :return:
     """
     return HttpResponse(mapper.get_javascript())
+
+
+# ajax call. This could be called get all cafes.
+def get_beanstack_cafes(request):
+
+    cafe_id = request.GET.get('cafe_id')
+    if cafe_id:
+        vendors = Vendor.objects.get(pk=cafe_id)
+        # we could also do this with slugs if we don't like passing ids through the url
+    else:
+        vendors = Vendor.objects.all()
+
+    positions = [{"lat": vendor.lat, "lng": vendor.long} for vendor in vendors]
+    return HttpResponse(json.dumps(positions))

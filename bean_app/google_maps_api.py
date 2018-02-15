@@ -1,5 +1,12 @@
 import requests
 
+"""
+NOTE: This class is not being used at the moment because the javascript that we downloaded from 
+google is static and not dymanic, meaning that it was possible to just download it and store in the 
+static file: beanstack/static/assets/js/googlemaps-api.js
+
+I haven't deleted the class yet because we may want to use it in the future for other api calls eg GeoCoding.
+"""
 
 class Mapper:
     """

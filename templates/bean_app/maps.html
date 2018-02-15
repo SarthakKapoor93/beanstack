@@ -7,6 +7,7 @@
 
 {% block head_block %}
    <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -23,9 +24,9 @@
 {% endblock %}
 
 {% block body_block %}
-    <a href="{% url 'maps' %}?beanstack-cafes=True"><button class="btn btn-default">BeanStack Cafes</button></a>
-    <a href="{% url 'maps' %}?other-cafes=True"><button class="btn btn-default">Other Cafes</button></a>
-    <a href="{% url 'maps' %}?selected-cafe=1"><button class="btn btn-default">Select Cafe</button></a>
+    <button id="beanstack-cafes" class="btn btn-default">BeanStack Cafes</button>
+    <button id="other-cafes" class="btn btn-default">Other Cafes</button>
+    <button id="select-cafe" class="btn btn-default">Select Cafe</button>
 {% endblock %}
 
 
@@ -40,10 +41,15 @@
                 { 'lat' : {{ position.lat }}, 'lng': {{ position.lng }}},
             {% endfor %}
         ]
+
     </script>
     <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present on the main base.html page
     We need to change the order of the imports to fix this-->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/js/maps.js' %}"></script>
-    <script src="{% url 'load_api' %}" async defer></script>
+    <script src="{% static 'assets/js/maps_2.js' %}"></script>
+    {% comment %}
+        <!--<script src="{% url 'load_api' %}" async defer></script>-->
+    {% endcomment %}
+
+    <script src="{% static 'assets/js/googlemaps-api.js' %}"></script>
 {% endblock %}
