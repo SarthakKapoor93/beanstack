@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^maps$', views.maps, name='maps'),
     url(r'^load_api', views.load_api, name='load_api'),
     url(r'^product/[\w\-]+/get-cafes', views.get_beanstack_cafes, name="get_cafes"),
+    url(r'radar$', views.radar, name='get_radar')
 ]
 
 

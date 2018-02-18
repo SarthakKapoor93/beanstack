@@ -50,6 +50,10 @@ def signupselection(request):
 def vendorsignup(request):
     return render(request, 'bean_app/vendorsignup.html', {})
 
+
+def radar(request):
+    return render(request, 'bean_app/radar-chart.html', {})
+
 '''
 The product method should also return a list of the coffee shops that 
 sell this product. Then you don't need to do another ajax call for it.
