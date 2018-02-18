@@ -52,11 +52,11 @@
                     <p>{{ bean.description }}</p>
                     <span>
                         {% autoescape off %}
-                            {% get_stars bean.average_rating %}
+                            {% get_stars bean.average_rating '#D17581' %}
                         {% endautoescape %}
                         <div class="btn-group pull-right">
-                            <button class="btn btn-default btn-lg action-button" type="button">Details</button>
-                            <button class="btn btn-default btn-lg action-button pull-right" type="button">Add review</button>
+                            <a href="{% url 'product' bean.slug %}"><button class="btn btn-default btn-lg action-button" type="button">Details</button></a>
+                            <a href=""><button class="btn btn-default btn-lg action-button pull-right" type="button">Add review</button></a>
                         </div>
                     </span>
 

@@ -32,24 +32,10 @@
 
 {% block map_block %}
     <div id="map" style="width: 700px; height: 450px; margin: auto"></div>
-    <script type="text/javascript">
-        var otherCafes = {{ other_cafes|lower }};
-        var beanstackCafes = {{ beanstack_cafes|lower }};
-        var selectedCafe = {{ selected_cafe|lower }}
-        var positions = [
-            {% for position in positions %}
-                { 'lat' : {{ position.lat }}, 'lng': {{ position.lng }}},
-            {% endfor %}
-        ]
 
-    </script>
     <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present on the main base.html page
     We need to change the order of the imports to fix this-->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/maps_2.js' %}"></script>
-    {% comment %}
-        <!--<script src="{% url 'load_api' %}" async defer></script>-->
-    {% endcomment %}
-
     <script src="{% static 'assets/js/googlemaps-api.js' %}"></script>
 {% endblock %}

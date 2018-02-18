@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^signupselection', views.signupselection, name='signupselection'),
     url(r'^maps$', views.maps, name='maps'),
     url(r'^load_api', views.load_api, name='load_api'),
-    url(r'^cafes$', views.get_beanstack_cafes, name="get_cafes"),
-    ]
+    url(r'^product/[\w\-]+/get-cafes', views.get_beanstack_cafes, name="get_cafes"),
+]
 
 

@@ -50,6 +50,12 @@ def signupselection(request):
 def vendorsignup(request):
     return render(request, 'bean_app/vendorsignup.html', {})
 
+'''
+The product method should also return a list of the coffee shops that 
+sell this product. Then you don't need to do another ajax call for it.
+
+'''
+
 
 def product(request, coffee_name_slug):
 
@@ -62,32 +68,32 @@ def product(request, coffee_name_slug):
 
 
 def maps(request):
-
-    positions = None
-
-    # If they want to see all the beanstack cafes on the map
-    beanstack_cafes = request.GET.get('beanstack-cafes', False)
-    if beanstack_cafes:
-        # Access the lat and long values from all cafes in the database
-        positions = [{'lat': vendor.lat, 'lng': vendor.long} for vendor in Vendor.objects.all()]
-
-    # If they want to see a specific beanstack cafe on the map,
-    # get the id from the request
-    selected_cafe_id = request.GET.get('selected-cafe', None)
-    selected_cafe = bool(selected_cafe_id)
-    if selected_cafe_id:
-        # retrieve the cafe from the database
-        cafe = Vendor.objects.get(pk=selected_cafe_id)
-        positions = [{'lat': cafe.lat, 'lng': cafe.long}]
-
-    context = {
-        'beanstack_cafes': beanstack_cafes,
-        'selected_cafe': selected_cafe,
-        'selected_cafe_id': selected_cafe_id,
-        'other_cafes': request.GET.get('other-cafes', False),
-        'positions': positions
-    }
-    return render(request, 'bean_app/maps.html', context)
+#
+#     positions = None
+#
+#     # If they want to see all the beanstack cafes on the map
+#     beanstack_cafes = request.GET.get('beanstack-cafes', False)
+#     if beanstack_cafes:
+#         # Access the lat and long values from all cafes in the database
+#         positions = [{'lat': vendor.lat, 'lng': vendor.long} for vendor in Vendor.objects.all()]
+#
+#     # If they want to see a specific beanstack cafe on the map,
+#     # get the id from the request
+#     selected_cafe_id = request.GET.get('selected-cafe', None)
+#     selected_cafe = bool(selected_cafe_id)
+#     if selected_cafe_id:
+#         # retrieve the cafe from the database
+#         cafe = Vendor.objects.get(pk=selected_cafe_id)
+#         positions = [{'lat': cafe.lat, 'lng': cafe.long}]
+#
+#     context = {
+#         'beanstack_cafes': beanstack_cafes,
+#         'selected_cafe': selected_cafe,
+#         'selected_cafe_id': selected_cafe_id,
+#         'other_cafes': request.GET.get('other-cafes', False),
+#         'positions': positions
+#     }
+    return render(request, 'bean_app/maps.html', {})
 
 
 def load_api(request):
@@ -100,15 +106,21 @@ def load_api(request):
     return HttpResponse(mapper.get_javascript())
 
 
-# ajax call. This could be called get all cafes.
 def get_beanstack_cafes(request):
+    """
+    Checks if there is a coffee_id
+    :param request:
+    :return:
+    """
 
-    cafe_id = request.GET.get('cafe_id')
-    if cafe_id:
-        vendors = Vendor.objects.get(pk=cafe_id)
-        # we could also do this with slugs if we don't like passing ids through the url
+    coffee_id = request.GET.get('coffee_id', None)
+    if coffee_id:
+        vendors = []
+        for vendor in Vendor.objects.all():
+            coffee = vendor.products_in_stock.filter(pk=coffee_id).first()
+            if coffee:
+                vendors.append(vendor)
     else:
         vendors = Vendor.objects.all()
-
     positions = [{"lat": vendor.lat, "lng": vendor.long} for vendor in vendors]
     return HttpResponse(json.dumps(positions))
