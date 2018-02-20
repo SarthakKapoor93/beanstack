@@ -112,7 +112,8 @@ def load_api(request):
 
 def get_beanstack_cafes(request):
     """
-    Checks if there is a coffee_id
+    If a coffee_id is supplied in the url, returns all the vendors that
+    supply that coffee. Otherwise return all vendors.
     :param request:
     :return:
     """
