@@ -9,6 +9,7 @@
 {% block head_block %}
 <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -63,15 +64,16 @@
 
 
 {% block body_block %}
+
     <div id="vendor-heading">
-    <div class="container">
-        <div class="intro">
-            <h2 class="text-center">Find a Vendor</h2>
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Find a Vendor</h2>
+            </div>
         </div>
     </div>
-    </div>
 
-    <div class ="center panel panel-default" style="width: 750px; margin: auto;">
+    <div class ="center panel panel-default" style="max-width: 750px; margin: auto;">
         <div class="panel-body">
             <div class="btn-group">
                 <button id="select-cafe" class="btn btn-secondary btn-md">Select Cafe</button>
@@ -79,14 +81,14 @@
                 <button id="other-cafes" class="btn btn-secondary btn-md">Other Cafes</button>
             </div>
             <div id="map-canvas" style="background: transparent url({% static 'assets/img/source.gif' %}) no-repeat center center;">
-                <div id="map" style="width: 720px; height: 450px; margin: auto;"></div>
+                <div id="map" style="width: 100%; height: 450px; margin: auto;"></div>
             </div>
-
         </div>
         <div class="panel-footer">
             <div id="map-message" class=""></div>
         </div>
     </div>
+        
 <br>
 <br>
 <br>

@@ -2,6 +2,16 @@ $(function(){
     $('#modal-message').hide();
 });
 
+// Resizes the window took this from stack overflow
+$(window).bind('resize', function(e)
+{
+  if (window.RT) clearTimeout(window.RT);
+  window.RT = setTimeout(function()
+  {
+    this.location.reload(false);
+  }, 100);
+});
+
 $('#review-button').click(function(event){
     document.getElementById('review-heading').scrollIntoView({behavior: "smooth"});
 });
