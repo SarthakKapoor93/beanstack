@@ -1,0 +1,63 @@
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+
+{% block body_block %}
+    <div class="article-dual-column">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="intro">
+                        <h1 class="text-center">Add Product</h1>
+                        <div class="form-group">
+                            <input class="input-lg" type="text" value="Bean Product Title">
+                        </div>
+                        <input class="input-sm" type="text" value="By Brand's name">
+                        <input class="input-sm" type="text" value="Date on which added">
+                        <p class="text-center">
+                            <a href="#"> </a>
+                        </p><img src="assets/img/BeanType2.png"></div>
+                    <input type="file" value="Upload Product Picture" required="" class="form-control" name="avatar-file">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-lg-offset-2 col-md-offset-1 col-sm-3">
+                    <div class="toc">
+                        <h2>Features </h2>
+                        <div class="form-group">
+                            <input type="text" value="Flavours">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" value="Origin/Location">
+                        </div>
+                        <ul></ul>
+                        <div class="form-group">
+                            <input type="text" value="Brand">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" value="Rating ">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-7 col-sm-9">
+                    <div class="text">
+                        <h2>About </h2>
+                        <div class="form-group">
+                            <textarea class="input-lg" required="">About the product</textarea>
+                        </div>
+                        <figure></figure>
+                    </div>
+                    <div class="form-group"></div>
+                </div>
+                <div class="col-md-7 content-right">
+                    <button class="btn btn-primary form-btn" type="submit">SAVE </button>
+                    <button class="btn btn-danger form-btn" type="reset">CANCEL </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -22,5 +22,18 @@ from bean_app import views
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
+    url(r'^$', views.about, name='about'),
+    # url(r'^$', views.contact, name='contact'),
+    # url(r'^$', views.browse, name='browse'),
+    # url(r'^$', views.login, name='login'),
+    # url(r'^$', views.my_account, name='myaccount'),
+    # url(r'^$', views.signup, name='signup'),
+    # url(r'^$', views.vendorsignup, name='vendorsignup'),
+    # url(r'^$', views.addproduct, name='addproduct'),
+    # url(r'^$', views.signupselection, name='signupselection'),
+
+    # url(r'^$', views.product, name='product'),
+
+
     url(r'^bean_app/', include('bean_app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
