@@ -4,7 +4,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm,  SignupForm
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm
 from bean_app.google_maps_api import Mapper
 
 mapper = Mapper()
@@ -44,34 +44,31 @@ def signup(request):
         signup_form = SignupForm(data=request.POST)
         account_form = AccountForm(data=request.POST)
 
-
         if signup_form.is_valid() and account_form.is_valid():
 
-                user = account_form.save()
-                user.set_password(user.password)
-                user.save()
+            user = account_form.save()
+            user.set_password(user.password)
+            user.save()
 
-                account =  account_form.save(commit=False)
-                account.user = user
+            account = account_form.save(commit=False)
+            account.user = user
 
-                if 'picture' in request.FILES:
-                    account.picture = request.FLIES['picture']
-                account.save()
+            if 'picture' in request.FILES:
+                account.picture = request.FLIES['picture']
+            account.save()
 
-                signup_complete = True
+            signup_complete = True
         else:
 
-              print(signup_form.errors, account_form.errors)
+            print(signup_form.errors, account_form.errors)
     else:
-           signup_form = SignupForm()
-           account_form = AccountForm()
+        signup_form = SignupForm()
+        account_form = AccountForm()
 
-
-    return render(request,'bean_app/signup.html',{
-                            'SignupForm': signup_form,
-                            'AccountForm': account_form,
-                            'signup_complete':  signup_complete})
-
+    return render(request, 'bean_app/signup.html', {
+        'SignupForm': signup_form,
+        'AccountForm': account_form,
+        'signup_complete': signup_complete})
 
 
 def addproduct(request):
@@ -89,7 +86,7 @@ def vendorsignup(request):
         vendor_signup_form = VendorSignupForm(data=request.POST)
         vendor_account_form = VendorAccountForm(data=request.POST)
 
-        if  vendor_signup_form.is_valid():
+        if vendor_signup_form.is_valid():
 
             user = vendor_account_form.save()
             user.set_password(user.password)
@@ -105,21 +102,19 @@ def vendorsignup(request):
             vendor_signup_complete = True
 
         else:
-
             print(vendor_signup_form.errors, vendor_account_form.errors)
 
-     else:
-              vendor_signup_form = VendorSignupForm()
-              vendor_account_form= VendorAccountForm()
+    else:
+        vendor_signup_form = VendorSignupForm()
+        vendor_account_form = VendorAccountForm()
 
     return render(request, 'bean_app/vendorsignup.html', {
         'vendor_signup_form': vendor_signup_form,
-        'vendor_account_form' : vendor_account_form,
+        'vendor_account_form': vendor_account_form,
         'vendor_signup_complete': vendor_signup_complete})
 
 
 def product(request, coffee_name_slug):
-
     bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': bean,
                'tags': bean.tags.all(),
@@ -129,7 +124,6 @@ def product(request, coffee_name_slug):
 
 
 def maps(request):
-
     positions = None
 
     # If they want to see all the beanstack cafes on the map
@@ -165,6 +159,7 @@ def load_api(request):
     :return:
     """
     return HttpResponse(mapper.get_javascript())
+
 
 def user_login(request):
     if request.method == 'POST':
