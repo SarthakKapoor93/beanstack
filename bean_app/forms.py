@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from bean_app.models import  Tag, CoffeeBean, Customer, Review
+from bean_app.models import Tag, CoffeeBean, Customer, Review
 
 
 class Tag(forms.ModelForm):
