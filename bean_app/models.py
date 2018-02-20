@@ -93,10 +93,30 @@ class Vendor(models.Model):
         return "Vendor: {} - {} - {}".format(self.pk, self.owner_name, self.business_name)
 
 
-class UserAccount(models.Model):
+class AccountForm(models.Model):
     user = models.OneToOneField(User)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
         return self.user.username
+
+class VendorAccountForm(models.Model):
+    user = models.OneToOneField(User)
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+class VendorSignupForm(models.Model):
+
+
+class SignupForm(models.Model):
+
+
+
+
+
+
+
