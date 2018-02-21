@@ -1,17 +1,19 @@
 from django.contrib import admin
-from bean_app.models import Tag, CoffeeBean, Customer, Review, Vendor, AccountForm, VendorAccountForm, VendorSignupForm, SignupForm
+import bean_app.models
 
 
 class CoffeeBeanAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-admin.site.register(Tag)
-admin.site.register(CoffeeBean)
-admin.site.register(Customer)
-admin.site.register(Review)
-admin.site.register(Vendor)
-admin.site.register(AccountForm)
-admin.site.register(VendorAccountForm)
-admin.site.register(VendorSignupForm)
-admin.site.register(SignupForm)
+admin.site.register(bean_app.models.Tag)
+admin.site.register(bean_app.models.CoffeeBean)
+admin.site.register(bean_app.models.Customer)
+admin.site.register(bean_app.models.Review)
+admin.site.register(bean_app.models.Vendor)
+admin.site.register(bean_app.models.AccountForm)
+admin.site.register(bean_app.models.VendorAccountForm)
+admin.site.register(bean_app.models.VendorSignupForm)
+admin.site.register(bean_app.models.SignupForm)
+admin.site.register(bean_app.models.social_djangomysite)
+admin.site.register(bean_app.models.mysite)

@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from bean_app import views
 
 urlpatterns = [
@@ -14,7 +14,10 @@ urlpatterns = [
     url(r'^vendorsignup', views.signup, name='vendorsignup'),
     url(r'^signupselection', views.signupselection, name='signupselection'),
     url(r'^maps', views.maps, name='maps'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^load_api', views.load_api, name='load_api')
-    ]
+]
 
-
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'

@@ -4,7 +4,8 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, \
+    social_djangomysite
 from bean_app.google_maps_api import Mapper
 
 mapper = Mapper()
@@ -210,3 +211,11 @@ def get_server_side_cookie(request, cookie, default_val=None):
     if not val:
         val = default_val
     return val
+
+
+def social_djangomysite(request):
+    return render(request, 'bean_app/login.html', {})
+
+
+def mysite(request):
+    return render(request, 'bean_app/login.html', {})

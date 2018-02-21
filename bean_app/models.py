@@ -119,3 +119,11 @@ class VendorSignupForm(models.Model):
 
 class SignupForm(models.Model):
     pass
+
+
+class social_djangomysite(models.Model):
+    pass
+
+
+class mysite(models.Model):
+    pass
