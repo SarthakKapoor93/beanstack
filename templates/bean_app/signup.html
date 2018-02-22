@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>signup</title>
+    <title>Beanstack signup</title>
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
@@ -39,10 +39,10 @@
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav">
                         <li class="active" role="presentation"><a href="{% url 'about' %}">About </a></li>
-                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">Beans <span class="caret"></span></a>
+                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="{% url 'browse' %}">Beans <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a href="#">Reviews and Ratings</a></li>
-                                <li role="presentation"><a href="#">Bean Types </a></li>
+                                <li role="presentation"><a href="{% url 'browse' %}">Reviews and Ratings</a></li>
+                                <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
                                 <li role="presentation"><a href="#">Brewing </a></li>
                             </ul>
                         </li>
@@ -53,7 +53,7 @@
                             <input class="form-control search-field" type="search" name="search" id="search-field">
                         </div>
                     </form>
-                    <p class="navbar-text navbar-right"><a class="navbar-link login" href="#">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
+                    <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'login' %}">Log In</a> <a class="btn btn-default action-button" role="button" href="{% url 'signupselection' %}">Sign Up</a></p>
                 </div>
             </div>
         </nav>
@@ -92,15 +92,15 @@
                     <div class="col-md-3 col-sm-4 item">
                         <h3>Quick Links</h3>
                         <ul>
-                            <li><a href="#">Contact us</a></li>
-                            <li><a href="#">Reviews </a></li>
+                            <li><a href="{% url 'contact' %}">Contact us</a></li>
+                            <li><a href="{% url 'browse' %}">Reviews </a></li>
                             <li><a href="#">Bean Types</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 item">
                         <ul>
-                            <li><a href="#">School of Computing Science, University of Glasgow </a></li>
-                            <li><a href="#">Team</a></li>
+                            <li><a href="https://www.gla.ac.uk/schools/computing/">School of Computing Science, University of Glasgow </a></li>
+                            <li><a href="{% url 'about' %}">Team</a></li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-4 item">

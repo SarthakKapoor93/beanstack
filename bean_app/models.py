@@ -21,11 +21,12 @@ class Tag(models.Model):
 class CoffeeBean(models.Model):
     name = models.CharField(max_length=128, unique=True)
     image = models.ImageField(blank=True)  # Just making this blank for testing
-    location = models.CharField(max_length=128)   # This might need to be coordinates depending on the google maps api
+    location = models.CharField(max_length=128)  # This might need to be coordinates depending on the google maps api
     description = models.CharField(max_length=1000, blank=True)
     price = models.FloatField(default=None, blank=True, null=True)
     average_rating = models.FloatField(default=0)
-    t_type = models.CharField(max_length=128, blank=True)  # what is type exactly? Need different name/ clashes with python built in type
+    t_type = models.CharField(max_length=128,
+                              blank=True)  # what is type exactly? Need different name/ clashes with python built in type
     tags = models.ManyToManyField(Tag)
     slug = models.SlugField(unique=True)
 
@@ -48,6 +49,7 @@ class Customer(models.Model):
     # address = models.CharField()      Do we need their address?
     # telephone = models.CharField()   Do we need the telephone?
     favourite_coffee = models.ForeignKey(CoffeeBean)
+
     # Makes more sense to have the link here, rather than the char field?
 
     def __str__(self):
@@ -93,10 +95,27 @@ class Vendor(models.Model):
         return "Vendor: {} - {} - {}".format(self.pk, self.owner_name, self.business_name)
 
 
-class UserAccount(models.Model):
+class AccountForm(models.Model):
     user = models.OneToOneField(User)
     website = models.URLField(blank=True)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
         return self.user.username
+
+
+class VendorAccountForm(models.Model):
+    user = models.OneToOneField(User)
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+
+class VendorSignupForm(models.Model):
+    pass
+
+
+class SignupForm(models.Model):
+    pass

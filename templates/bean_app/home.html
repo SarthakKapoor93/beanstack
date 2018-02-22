@@ -1,54 +1,54 @@
 {% extends 'bean_app/base.html' %}
-{% load staticfiles %}
+ {% load staticfiles %}
+ {% block title_block %}
+     BeanStack
+ {% endblock %}
 
 
-{% block title_block %}
-    BeanStack
-{% endblock %}
+ <!--This will probably be the only page that will use the banner-->
+ {% block banner_block %}
+     <div class="container hero">
+         <div class="row">
+             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                 <h1>What's your favourite coffee!</h1>
+                 <p> </p>
+                 <button class="btn btn-default btn-lg action-button" type="button">
+                     Rate and review your favourite coffee beans!
+                 </button>
+             </div>
+             <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                 <img src="{% static 'assets/img/BeanStackLogo3.png'%}">
+                 <div class="iphone-mockup">
+                     <div class="screen"></div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ {% endblock %}
 
 
-<!--This will probably be the only page that will use the banner-->
-{% block banner_block %}
-    <div class="container hero">
-        <div class="row">
-            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-                <h1>What's your favourite coffee!</h1>
-                <p> </p>
-                <button class="btn btn-default btn-lg action-button" type="button">
-                    Rate and review your favourite coffee beans!
-                </button>
-            </div>
-            <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
-                <img src="{% static 'assets/img/BeanStackLogo3.png'%}">
-                <div class="iphone-mockup">
-                    <div class="screen"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
+ {% block body_block %}
+     <div class="container">
+             <div class="intro">
+                 <h2 class="text-center">Most popular coffee beans!</h2>
+                 <p class="text-center">This section will show the top three coffee beans </p>
+             </div>
+             <div class="row articles">
+                 {% for bean in beans %}
+                     <div class="col-md-4 col-sm-6 item">
+                         <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px"></a>
+                         <h3 class="name">{{ bean.name }}</h3>
+                         <p class="description">{{ bean.description }}</p>
+-
++                        <a href="{% url 'product' bean.slug %}" class="action">
+                             <i class="glyphicon glyphicon-circle-arrow-right"></i>
+                         </a>
+                     </div>
+                 {% endfor %}
+             </div>
+         </div>
+ {% endblock %}
 
-
-{% block body_block %}
-    <div class="container">
-            <div class="intro">
-                <h2 class="text-center">Most popular coffee beans!</h2>
-                <p class="text-center">This section will show the top three coffee beans </p>
-            </div>
-            <div class="row articles">
-                {% for bean in beans %}
-                    <div class="col-md-4 col-sm-6 item">
-                        <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px"></a>
-                        <h3 class="name">{{ bean.name }}</h3>
-                        <p class="description">{{ bean.description }}</p>
-                        <a href="{% url 'product' bean.slug %}" class="action">
-                            <i class="glyphicon glyphicon-circle-arrow-right"></i>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-{% endblock %}
 
 
 

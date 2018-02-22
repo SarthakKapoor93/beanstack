@@ -29,20 +29,22 @@
                     <!--<label>-->
                         <!--<input type="checkbox"> Filter 4</label>-->
                 <!--</div>-->
-            </div>
-            <div class="col-md-2">
-                <div class="dropdown open">
+             </div>
+
+<div class="col-md-2">
+               <div class="dropdown open">
                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true" type="button">Sort by <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li role="presentation"><a href="#">Alphabatical Order</a></li>
                         <li role="presentation"><a href="#">Hightest Ratings</a></li>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                 </div>
+             </div>
 
-    <!--list of products after the filters -->
+              </div>
+     </div>
+
+<!--list of products after the filters -->
     <div class="container hero">
 
         {% for bean in beans %}
@@ -65,15 +67,14 @@
                     <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
                     <div class="iphone-mockup">
                         <div class="screen"></div>
-                    </div>
+                     </div>
                     <div class="clearfix"></div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+                 </div>
+             </div>
+{% endfor %}
 
     <nav>
-        <ul class="pager">
+       <ul class="pager">
             <li><a href="#">Older</a></li>
             <li><a href="#">Newer</a></li>
         </ul>
