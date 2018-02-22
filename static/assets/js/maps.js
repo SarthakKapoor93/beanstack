@@ -48,6 +48,7 @@ function next(userPosition){
 
     // Place the users position on the map as a marker
     var marker = new google.maps.Marker({
+        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         map: map,
         position: userPosition
     });
