@@ -125,35 +125,6 @@ def product(request, coffee_name_slug):
     return render(request, 'bean_app/product.html', context)
 
 
-def maps(request):
-#
-#     positions = None
-#
-#     # If they want to see all the beanstack cafes on the map
-#     beanstack_cafes = request.GET.get('beanstack-cafes', False)
-#     if beanstack_cafes:
-#         # Access the lat and long values from all cafes in the database
-#         positions = [{'lat': vendor.lat, 'lng': vendor.long} for vendor in Vendor.objects.all()]
-#
-#     # If they want to see a specific beanstack cafe on the map,
-#     # get the id from the request
-#     selected_cafe_id = request.GET.get('selected-cafe', None)
-#     selected_cafe = bool(selected_cafe_id)
-#     if selected_cafe_id:
-#         # retrieve the cafe from the database
-#         cafe = Vendor.objects.get(pk=selected_cafe_id)
-#         positions = [{'lat': cafe.lat, 'lng': cafe.long}]
-#
-#     context = {
-#         'beanstack_cafes': beanstack_cafes,
-#         'selected_cafe': selected_cafe,
-#         'selected_cafe_id': selected_cafe_id,
-#         'other_cafes': request.GET.get('other-cafes', False),
-#         'positions': positions
-#     }
-    return render(request, 'bean_app/maps.html', {})
-
-
 def load_api(request):
     """
     Takes makes a call to the mapper object in order
