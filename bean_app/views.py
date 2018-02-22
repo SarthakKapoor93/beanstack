@@ -55,7 +55,7 @@ def signup(request):
             account.user = user
 
             if 'picture' in request.FILES:
-                account.picture = request.FLIES['picture']
+                account.picture = request.FILES['picture']
             account.save()
 
             signup_complete = True
@@ -127,7 +127,7 @@ def product(request, coffee_name_slug):
 
 def load_api(request):
     """
-    Takes makes a call to the mapper object in order
+    Makes a call to the mapper object in order
     to retrieve javascript from the api.
     :param request:
     :return:

@@ -7,28 +7,11 @@
 {% endblock %}
 
 {% block head_block %}
-<meta name="viewport" content="initial-scale=0.5, user-scalable=no">
+    <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
 {% endblock %}
 
-
 {% block banner_block %}
-
-
     <div class="container hero">
         <div class="row">
             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
@@ -59,12 +42,9 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
-
 {% block body_block %}
-
     <div id="vendor-heading">
         <div class="container">
             <div class="intro">
@@ -72,7 +52,6 @@
             </div>
         </div>
     </div>
-
     <div class ="center panel panel-default" style="max-width: 750px; margin: auto;">
         <div class="panel-body">
             <div class="btn-group">
@@ -88,11 +67,9 @@
             <div id="map-message" class=""></div>
         </div>
     </div>
-
-<br>
-<br>
-<br>
-
+    <br>
+    <br>
+    <br>
     <div id="review-heading" class="article-list">
         <div class="container">
             <div class="intro">
@@ -154,115 +131,97 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="my-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
-
-
-
-
-        <!-- Modal -->
-        <div id="my-modal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">My BeanStack</h4>
-              </div>
-              <div class="modal-body">
-
-
-                  <div class="panel-group" id="accordion">
-
-                      <div id="class-to-add" class="panel panel-primary">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            {{ bean.name }}</a>
-                          </h4>
-                        </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
-                          <div class="panel-body">
-
-                              <p>{{ bean.description }}</p>
-                <p>{{ bean.location }}</p>
-                <p>£{{ bean.price }}</p>
-                <p>
-                    average rating: {{ average_rating }}
-                    {% autoescape off %}
-                        <span>{% get_stars bean.average_rating white %}</span>
-                    {% endautoescape %}
-                </p>
-                <p>
-                    {% for tag in tags %}
-                        <span class="btn btn-default action-button">{{ tag }}</span>
-                    {% endfor %}
-                </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div id="spacer" class="center panel-collapse" style="height: 40px"><span id="arrow-glyph" class="glyphicon glyphicon-circle-arrow-down" style="position: center; font-size: 35px; color: #DDDDDD"></span></div>
-
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                            Coffee Type</a>
-                          </h4>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                          commodo consequat.</div>
-                        </div>
-                      </div>
-
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                            Coffee Type</a>
-                          </h4>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                          <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                          commodo consequat.</div>
-                        </div>
-                      </div>
-
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">My BeanStack</h4>
+          </div>
+          <div class="modal-body">
+              <div class="panel-group" id="accordion">
+                  <div id="class-to-add" class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        {{ bean.name }}</a>
+                      </h4>
                     </div>
-
-              </div>
-              <div class="modal-footer">
-                  <p id="modal-message" class="pull-left">
-                      The coffee has been added to your BeanStack!
-                  </p>
-                  <a class="pull-left" href="">Go to my account</a>
-                  <div class="btn-group">
-                      <button id="modal-add" type="button" class="btn btn-default">Add</button>
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                          <p>{{ bean.description }}</p>
+                            <p>{{ bean.location }}</p>
+                            <p>£{{ bean.price }}</p>
+                            <p>
+                                average rating: {{ average_rating }}
+                                {% autoescape off %}
+                                    <span>{% get_stars bean.average_rating white %}</span>
+                                {% endautoescape %}
+                            </p>
+                            <p>
+                                {% for tag in tags %}
+                                    <span class="btn btn-default action-button">{{ tag }}</span>
+                                {% endfor %}
+                            </p>
+                      </div>
+                    </div>
                   </div>
+                  <div id="spacer" class="center panel-collapse" style="height: 40px"><span id="arrow-glyph" class="glyphicon glyphicon-circle-arrow-down" style="position: center; font-size: 35px; color: #DDDDDD"></span></div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        Coffee Type</a>
+                      </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                      commodo consequat.</div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                        Coffee Type</a>
+                      </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                      commodo consequat.</div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+              <p id="modal-message" class="pull-left">
+                  The coffee has been added to your BeanStack!
+              </p>
+              <a class="pull-left" href="">Go to my account</a>
+              <div class="btn-group">
+                  <button id="modal-add" type="button" class="btn btn-default">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
-            </div>
-
           </div>
         </div>
-
-
-
-
+      </div>
+    </div>
+    <!-- End of modal -->
 
     <script type="text/javascript">
         var coffeeKey = {{ bean.pk }};
         var selectedCoffee = "{{ bean.name }}";
     </script>
 
-<!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present on the main base.html page
-    We need to change the order of the imports to fix this-->
+    <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present
+    on the main base.html page. We need to change the order of the imports to fix this-->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/maps.js' %}"></script>
 
@@ -270,12 +229,5 @@
      back to using the dynamic version-->
     <!--<script src="{% static 'assets/js/googlemaps-api.js' %}"></script>-->
     <script src="{% url 'load_api' %}"></script>
-
-
     <script src="{% static 'assets/js/product.js' %}"></script>
-{% comment %}
-<!--<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>-->
-<!--<script src="{% static 'assets/js/Profile-Edit.js' %}"></script>-->
-<!--<script src="{% static 'assets/js/Reviewbtn.js' %}"></script>-->
-{% endcomment%}
 {% endblock %}
