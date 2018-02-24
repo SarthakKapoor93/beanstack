@@ -58,20 +58,23 @@
             </div>
         </div>
     </div>
+
     <div class ="center panel panel-default" style="max-width: 750px; margin: auto;">
-        <div class="panel-body">
-            <div class="btn-group">
-                <button id="select-cafe" class="btn btn-secondary btn-md">Select Cafe</button>
-                <button id="beanstack-cafes" class="btn btn-secondary btn-md">BeanStack Cafes</button>
-                <button id="other-cafes" class="btn btn-secondary btn-md">Other Cafes</button>
+
+            <div class="panel-body">
+                <div class="btn-group">
+                    <button id="select-cafe" class="btn btn-secondary btn-md">Select Cafe</button>
+                    <button id="beanstack-cafes" class="btn btn-secondary btn-md">BeanStack Cafes</button>
+                    <button id="other-cafes" class="btn btn-secondary btn-md">Other Cafes</button>
+                </div>
+                <div id="map-canvas" style="background: transparent url({% static 'assets/img/source.gif' %}) no-repeat center center;">
+                    <div id="map" style="width: 100%; height: 450px; margin: auto;"></div>
+                </div>
             </div>
-            <div id="map-canvas" style="background: transparent url({% static 'assets/img/source.gif' %}) no-repeat center center;">
-                <div id="map" style="width: 100%; height: 450px; margin: auto;"></div>
+            <div class="panel-footer">
+                <div id="map-message" class=""></div>
             </div>
-        </div>
-        <div class="panel-footer">
-            <div id="map-message" class=""></div>
-        </div>
+
     </div>
     <br>
     <br>
