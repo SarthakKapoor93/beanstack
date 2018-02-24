@@ -364,7 +364,7 @@ vendors = [
         'description': "Conceived in the Highlands, Founded in Glasgow. "
                        "Artisan Beans are Speciality Coffee Shops in "
                        "Glasgow with big heart and eager ambitions.",
-        'products': (0, 3),
+        'products': (0, 15),
         'lat': 55.860081,
         'long': -4.254018
     },
@@ -377,7 +377,7 @@ vendors = [
                        "coffee and get amazing service. Our home is in Glasgow's "
                        "West End where we operate our cafe and our coffee roasting "
                        "facility close by.",
-        'products': (3, 7),
+        'products': (5, 10),
         'lat': 55.866500,
         'long': -4.270674
     },
@@ -388,7 +388,7 @@ vendors = [
                        "Claire Jones from Glasgow and Phil Kember from Portsmouth. "
                        "We set up our Fine Food Emporium to provide a destination "
                        "for people to enjoy high quality food to eat and buy.",
-        'products': (7, 10),
+        'products': (1, 8),
         'lat': 55.861418,
         'long': -4.253596
     },
@@ -401,7 +401,7 @@ vendors = [
                        "everything we do, and since taking the reins we have pursued the same pioneering "
                        "spirit that our founder David Thomson instilled when he opened his first shop in "
                        "Glasgow all those years ago.",
-        'products': (10, 13),
+        'products': (13, 15),
         'lat': 55.865165,
         'long': -4.259980
     },
@@ -416,7 +416,7 @@ vendors = [
                        "coffees, produced by people who really care. We love for coffee to be at its best and want "
                        "it to be appreciated as the delicious treat that it is. Grab a bag in our online store or "
                        "visit us at;",
-        'products': (13, 15),
+        'products': (3, 15),
         'lat': 55.860984,
         'long': -4.260610
     }

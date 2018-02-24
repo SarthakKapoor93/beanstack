@@ -26,7 +26,7 @@ def contact(request):
 
 
 def browse(request):
-    beans = CoffeeBean.objects.all()
+    beans = CoffeeBean.objects.order_by('-average_rating')
     return render(request, 'bean_app/browse.html', {'beans': beans})
 
 
