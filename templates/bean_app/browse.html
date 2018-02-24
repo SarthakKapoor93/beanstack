@@ -32,7 +32,7 @@
              </div>
 
             <div class="col-md-2">
-               <div class="dropdown open">
+               <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true" type="button">Sort by <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li role="presentation"><a href="#">Alphabatical Order</a></li>
@@ -71,10 +71,18 @@
              </div>
         {% endfor %}
     </div>
-    <nav>
-       <ul class="pager">
-            <li><a href="#">Older</a></li>
-            <li><a href="#">Newer</a></li>
-        </ul>
-    </nav>
+    <br><br>
+    <div class="pager">
+        <div>
+        {% if beans.has_previous %}
+            <a href="?page={{ beans.previous_page_number }}"><button class="btn action-button" type="button">Previous</button></a>
+        {% endif %}
+        {% if beans.has_next %}
+            <a href="?page={{ beans.next_page_number }}"><button class="btn action-button" type="button">Next</button></a>
+        {% endif %}
+        </div>
+    <span>
+        Page {{ beans.number }} of {{ beans.paginator.num_pages }}
+    </span>
+    </div>
 {% endblock %}

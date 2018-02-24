@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm
 from bean_app.google_maps_api import Mapper
+from django.core.paginator import Paginator
 import json
 
 mapper = Mapper()
@@ -26,8 +27,18 @@ def contact(request):
 
 
 def browse(request):
+    # Get all the beans from the database ordered by the rating
     beans = CoffeeBean.objects.order_by('-average_rating')
-    return render(request, 'bean_app/browse.html', {'beans': beans})
+
+    #  Pagination
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(beans, 5, orphans=2)
+    page = paginator.page(page_number)
+
+    context = {
+        "beans": page
+    }
+    return render(request, 'bean_app/browse.html', context)
 
 
 def login(request):

@@ -326,7 +326,7 @@ coffee_beans = [
 
     {
         'name': "JASZOON",
-        'description': ":Our house blend Janzsoon has been around since we first started and has remained one of our "
+        'description': "Our house blend Janzsoon has been around since we first started and has remained one of our "
                        "most popular coffees til this day. It's big, full-bodied and syrupy sweet. it's a perfect "
                        "coffee for pulling espressos at home or for a really punchy filter to get you going in the "
                        "morning. It's comprised of exquisite high altitude  Arabica beans  roasted to two distinct "
