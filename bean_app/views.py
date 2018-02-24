@@ -153,6 +153,7 @@ def get_beanstack_cafes(request):
     :return:
     """
 
+    # Get either the selected vendor objects
     coffee_id = request.GET.get('coffee_id', None)
     if coffee_id:
         vendors = []
@@ -161,9 +162,22 @@ def get_beanstack_cafes(request):
             if coffee:
                 vendors.append(vendor)
     else:
+        # Or all of the vendor objects
         vendors = Vendor.objects.all()
-    positions = [{"lat": vendor.lat, "lng": vendor.long} for vendor in vendors]
-    return HttpResponse(json.dumps(positions))
+
+    data = []
+    # Arrange the vendor information
+    for vendor in vendors:
+        vendor_data = {"business_name": vendor.business_name,
+                       "description": vendor.description,
+                       "online-shop": vendor.url_online_shop,
+                       "address": vendor.address,
+                       "products": [coffee_bean.name for coffee_bean in vendor.products_in_stock.all()],
+                       "lat": vendor.lat,
+                       "lng": vendor.long
+                       }
+        data.append(vendor_data)
+    return HttpResponse(json.dumps(data))
 
 
 def user_login(request):

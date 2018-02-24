@@ -7,6 +7,7 @@ var userPosition;
 var allBeanstackMarkers = [];
 var nonBeanstackMarkers = [];
 var selectedBeanstackMarkers = []
+var vendor_data = []
 
 function initMap(){
 
@@ -155,10 +156,24 @@ function doAjax(coffee_id, myCallBack){
     }
     $.get('get-cafes', query, function(data){
         var positions = JSON.parse(data);
+
+        // Put the data on the vendors into a global dict of vendors
+        vendor_data = positions;
+
         for (i = 0; i < positions.length; i++) {
             var marker = new google.maps.Marker({
                 map: map,
-                position: {lat: parseFloat(positions[i].lat), lng: parseFloat(positions[i].lng)}
+                position: {lat: parseFloat(positions[i].lat), lng: parseFloat(positions[i].lng)},
+                name: vendor_data[i]['business_name'],
+                description: vendor_data[i]['description'],
+                onlineshop: vendor_data[i]['online-shop'],
+                address: vendor_data[i]['address'],
+                products: vendor_data[i]['products']
+            });
+
+            // Create an event listener for each of the markers
+            google.maps.event.addListener(marker, 'click', function() {
+                activate_modal(this);
             });
 
             if(coffee_id){
@@ -218,11 +233,15 @@ function createMarker(place) {
         position: place.geometry.location
         }
     );
+
+    google.maps.event.addListener(marker, 'click', function() {
+        alert("marker clicked");
+    });
     nonBeanstackMarkers.push(marker);
 
 google.maps.event.addListener(marker, 'click', function() {
-  infowindow.setContent(place.name);
-  infowindow.open(map, this);
+//  infowindow.setContent(place.name);
+//  infowindow.open(map, this);
 });
 }
 

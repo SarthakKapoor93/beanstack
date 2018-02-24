@@ -20,7 +20,6 @@ $('#vendor-button').click(function(event){
     document.getElementById('vendor-heading').scrollIntoView({behavior: "smooth"});
 });
 
-
 $('#add-button').click(function(){
     $('#my-modal').modal('toggle');
 });
@@ -44,4 +43,16 @@ $('#arrow-glyph, #modal-add').hover(function(){
 });
 
 
+// This is called from the maps.js script
+function activate_modal(marker){
+    $('#vendor-detail-modal .modal-title').html(marker.name);
+    $('#vendor-detail-modal .modal-body #description').html(marker.description);
+    $('#vendor-detail-modal .modal-body #online-shop').html("<a href=" + marker.onlineshop + " >visit online shop</a>");
+    $('#vendor-detail-modal .modal-body #address').html(marker.address);
+    $('#vendor-detail-modal .modal-body #products').html("");
+    for (i = 0; i < marker.products.length; i++){
+        $('#vendor-detail-modal .modal-body #products').append("<li>"+ marker.products[i] + "</li>");
+    }
+    $('#vendor-detail-modal').modal('toggle');
+}
 

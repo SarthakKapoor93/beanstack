@@ -75,7 +75,7 @@ class Vendor(models.Model):
     url_online_shop = models.URLField(blank=True)
     address = models.CharField(max_length=128, blank=True)
     # telephone = models.CharField()
-    description = models.TextField(max_length=128, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     products_in_stock = models.ManyToManyField(CoffeeBean)
     # In order to display the vendor on the map we need to save the lat and long coordinates
     lat = models.FloatField(default=None)

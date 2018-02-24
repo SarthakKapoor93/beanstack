@@ -224,6 +224,40 @@
     </div>
     <!-- End of modal -->
 
+    <!-- This is the vendor detail modal  -->
+
+    <div id="vendor-detail-modal" class="modal fade" tabindex="-1" role="dialog">
+
+      <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+
+          <div class="modal-body">
+              <p id="description"></p>
+              <p id="online-shop"></p>
+              <p id="address"></p>
+              Coffees on sale:
+              <ul id="products">
+                  <!--insert products here via jQuery-->
+              </ul>
+          </div>
+
+          <div class="modal-footer">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default">Close</button>
+                <button type="button" class="btn btn-default">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--End of modal-->
+
     <script type="text/javascript">
         var coffeeKey = {{ bean.pk }};
         var selectedCoffee = "{{ bean.name }}";

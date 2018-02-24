@@ -71,7 +71,7 @@
              </div>
         {% endfor %}
     </div>
-    <br><br>
+    <br>
     <div class="pager">
         <div>
         {% if beans.has_previous %}
@@ -81,7 +81,7 @@
             <a href="?page={{ beans.next_page_number }}"><button class="btn action-button" type="button">Next</button></a>
         {% endif %}
         </div>
-    <span>
+    <span style="color: white;">
         Page {{ beans.number }} of {{ beans.paginator.num_pages }}
     </span>
     </div>

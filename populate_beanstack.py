@@ -360,10 +360,11 @@ coffee_beans = [
 vendors = [
     {
         'owner_name': "Robert Roaster",
-        'business_name': 'Artisan Beans',
+        'business_name': 'Artisan Roast',
         'description': "Conceived in the Highlands, Founded in Glasgow. "
-                       "Artisan Beans are Speciality Coffee Shops in "
+                       "Artisan Roast are Speciality Coffee Shops in "
                        "Glasgow with big heart and eager ambitions.",
+        'url_online_shop': "https://www.artisanroast.co.uk/",
         'products': (0, 15),
         'lat': 55.860081,
         'long': -4.254018
@@ -377,6 +378,7 @@ vendors = [
                        "coffee and get amazing service. Our home is in Glasgow's "
                        "West End where we operate our cafe and our coffee roasting "
                        "facility close by.",
+        'url_online_shop': "http://www.papercupcoffee.co.uk/",
         'products': (5, 10),
         'lat': 55.866500,
         'long': -4.270674
@@ -388,6 +390,7 @@ vendors = [
                        "Claire Jones from Glasgow and Phil Kember from Portsmouth. "
                        "We set up our Fine Food Emporium to provide a destination "
                        "for people to enjoy high quality food to eat and buy.",
+        'url_online_shop': "http://www.kemberandjones.co.uk/",
         'products': (1, 8),
         'lat': 55.861418,
         'long': -4.253596
@@ -401,6 +404,7 @@ vendors = [
                        "everything we do, and since taking the reins we have pursued the same pioneering "
                        "spirit that our founder David Thomson instilled when he opened his first shop in "
                        "Glasgow all those years ago.",
+        'url_online_shop': "https://www.thomsonscoffee.com/",
         'products': (13, 15),
         'lat': 55.865165,
         'long': -4.259980
@@ -416,6 +420,7 @@ vendors = [
                        "coffees, produced by people who really care. We love for coffee to be at its best and want "
                        "it to be appreciated as the delicious treat that it is. Grab a bag in our online store or "
                        "visit us at;",
+        'url_online_shop': "https://www.williamsandjohnson.com/",
         'products': (3, 15),
         'lat': 55.860984,
         'long': -4.260610
@@ -455,6 +460,7 @@ def populate_vendors():
                                          email=vendor['owner_name'].replace(' ', '').lower() + "@" + vendor[
                                              'business_name'].replace(' ', '').lower() + ".com",
                                          description=vendor['description'],
+                                         url_online_shop=vendor['url_online_shop'],
                                          lat=vendor['lat'],
                                          long=vendor['long'])[0]
         start, end = vendor['products']
