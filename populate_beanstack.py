@@ -366,8 +366,7 @@ vendors = [
                        "Glasgow with big heart and eager ambitions.",
         'url_online_shop': "https://www.artisanroast.co.uk/",
         'products': (0, 15),
-        'lat': 55.860081,
-        'long': -4.254018
+        'address': "Unit 252 254 Byres Road Glasgow"
     },
     {
         'owner_name': "Kate Cappuccino",
@@ -380,8 +379,7 @@ vendors = [
                        "facility close by.",
         'url_online_shop': "http://www.papercupcoffee.co.uk/",
         'products': (5, 10),
-        'lat': 55.866500,
-        'long': -4.270674
+        'address': "9 Exchange Place Glasgow"
     },
     {
         'owner_name': "Mike Macchiato",
@@ -392,8 +390,7 @@ vendors = [
                        "for people to enjoy high quality food to eat and buy.",
         'url_online_shop': "http://www.kemberandjones.co.uk/",
         'products': (1, 8),
-        'lat': 55.861418,
-        'long': -4.253596
+        'address': "136-140 Buchanan Street Glasgow"
     },
 
     {
@@ -406,8 +403,7 @@ vendors = [
                        "Glasgow all those years ago.",
         'url_online_shop': "https://www.thomsonscoffee.com/",
         'products': (13, 15),
-        'lat': 55.865165,
-        'long': -4.259980
+        'address': "City Centre, Buchanan Street Buchanan Galleries Buchanan Street"
     },
 
     {
@@ -422,8 +418,7 @@ vendors = [
                        "visit us at;",
         'url_online_shop': "https://www.williamsandjohnson.com/",
         'products': (3, 15),
-        'lat': 55.860984,
-        'long': -4.260610
+        'address': "City Centre 58 West Nile Street Glasgow"
     }
 ]
 
@@ -461,8 +456,7 @@ def populate_vendors():
                                              'business_name'].replace(' ', '').lower() + ".com",
                                          description=vendor['description'],
                                          url_online_shop=vendor['url_online_shop'],
-                                         lat=vendor['lat'],
-                                         long=vendor['long'])[0]
+                                         address=vendor['address'])[0]
         start, end = vendor['products']
         for bean in CoffeeBean.objects.all()[start: end + 1]:
             v.products_in_stock.add(bean)
@@ -473,5 +467,6 @@ if __name__ == "__main__":
     print("Stacking up the beans....")
     populate_main_models(review_texts[:15])
     populate_main_models(review_texts[15:])
+    print("Populating vendors may take a few seconds because the script accesses Googlemaps' geocoding api ...")
     populate_vendors()
     print("... beans all stacked up nice and high!")
