@@ -59,7 +59,7 @@ class UserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password')
+        fields = ('email', 'password', 'password')
 
 
 class UserAccount(forms.ModelForm):

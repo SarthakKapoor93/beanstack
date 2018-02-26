@@ -17,3 +17,4 @@ admin.site.register(bean_app.models.VendorSignupForm)
 admin.site.register(bean_app.models.SignupForm)
 admin.site.register(bean_app.models.social_djangomysite)
 admin.site.register(bean_app.models.mysite)
+

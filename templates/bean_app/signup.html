@@ -1,33 +1,16 @@
-<!DOCTYPE html>
-<% load staticfiles %>
-<html>
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beanstack signup</title>
-    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Article-Dual-Column.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Contact-Form-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Footer-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Header-Blue.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit1.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Registration-Form-with-Photo.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn1.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Slides_home.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Tag-cloud.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Team-Grid.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/User-Chat.css' %}">
-</head>
+{% block title_block %}
+ Beanstack Account Signup!
+{% endblock %}
+
+{% block body_block %}
+
+{% if signup %}
+<strong>Thank you for signing up!</strong>
+<a href="{% url 'home' %}">Return to the homepage.</a><br />
+{% else %}
 
 <body>
     <div class="header-blue">
@@ -63,7 +46,8 @@
             <div class="image-holder"><img src="assets/img/BeanStackLogo3.png">
                 <div class="swiper-slide" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500);"></div>
             </div>
-            <form method="post">
+            <form id="signup_form" method="post" action="{% url 'signup' %}" enctype="multipart/form-data">
+                {% csrf_token %}
                 <h2 class="text-center"><strong>Create</strong> an account.</h2>
                 <div class="form-group">
                     <input class="form-control" type="email" name="email" placeholder="Email">
@@ -83,6 +67,8 @@
                 <div class="form-group">
                     <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
                 </div><a href="#" class="already">You already have an account? Login here.</a></form>
+            {% endif %}
+            {% endblock %}
         </div>
     </div>
     <div class="footer-clean">
@@ -124,4 +110,3 @@
     <script src="{% static 'assets/js/Reviewbtn.js' %}"></script>
 </body>
 
-</html>
