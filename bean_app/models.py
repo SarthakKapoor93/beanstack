@@ -104,6 +104,15 @@ class AccountForm(models.Model):
         return self.user.username
 
 
+class MyAccountForm(models.Model):
+    user = models.OneToOneField(User)
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+
 class VendorAccountForm(models.Model):
     user = models.OneToOneField(User)
     website = models.URLField(blank=True)
@@ -114,11 +123,21 @@ class VendorAccountForm(models.Model):
 
 
 class VendorSignupForm(models.Model):
-    pass
+    user = models.OneToOneField(User)
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
 
 
 class SignupForm(models.Model):
-    pass
+    user = models.OneToOneField(User)
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    def __str__(self):
+        return self.user.username
 
 
 class social_djangomysite(models.Model):

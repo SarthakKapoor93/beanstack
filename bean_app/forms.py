@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+
 from bean_app.models import Tag, CoffeeBean, Customer, Review
 
 
@@ -54,7 +55,7 @@ class Vendor(forms.ModelForm):
         fields = ('',)
 
 
-class vendor_signup_form(forms.ModelForm):
+class VendorSignupForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
@@ -62,7 +63,7 @@ class vendor_signup_form(forms.ModelForm):
         fields = ('Full Name', 'Full Address', 'Contact', 'Shop or Cafe URL', 'email', 'password', 'Password(repeat)')
 
 
-class signup_form(forms.ModelForm):
+class SignupForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
@@ -70,7 +71,13 @@ class signup_form(forms.ModelForm):
         fields = ('email', 'password', 'password_repeat')
 
 
-class UserAccount(forms.ModelForm):
+class MyAccountForm(forms.ModelForm):
     class Meta:
-        model = UserAccount
+        model = MyAccountForm
+        fields = ('FullName', 'Address', 'Contact', 'Favourite', 'email', 'password', 'Password(repeat)')
+
+
+class UserAccountPicture(forms.ModelForm):
+    class Meta:
+        model = UserAccountPicture
         fields = ('website', 'picture')

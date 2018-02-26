@@ -35,7 +35,36 @@ def login(request):
 
 
 def my_account(request):
-    return render(request, 'bean_app/myaccount.html', {})
+    my_account_complete = False
+
+    if request.method == 'POST':
+        my_account_form = MyAccountForm(data=request.POST)
+        account_form = AccountForm(data=request.POST)
+
+        if my_account_form.is_valid() and account_form.is_valid():
+
+            user = account_form.save()
+            user.save()
+
+            account = account_form.save(commit=False)
+            account.user = user
+
+            if 'picture' in request.FILES:
+                account.picture = request.FLIES['picture']
+            account.save()
+
+            my_account_complete = True
+        else:
+
+            print(my_account_form.errors, account_form.errors)
+    else:
+        my_account_form = MyAccountForm()
+        account_form = AccountForm()
+
+    return render(request, 'bean_app/myaccount.html', {
+        'MyAccountForm': my_account_form,
+        'AccountForm': account_form,
+        'my_account_complete': my_account_complete})
 
 
 def signup(request):

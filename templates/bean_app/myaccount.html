@@ -39,7 +39,7 @@
     </div>
     <div class="footer-clean">
         <div class="container profile profile-view" id="profile">
-             <form id="" method="post" action="{% url '' %}" enctype="multipart/form-data" >
+             <form id="my_account_form" method="post" action="{% url 'myaccount' %}" enctype="multipart/form-data" >
                  {% csrf_token %}
                 <div class="row profile-row">
                     <div class="col-md-4 relative">
@@ -56,21 +56,21 @@
 
                                 <div class="form-group">
                                     <label class="control-label">Full Name</label>
-                                    <input class="form-control" type="text" name="firstname">
+                                    <input class="form-control" type="text" name="FullName">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
                                 <div class="form-group">
                                     <label class="control-label">Address </label>
-                                    <input class="form-control" type="text" name="lastname">
+                                    <input class="form-control" type="text" name="Address">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">Contact </label>
-                                    <input class="form-control" type="text" name="lastname">
+                                    <input class="form-control" type="text" name="Contact">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">My Favourite Coffee Product</label>
-                                    <input class="form-control" type="text" name="lastname">
+                                    <input class="form-control" type="text" name="Favourite">
                                 </div>
                             </div>
                         </div>
