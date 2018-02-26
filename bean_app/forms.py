@@ -54,12 +54,20 @@ class Vendor(forms.ModelForm):
         fields = ('',)
 
 
-class UserForm(forms.ModelForm):
+class vendor_signup_form(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'password')
+        fields = ('Full Name', 'Full Address', 'Contact', 'Shop or Cafe URL', 'email', 'password', 'Password(repeat)')
+
+
+class signup_form(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('email', 'password', 'password_repeat')
 
 
 class UserAccount(forms.ModelForm):
