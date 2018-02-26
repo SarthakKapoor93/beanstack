@@ -31,6 +31,8 @@ urlpatterns = [
                   url(r'^$', views.vendorsignup, name='vendorsignup'),
                   url(r'^$', views.addproduct, name='addproduct'),
                   url(r'^$', views.signupselection, name='signupselection'),
+                  url(r'^$', views.restricted, name='restricted'),
+                  url(r'^$', views.user_logout, name='logout'),
 
                   url(r'^$', views.product, name='product'),
 
@@ -38,6 +40,6 @@ urlpatterns = [
                   url(r'^oauth/', include('social_django.urls', namespace='social')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = '/bean_app/login'
+LOGOUT_URL = '/bean_app/logout'
+LOGIN_REDIRECT_URL = '/bean_app/restricted'

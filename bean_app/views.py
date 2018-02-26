@@ -31,6 +31,25 @@ def browse(request):
 
 
 def login(request):
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Your beanstack account is disabled.")
+        else:
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'rango/login.html', {})
     return render(request, 'bean_app/login.html', {})
 
 
@@ -212,7 +231,7 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return render(request, 'bean_app/restricted.html', {})
+    return HttpResponse("Since you're logged in, you can't view this site!")
 
 
 @login_required
@@ -248,3 +267,10 @@ def social_djangomysite(request):
 
 def mysite(request):
     return render(request, 'bean_app/login.html', {})
+
+
+def some_view(request):
+    if not request.user.is_authenticated():
+        return HttpResponse("You are logged in.")
+    else:
+        return HttpResponse("You are not logged in.")
