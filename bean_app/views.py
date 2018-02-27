@@ -7,6 +7,12 @@ from django.core.urlresolvers import reverse
 from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm
 from bean_app.google_maps_api import Mapper
 from django.core.paginator import Paginator
+
+from django.db.models import Q
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from functools import reduce
+import operator
 import json
 
 mapper = Mapper()
@@ -40,6 +46,33 @@ def browse(request):
     }
     return render(request, 'bean_app/browse.html', context)
 
+def search(request):
+    beans = CoffeeBean.objects.order_by('-average_rating')
+
+    query = request.GET.get('q')
+    if query == " ":
+        beans = CoffeeBean.objects.order_by('-average_rating')
+    elif query:
+        query_list = query.split()
+        beans = beans.filter(
+            reduce(operator.and_, (Q(name__icontains=q) for q in query_list)) |
+			reduce(operator.and_, (Q(location__icontains=q) for q in query_list))
+        )
+    else:
+         beans = CoffeeBean.objects.order_by('-average_rating')	    
+	
+	
+	#  Pagination
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(beans, 5, orphans=2)
+    page = paginator.page(page_number)
+	
+    context = {
+        "beans": page
+    }
+	
+  	
+    return render(request, 'bean_app/search.html', context)
 
 def login(request):
     return render(request, 'bean_app/login.html', {})

@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^about', views.about, name='about'),
     url(r'^contact', views.contact, name='contact'),
     url(r'^browse', views.browse, name='browse'),
+	url(r'^search', views.search, name='search'),
     url(r'^login', views.login, name='login'),
     url(r'^myaccount', views.my_account, name='my_account'),
     url(r'^addproduct', views.addproduct, name='addproduct'),
