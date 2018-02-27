@@ -133,5 +133,5 @@ MEDIA_URL = '/media/'
 REGISTRATION_OPEN = True    # If true the users can log in
 ACCOUNT_ACTIVATION_DAYS = True  # activation window in days
 REGISTRATION_AUTO_LOGIN = True  # the user will be automatically logged in
-LOGIN_REDIRECT_URL = '/bean_app/'  # Redirect to this page after a successful login
+LOGIN_REDIRECT_URL = '/bean_app/home/'  # Redirect to this page after a successful login
 LOGIN_URL = '/accounts/login/'  # Redirect to this page after unsuccessful login

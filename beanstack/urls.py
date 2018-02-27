@@ -18,6 +18,13 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
 from bean_app import views
+from registration.backends.simple.views import RegistrationView
+
+
+class MyRegistrationView(RegistrationView):  # We can change the name of this at some point
+    def get_success_url(self, user):
+        return '/bean_app/home/'
+
 
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -31,9 +38,9 @@ urlpatterns = [
     # url(r'^$', views.vendorsignup, name='vendorsignup'),
     # url(r'^$', views.addproduct, name='addproduct'),
     # url(r'^$', views.signupselection, name='signupselection'),
-
     # url(r'^$', views.product, name='product'),
 
-
+    url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^bean_app/', include('bean_app.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
