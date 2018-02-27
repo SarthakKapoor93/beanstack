@@ -4,7 +4,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, \
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, MyAccountForm, SignupForm, \
     social_djangomysite
 from bean_app.google_maps_api import Mapper
 
@@ -49,7 +49,7 @@ def login(request):
             print("Invalid login details: {0}, {1}".format(username, password))
             return HttpResponse("Invalid login details supplied.")
     else:
-        return render(request, 'rango/login.html', {})
+        return render(request, 'bean_app/login.html', {})
     return render(request, 'bean_app/login.html', {})
 
 
