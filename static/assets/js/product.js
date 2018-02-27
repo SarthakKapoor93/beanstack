@@ -2,6 +2,16 @@ $(function(){
     $('#modal-message').hide();
 });
 
+// Resizes the window took this from stack overflow
+$(window).bind('resize', function(e)
+{
+  if (window.RT) clearTimeout(window.RT);
+  window.RT = setTimeout(function()
+  {
+    this.location.reload(false);
+  }, 100);
+});
+
 $('#review-button').click(function(event){
     document.getElementById('review-heading').scrollIntoView({behavior: "smooth"});
 });
@@ -9,7 +19,6 @@ $('#review-button').click(function(event){
 $('#vendor-button').click(function(event){
     document.getElementById('vendor-heading').scrollIntoView({behavior: "smooth"});
 });
-
 
 $('#add-button').click(function(){
     $('#my-modal').modal('toggle');
@@ -34,4 +43,16 @@ $('#arrow-glyph, #modal-add').hover(function(){
 });
 
 
+// This is called from the maps.js script
+function activate_modal(marker){
+    $('#vendor-detail-modal .modal-title').html(marker.name);
+    $('#vendor-detail-modal .modal-body #description').html(marker.description);
+    $('#vendor-detail-modal .modal-body #online-shop').html("<a href=" + marker.onlineshop + " >visit online shop</a>");
+    $('#vendor-detail-modal .modal-body #address').html(marker.address);
+    $('#vendor-detail-modal .modal-body #products').html("");
+    for (i = 0; i < marker.products.length; i++){
+        $('#vendor-detail-modal .modal-body #products').append("<li>"+ marker.products[i] + "</li>");
+    }
+    $('#vendor-detail-modal').modal('toggle');
+}
 

@@ -22,7 +22,7 @@ from bean_app import views
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^$', views.home, name='home'),
-    url(r'^$', views.about, name='about'),
+    # url(r'^$', views.about, name='about'),
     # url(r'^$', views.contact, name='contact'),
     # url(r'^$', views.browse, name='browse'),
     # url(r'^$', views.login, name='login'),
