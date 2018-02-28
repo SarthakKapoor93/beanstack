@@ -4,7 +4,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag
 from bean_app.google_maps_api import Mapper
 from django.core.paginator import Paginator
 
@@ -76,25 +76,30 @@ def browse(request):
 #     return render(request, 'bean_app/search.html', context)
 
 
+def build_query(query_terms):
+    query = Q(name__icontains=query_terms[0])
+    for term in query_terms[1:]:
+        query = query | Q(name__icontains=term)
+    return query
+
+
 def search(request):
 
     query_terms = request.GET.get('q').split()
 
+    # Filter by name or location of the coffee beans
     name_matches = set()
     for term in query_terms:
-        results = CoffeeBean.objects.filter(Q(name__icontains=term) | Q(location__icontains=term))
-        for result in results:
-            name_matches.add(result)
+        beans = CoffeeBean.objects.filter(Q(name__icontains=term) | Q(location__icontains=term))
+        name_matches |= set(beans)
 
-
+    # Filter by the tags and then get all the coffees associated with each tag
     tag_matches = set()
-    for term in query_terms:
-        for bean in CoffeeBean.objects.all():
-            for tag in bean.tags.all():
-                if term in tag.name:
-                    tag_matches.add(bean)
+    for tag in Tag.objects.filter(build_query(query_terms)):
+        beans = tag.coffee_beans.all()
+        tag_matches |= set(beans)
 
-    results = reduce(lambda set_a, set_b: set_a | set_b, [name_matches, tag_matches])
+    results = name_matches | tag_matches
     context = {'beans': results}
 
     return render(request, 'bean_app/search.html', context)

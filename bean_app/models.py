@@ -30,7 +30,7 @@ class CoffeeBean(models.Model):
     average_rating = models.FloatField(default=0)
     t_type = models.CharField(max_length=128,
                               blank=True)  # what is type exactly? Need different name/ clashes with python built in type
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, related_name='coffee_beans')
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
