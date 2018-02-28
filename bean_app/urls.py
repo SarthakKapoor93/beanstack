@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^vendorsignup', views.signup, name='vendorsignup'),
     url(r'^signupselection', views.signupselection, name='signupselection'),
     url(r'^maps', views.maps, name='maps'),
-    url(r'^oauth/', include('social_django.urls', namespace='social')),
+
     url(r'^load_api', views.load_api, name='load_api'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^restricted/', views.restricted, name='restricted'),

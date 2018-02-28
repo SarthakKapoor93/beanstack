@@ -1,19 +1,22 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import render
 from datetime import datetime
-from django.http import HttpResponse, HttpResponseRedirect
-from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, MyAccountForm, SignupForm, \
-    social_djangomysite
-from bean_app.google_maps_api import Mapper
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+
+from bean_app.google_maps_api import Mapper
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, MyAccountForm, \
+    SignupForm
+
+from bean_app.forms import UserForm, SignupForm, CoffeeBean, Review, Vendor
 mapper = Mapper()
 
 
 def home(request):
     # Return the top three beans
-    beans = CoffeeBean.objects.order_by('average_rating')[:3]
+    beans = CoffeeBean.object.order_by('average_rating')[:3]
     return render(request, 'bean_app/home.html', {'beans': beans})
 
 
@@ -91,32 +94,26 @@ def signup(request):
 
     if request.method == 'POST':
         signup_form = SignupForm(data=request.POST)
-        account_form = AccountForm(data=request.POST)
 
-        if signup_form.is_valid() and account_form.is_valid():
+        print(type(signup_form))
 
-            user = account_form.save()
-            user.set_password(user.password)
+        if signup_form.is_valid():
+
+            user = signup_form.save()
             user.save()
 
-            account = account_form.save(commit=False)
+            account = signup_form.save(commit=False)
             account.user = user
-
-            if 'picture' in request.FILES:
-                account.picture = request.FLIES['picture']
-            account.save()
 
             signup_complete = True
         else:
 
-            print(signup_form.errors, account_form.errors)
+            print("!!!!!!!!!!!!!", signup_form.errors)
     else:
         signup_form = SignupForm()
-        account_form = AccountForm()
 
     return render(request, 'bean_app/signup.html', {
         'SignupForm': signup_form,
-        'AccountForm': account_form,
         'signup_complete': signup_complete})
 
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'registration',
 
     'bean_app',
 ]
@@ -149,3 +150,9 @@ MEDIA_URL = '/media/'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1325095947590846'
 SOCIAL_AUTH_FACEBOOK_SECRET = '05477f3d432badb06b859f24b935c38b'  # App Secret
+
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/bean_app/'
+LOGIN_URL = '/bean_app/login/'
