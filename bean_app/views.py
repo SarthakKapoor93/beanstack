@@ -177,6 +177,7 @@ def product(request, coffee_name_slug):
                 tag.value = value
                 tag.save()
 
+        # Create the review
         coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
 
         review = Review(customer=customer,
