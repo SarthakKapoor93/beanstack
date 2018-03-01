@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+
 from django.template.defaultfilters import slugify
 
 '''
@@ -95,49 +95,49 @@ class Vendor(models.Model):
         return "Vendor: {} - {} - {}".format(self.pk, self.owner_name, self.business_name)
 
 
-class AccountForm(models.Model):
-    user = models.OneToOneField(User)
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+#class AccountForm(models.Model):
+    #   user = models.OneToOneField(User)
+    #website = models.URLField(blank=True)
+    #picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    def __str__(self):
-        return self.user.username
-
-
-class MyAccountForm(models.Model):
-    user = models.OneToOneField(User)
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-
-    def __str__(self):
-        return self.user.username
+        #    def __str__(self):
+    #return self.user.username
 
 
-class VendorAccountForm(models.Model):
-    user = models.OneToOneField(User)
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+#class MyAccountForm(models.Model):
+    #   user = models.OneToOneField(User)
+    #website = models.URLField(blank=True)
+    #picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    def __str__(self):
-        return self.user.username
-
-
-class VendorSignupForm(models.Model):
-    user = models.OneToOneField(User)
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-
-    def __str__(self):
-        return self.user.username
+        #def __str__(self):
+    #return self.user.username
 
 
-class SignupForm(models.Model):
-    user = models.OneToOneField(User)
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+#class VendorAccountForm(models.Model):
+    #   user = models.OneToOneField(User)
+    #website = models.URLField(blank=True)
+    #picture = models.ImageField(upload_to='profile_images', blank=True)
 
-    def __str__(self):
-        return self.user.username
+        #def __str__(self):
+    #return self.user.username
+
+
+#class VendorSignupForm(models.Model):
+    #   user = models.OneToOneField(User)
+    # website = models.URLField(blank=True)
+    #picture = models.ImageField(upload_to='profile_images', blank=True)
+
+        #    def __str__(self):
+    #return self.user.username
+
+
+#class SignupForm(models.Model):
+    #   user = models.OneToOneField(User)
+    #website = models.URLField(blank=True)
+    #picture = models.ImageField(upload_to='profile_images', blank=True)
+
+        #    def __str__(self):
+    #return self.user.username
 
 
 class social_djangomysite(models.Model):

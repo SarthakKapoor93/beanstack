@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+
 from bean_app.models import Tag, CoffeeBean, Customer, Review, Vendor
 
 
@@ -62,14 +62,15 @@ class CoffeeBean(forms.ModelForm):
 #         fields = ('Full Name', 'Full Address', 'Contact', 'Shop or Cafe URL', 'email', 'password', 'Password(repeat)')
 
 
-class SignupForm(forms.ModelForm):
-    email = forms.CharField(widget=forms.EmailInput())
-    password = forms.CharField(widget=forms.PasswordInput())
-    password_repeat = forms.CharField(widget=forms.PasswordInput())
+#class SignupForm(forms.ModelForm):
 
-    class Meta:
-        model = User
-        fields = ('email', 'password', 'password_repeat')
+    #    email = forms.CharField(widget=forms.EmailInput())
+        # password = forms.CharField(widget=forms.PasswordInput())
+        #password_repeat = forms.CharField(widget=forms.PasswordInput())
+
+        #    class Meta:
+        #model = User
+        #fields = ('email', 'password', 'password_repeat')
 
 
 # class MyAccountForm(forms.ModelForm):
@@ -90,9 +91,9 @@ class SignupForm(forms.ModelForm):
 #         fields = ('website', 'picture')
 #
 
-class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+#class UserForm(forms.ModelForm):
+        #   password = forms.CharField(widget=forms.PasswordInput())
 
-    class Meta:
-        model = User
-        fields = ('email', 'password')
+        #class Meta:
+        #model = User
+        #fields = ('email', 'password')
