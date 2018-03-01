@@ -267,10 +267,6 @@
     on the main base.html page. We need to change the order of the imports to fix this-->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/js/maps.js' %}"></script>
-
-    <!--We have a static copy of the js for the google api in the project but it seems to have stopped working
-     back to using the dynamic version-->
-    <!--<script src="{% static 'assets/js/googlemaps-api.js' %}"></script>-->
     <script src="{% url 'load_api' %}"></script>
     <script src="{% static 'assets/js/product.js' %}"></script>
 {% endblock %}

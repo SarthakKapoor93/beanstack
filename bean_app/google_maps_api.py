@@ -9,6 +9,7 @@ static file: beanstack/static/assets/js/googlemaps-api.js
 I haven't deleted the class yet because we may want to use it in the future for other api calls eg GeoCoding.
 """
 
+
 class Mapper:
     """
     This is just a simple class to separate out some of the
@@ -23,7 +24,6 @@ class Mapper:
         self.google_maps_api_key = None
         self.url = "https://maps.googleapis.com/maps/api/js" \
                    "?key={}&libraries=places&callback=initMap"
-        self.javascript = None
 
     def get_api_key(self):
         """
@@ -43,16 +43,13 @@ class Mapper:
 
     def get_javascript(self):
         """
-        Uses the api key to make an api call. If the javascript has not
-        already been cached retrieve it and return it.
+        Uses the api key to make an api call
+        and return the javascript
         :return: javascript as a string
         """
 
-        if not self.javascript:
-            url = self.url.format(self.get_api_key())
-            self.javascript = requests.get(url)
-
-        return self.javascript
+        url = self.url.format(self.get_api_key())
+        return requests.get(url)
 
     def geocode(self, address=None, lat=None, lng=None):
         """
