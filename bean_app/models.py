@@ -47,11 +47,11 @@ class CoffeeBean(models.Model):
 class Customer(models.Model):
     # We don't need a customer id number do? Just use to pk?
     fullname = models.CharField(max_length=128)
-    # email = models.EmailField(blank=True)
+    email = models.EmailField(blank=True)
     # password = models.CharField()   This would store the password as a string, Django handles this for us
     # address = models.CharField()      Do we need their address?
     # telephone = models.CharField()   Do we need the telephone?
-    # favourite_coffee = models.ForeignKey(CoffeeBean)
+    favourite_coffee = models.ForeignKey(CoffeeBean)
 
     # Makes more sense to have the link here, rather than the char field?
 

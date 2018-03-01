@@ -10,14 +10,14 @@ from bean_app.google_maps_api import Mapper
 from django.core.paginator import Paginator
 import json
 
-from bean_app.forms import CoffeeBean, Review, Vendor
+from bean_app.models import CoffeeBean, Review, Vendor
 
 mapper = Mapper()
 
 
 def home(request):
     # Return the top three beans
-    beans = CoffeeBean.object.order_by('average_rating')[:3]
+    beans = CoffeeBean.objects.order_by('average_rating')[:3]
     return render(request, 'bean_app/home.html', {'beans': beans})
 
 
