@@ -221,8 +221,18 @@
                                                 <input id="ratings-hidden" name="rating" type="hidden">
                                                 <input id="coffee-name-hidden" name="coffee-bean" type="hidden" value="{{ bean.slug }}">
                                                 <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+                                                {% for tag in tags %}
+                                                <div class="btn-group">
+                                                    <button id="{{tag}}-minus" class="btn btn-default btn-sm" type="button">-</button>
+                                                    <div class="">{{tag}}</div>
+                                                    <button class="plus btn btn-default btn-sm" type="button" data-tag="{{tag}}">+</button>
+                                                    <input id="{{tag}}-input" type="hidden" name="{{tag}}" value="{{tag.value}}">
+                                                </div>
+                                                <br>
+                                                {% endfor %}
                                                 <div class="text-right">
-                                                    <div class="stars starrr" data-rating="0"></div>
+
+                                                    <div id="star-animation" class="stars starrr" data-rating="0"></div>
                                                     <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
                                                     <span class="glyphicon glyphicon-remove"></span>Cancel</a>
                                                     <button class="btn btn-success btn-lg" type="submit">Save</button>

@@ -61,3 +61,14 @@ function activate_modal(marker){
     $('#vendor-detail-modal').modal('toggle');
 }
 
+// This function will listen to the tag buttons and update the hidden values for the form
+// each time they are updated
+
+$('.plus').click(function(){
+    // get the value from the hidden field and increment it by one
+    var tag = $(this).attr('data-tag');
+    var value = $("#" + tag + "-input").attr('value');
+    value ++
+    // Put the value back into the hidden input
+    $("#" + tag + "-input").attr('value', value);
+});

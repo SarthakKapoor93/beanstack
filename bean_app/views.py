@@ -157,24 +157,43 @@ def product(request, coffee_name_slug):
         # Just take any customer for the time being
         customer = Customer.objects.all().first()
         comment = request.POST.get('comment')
-        coffee_bean = request.POST.get('coffee-bean')
-        rating = request.POST.get('rating')
+        coffee_bean_slug = request.POST.get('coffee-bean')
+        # rating = request.POST.get('rating')
+
+        coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
+
+        # Get all of the tag types
+        tag_types = TagType.objects.all()
+        # loop over the tag types and use the name to get the values from the post
+        for tag_type in tag_types:
+            value = request.POST.get(tag_type.name)
+            if value:
+                print(value)
+                # now we need to access the tag. How do we get a specific tag?
+                tag = Tag.objects.filter(tag_type=tag_type, coffee_bean=coffee_bean).first()
+                print(tag)
+
+                # update the tag value
+                tag.value = value
+                tag.save()
+
+        coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
 
         review = Review(customer=customer,
                         comment=comment,
-                        coffee_bean=CoffeeBean.objects.get(slug=coffee_bean),
-                        rating=rating)
-        print(review)
-        review.save()
+                        coffee_bean=coffee_bean,
+                        rating=1
+                        )
 
+        review.save()
 
 
     # Or they just want the details page
 
-    bean = CoffeeBean.objects.get(slug=coffee_name_slug)
-    context = {'bean': bean,
-               'tags': bean.tags.all(),
-               'reviews': Review.objects.filter(coffee_bean=bean)
+    coffee_bean = CoffeeBean.objects.get(slug=coffee_name_slug)
+    context = {'bean': coffee_bean,
+               'tags': coffee_bean.tags.all(),
+               'reviews': Review.objects.filter(coffee_bean=coffee_bean)
                }
     return render(request, 'bean_app/product.html', context)
 
