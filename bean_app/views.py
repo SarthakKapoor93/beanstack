@@ -1,8 +1,18 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
-from django.http import HttpResponse
+from datetime import datetime
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag
 from bean_app.google_maps_api import Mapper
+from django.core.paginator import Paginator
+
+from django.db.models import Q
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from functools import reduce
+import operator
 import json
 
 mapper = Mapper()
@@ -23,8 +33,76 @@ def contact(request):
 
 
 def browse(request):
-    beans = CoffeeBean.objects.all()
-    return render(request, 'bean_app/browse.html', {'beans': beans})
+    # Get all the beans from the database ordered by the rating
+    beans = CoffeeBean.objects.order_by('-average_rating')
+
+    #  Pagination
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(beans, 5, orphans=2)
+    page = paginator.page(page_number)
+
+    context = {
+        "beans": page
+    }
+    return render(request, 'bean_app/browse.html', context)
+
+
+# def search(request):
+#     beans = CoffeeBean.objects.order_by('-average_rating')
+#
+#     query = request.GET.get('q')
+#     if query == " ":
+#         beans = CoffeeBean.objects.order_by('-average_rating')
+#     elif query:
+#         query_list = query.split()
+#         beans = beans.filter(
+#             reduce(operator.and_, (Q(name__icontains=q) for q in query_list)) |
+# 			reduce(operator.and_, (Q(location__icontains=q) for q in query_list))
+#         )
+#     else:
+#          beans = CoffeeBean.objects.order_by('-average_rating')
+#
+#
+# 	#  Pagination
+#     page_number = request.GET.get('page', 1)
+#     paginator = Paginator(beans, 5, orphans=2)
+#     page = paginator.page(page_number)
+#
+#     context = {
+#         "beans": page
+#     }
+#
+#
+#     return render(request, 'bean_app/search.html', context)
+
+
+def build_query(query_terms):
+    query = Q(name__icontains=query_terms[0])
+    for term in query_terms[1:]:
+        query = query | Q(name__icontains=term)
+    return query
+
+
+def search(request):
+
+    query_terms = request.GET.get('q').split()
+
+    # Filter by name or location of the coffee beans
+    name_matches = set()
+    for term in query_terms:
+        beans = CoffeeBean.objects.filter(Q(name__icontains=term) | Q(location__icontains=term))
+        name_matches |= set(beans)
+
+    # Filter by the tags and then get all the coffees associated with each tag
+    tag_matches = set()
+    for tag in Tag.objects.filter(build_query(query_terms)):
+        beans = tag.coffee_beans.all()
+        tag_matches |= set(beans)
+
+    results = name_matches | tag_matches
+    context = {'beans': results}
+
+    return render(request, 'bean_app/search.html', context)
 
 
 def login(request):
@@ -71,38 +149,9 @@ def product(request, coffee_name_slug):
     return render(request, 'bean_app/product.html', context)
 
 
-def maps(request):
-#
-#     positions = None
-#
-#     # If they want to see all the beanstack cafes on the map
-#     beanstack_cafes = request.GET.get('beanstack-cafes', False)
-#     if beanstack_cafes:
-#         # Access the lat and long values from all cafes in the database
-#         positions = [{'lat': vendor.lat, 'lng': vendor.long} for vendor in Vendor.objects.all()]
-#
-#     # If they want to see a specific beanstack cafe on the map,
-#     # get the id from the request
-#     selected_cafe_id = request.GET.get('selected-cafe', None)
-#     selected_cafe = bool(selected_cafe_id)
-#     if selected_cafe_id:
-#         # retrieve the cafe from the database
-#         cafe = Vendor.objects.get(pk=selected_cafe_id)
-#         positions = [{'lat': cafe.lat, 'lng': cafe.long}]
-#
-#     context = {
-#         'beanstack_cafes': beanstack_cafes,
-#         'selected_cafe': selected_cafe,
-#         'selected_cafe_id': selected_cafe_id,
-#         'other_cafes': request.GET.get('other-cafes', False),
-#         'positions': positions
-#     }
-    return render(request, 'bean_app/maps.html', {})
-
-
 def load_api(request):
     """
-    Takes makes a call to the mapper object in order
+    Makes a call to the mapper object in order
     to retrieve javascript from the api.
     :param request:
     :return:
@@ -112,12 +161,12 @@ def load_api(request):
 
 def get_beanstack_cafes(request):
     """
-    If a coffee_id is supplied in the url, returns all the vendors that
-    supply that coffee. Otherwise return all vendors.
+    Checks if there is a coffee_id
     :param request:
     :return:
     """
 
+    # Get either the selected vendor objects
     coffee_id = request.GET.get('coffee_id', None)
     if coffee_id:
         vendors = []
@@ -126,6 +175,70 @@ def get_beanstack_cafes(request):
             if coffee:
                 vendors.append(vendor)
     else:
+        # Or all of the vendor objects
         vendors = Vendor.objects.all()
-    positions = [{"lat": vendor.lat, "lng": vendor.long} for vendor in vendors]
-    return HttpResponse(json.dumps(positions))
+
+    data = []
+    # Arrange the vendor information
+    for vendor in vendors:
+        vendor_data = {"business_name": vendor.business_name,
+                       "description": vendor.description,
+                       "online-shop": vendor.url_online_shop,
+                       "address": vendor.address,
+                       "products": [coffee_bean.name for coffee_bean in vendor.products_in_stock.all()],
+                       "lat": vendor.lat,
+                       "lng": vendor.long
+                       }
+        data.append(vendor_data)
+    return HttpResponse(json.dumps(data))
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                return HttpResponse("Please create a Beanstack account. Your credentials does not exits.")
+        else:
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+    else:
+        return render(request, 'bean_app/login.html', {})
+
+
+@login_required
+def restricted(request):
+    return render(request, 'bean_app/restricted.html', {})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
+
+def visitor_cookie_handler(request):
+    visits = int(get_server_side_cookie(request, 'visits', '1'))
+    last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
+    last_visit_time = datetime.strptime(last_visit_cookie[:-7],
+                                        '%Y-%m-%d %H:%M:%S')
+    if (datetime.now() - last_visit_time).days > 0:
+        visits = visits + 1
+        request.session['last_visit'] = str(datetime.now())
+    else:
+        visits = 1
+        request.session['last_visit'] = last_visit_cookie
+    request.session['visits'] = visits
+
+
+def get_server_side_cookie(request, cookie, default_val=None):
+    val = request.session.get(cookie)
+    if not val:
+        val = default_val
+    return val
