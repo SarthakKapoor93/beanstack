@@ -20,6 +20,11 @@ $('#vendor-button').click(function(event){
     document.getElementById('vendor-heading').scrollIntoView({behavior: "smooth"});
 });
 
+
+$('#radar-button').click(function(event){
+    document.getElementById('radar-heading').scrollIntoView({behavior: "smooth"});
+});
+
 $('#add-button').click(function(){
     $('#my-modal').modal('toggle');
 });

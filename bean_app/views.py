@@ -4,7 +4,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag
+from bean_app.models import *
 from bean_app.google_maps_api import Mapper
 from django.core.paginator import Paginator
 
@@ -93,11 +93,14 @@ def search(request):
         beans = CoffeeBean.objects.filter(Q(name__icontains=term) | Q(location__icontains=term))
         name_matches |= set(beans)
 
-    # Filter by the tags and then get all the coffees associated with each tag
+    # Filter the tag types by the query terms
     tag_matches = set()
-    for tag in Tag.objects.filter(build_query(query_terms)):
-        beans = tag.coffee_beans.all()
-        tag_matches |= set(beans)
+    for tag_type in TagType.objects.filter(build_query(query_terms)):
+
+        # Use the tag type to get the tags for each of the types
+        for tag in Tag.objects.filter(tag_type=tag_type):
+            # Iterate over the tags and put the coffee objects into the result set
+            tag_matches.add(tag.coffee_bean)
 
     results = name_matches | tag_matches
     context = {'beans': results}
@@ -130,7 +133,14 @@ def vendorsignup(request):
 
 
 def radar(request):
-    return render(request, 'bean_app/radar-chart.html', {})
+
+    # For the sake of testing, this view should get the first coffee and return the data
+    bean = CoffeeBean.objects.get(pk=5)
+    context = {'bean': bean,
+               'tags': bean.tags.all(),
+            }
+
+    return render(request, 'bean_app/radar-chart.html', context=context)
 
 '''
 The product method should also return a list of the coffee shops that 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from bean_app.models import Tag, CoffeeBean, Customer, Review, Vendor, AccountForm, VendorAccountForm, VendorSignupForm, SignupForm
+from bean_app.models import *
 
 
 class CoffeeBeanAdmin(admin.ModelAdmin):
@@ -7,6 +7,7 @@ class CoffeeBeanAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Tag)
+admin.site.register(TagType)
 admin.site.register(CoffeeBean)
 admin.site.register(Customer)
 admin.site.register(Review)
