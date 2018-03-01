@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'bean_app',
-    'registration'
 ]
 
 MIDDLEWARE = [

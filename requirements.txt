@@ -1,4 +1,4 @@
-registration
+django-registration-redux==1.4
 bcrypt==3.1.4
 certifi==2018.1.18
 cffi==1.11.4
