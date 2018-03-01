@@ -151,6 +151,26 @@ sell this product. Then you don't need to do another ajax call for it.
 
 def product(request, coffee_name_slug):
 
+    # If the user is posting a review
+    if request.method == 'POST':
+
+        # Just take any customer for the time being
+        customer = Customer.objects.all().first()
+        comment = request.POST.get('comment')
+        coffee_bean = request.POST.get('coffee-bean')
+        rating = request.POST.get('rating')
+
+        review = Review(customer=customer,
+                        comment=comment,
+                        coffee_bean=CoffeeBean.objects.get(slug=coffee_bean),
+                        rating=rating)
+        print(review)
+        review.save()
+
+
+
+    # Or they just want the details page
+
     bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': bean,
                'tags': bean.tags.all(),
