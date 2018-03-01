@@ -12,7 +12,7 @@ class Tag(forms.ModelForm):
 
     class Meta:
         model = Tag
-        fields = ('name', )
+        fields = ('name',)
 
 
 class CoffeeBean(forms.ModelForm):
@@ -36,64 +36,64 @@ class CoffeeBean(forms.ModelForm):
             return cleaned_data
 
 
-# class Customer(forms.ModelForm):
-#     class Meta:
-#         model = Customer
-#         fields = ('',)
+        # class Customer(forms.ModelForm):
+        #     class Meta:
+        #         model = Customer
+        #         fields = ('',)
 
-#
-# class Review(forms.ModelForm):
-#     class Meta:
-#         model = Review
-#         fields = ('',)
+        #
+        # class Review(forms.ModelForm):
+        #     class Meta:
+        #         model = Review
+        #         fields = ('',)
 
-#
-# class Vendor(forms.ModelForm):
-#     class Meta:
-#         model = Review
-#         fields = ('',)
+        #
+        # class Vendor(forms.ModelForm):
+        #     class Meta:
+        #         model = Review
+        #         fields = ('',)
 
-#
-# class VendorSignupForm(forms.ModelForm):
-#     password = forms.CharField(widget=forms.PasswordInput())
-#
-#     class Meta:
-#         model = Vendor
-#         fields = ('Full Name', 'Full Address', 'Contact', 'Shop or Cafe URL', 'email', 'password', 'Password(repeat)')
+        #
+        # class VendorSignupForm(forms.ModelForm):
+        #     password = forms.CharField(widget=forms.PasswordInput())
+        #
+        #     class Meta:
+        #         model = Vendor
+        #         fields = ('Full Name', 'Full Address', 'Contact', 'Shop or Cafe URL', 'email', 'password', 'Password(repeat)')
 
 
-#class SignupForm(forms.ModelForm):
+        # class SignupForm(forms.ModelForm):
 
-    #    email = forms.CharField(widget=forms.EmailInput())
+        #    email = forms.CharField(widget=forms.EmailInput())
         # password = forms.CharField(widget=forms.PasswordInput())
-        #password_repeat = forms.CharField(widget=forms.PasswordInput())
+        # password_repeat = forms.CharField(widget=forms.PasswordInput())
 
         #    class Meta:
-        #model = User
-        #fields = ('email', 'password', 'password_repeat')
+        # model = User
+        # fields = ('email', 'password', 'password_repeat')
 
 
-# class MyAccountForm(forms.ModelForm):
-#     class Meta:
-#         model = MyAccountForm
-#         fields = ('FullName', 'Address', 'Contact', 'Favourite', 'email', 'password', 'Password(repeat)')
+        # class MyAccountForm(forms.ModelForm):
+        #     class Meta:
+        #         model = MyAccountForm
+        #         fields = ('FullName', 'Address', 'Contact', 'Favourite', 'email', 'password', 'Password(repeat)')
 
-#
-# class UserAccountPicture(forms.ModelForm):
-#     class Meta:
-#         model = UserAccountPicture
-#         fields = ('website', 'picture')
-#
-#
-# class UserAccountPicture(forms.ModelForm):
-#     class Meta:
-#         model = UserAccountPicture
-#         fields = ('website', 'picture')
-#
+        #
+        # class UserAccountPicture(forms.ModelForm):
+        #     class Meta:
+        #         model = UserAccountPicture
+        #         fields = ('website', 'picture')
+        #
+        #
+        # class UserAccountPicture(forms.ModelForm):
+        #     class Meta:
+        #         model = UserAccountPicture
+        #         fields = ('website', 'picture')
+        #
 
-#class UserForm(forms.ModelForm):
+        # class UserForm(forms.ModelForm):
         #   password = forms.CharField(widget=forms.PasswordInput())
 
-        #class Meta:
-        #model = User
-        #fields = ('email', 'password')
+        # class Meta:
+        # model = User
+        # fields = ('email', 'password')

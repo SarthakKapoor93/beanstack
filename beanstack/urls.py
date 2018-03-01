@@ -34,9 +34,7 @@ urlpatterns = [
                   url(r'^$', views.contact, name='contact'),
                   url(r'^$', views.browse, name='browse'),
                   url(r'^$', views.login, name='login'),
-                  url(r'^$', views.my_account, name='myaccount'),
-                  url(r'^$', views.signup, name='signup'),
-                  url(r'^$', views.vendorsignup, name='vendorsignup'),
+
                   url(r'^$', views.addproduct, name='addproduct'),
                   url(r'^$', views.signupselection, name='signupselection'),
                   url(r'^$', views.restricted, name='restricted'),
@@ -45,6 +43,7 @@ urlpatterns = [
                   url(r'^$', views.product, name='product'),
 
                   url(r'^oauth/', include('social_django.urls', namespace='social')),
+                  url(r'^accounts/', include('allauth.urls')),
 
                   url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
                   url(r'^accounts/', include('registration.backends.simple.urls')),

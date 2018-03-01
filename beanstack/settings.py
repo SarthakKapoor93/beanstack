@@ -40,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'registration',
+    'django.contrib.sites',
+    'allauth.socialaccount.providers.facebook',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'bean_app',
     'registration'
 ]
@@ -85,8 +90,8 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.facebook.FacebookOAuth2',
-
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 WSGI_APPLICATION = 'beanstack.wsgi.application'
@@ -152,11 +157,10 @@ MEDIA_URL = '/media/'
 SOCIAL_AUTH_FACEBOOK_KEY = '1325095947590846'
 SOCIAL_AUTH_FACEBOOK_SECRET = '05477f3d432badb06b859f24b935c38b'  # App Secret
 
-
-
-REGISTRATION_OPEN = True    # If true the users can log in
+REGISTRATION_OPEN = True  # If true the users can log in
 ACCOUNT_ACTIVATION_DAYS = True  # activation window in days
 REGISTRATION_AUTO_LOGIN = True  # the user will be automatically logged in
 LOGIN_REDIRECT_URL = '/bean_app/home/'  # Redirect to this page after a successful login
 LOGIN_URL = '/accounts/login/'  # Redirect to this page after unsuccessful login
 
+SITE_ID = 1
