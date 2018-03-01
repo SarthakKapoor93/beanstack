@@ -1,0 +1,46 @@
+/* CSS FOR THE LOGIN PAGE */
+/* This is all basically just a dirty hack to stop the form messing up the
+existing background on the page */
+
+.login-dark {
+  margin-top: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  height:500px;
+  background:#475d62 url(../../assets/img/star-sky.jpg);
+  background-size:cover;
+  position:center;
+  max-width:320px;
+  width:90%;
+}
+
+
+.login-dark form {
+  max-width:320px;
+  width:100%;
+  height: 100%;
+  background-color:#1e2833;
+  padding:40px;
+  border-radius:0px;
+  transform:translate(-50%, -50%);
+  position:absolute;
+  top:50%;
+  left:50%;
+  color:#fff;
+  box-shadow:3px 3px 4px rgba(0,0,0,0.2);
+}
+
+/* CSS FOR THE MAPS */
+/* Always set the map height explicitly to define the size
+of the div element that contains the map. */
+
+#map {
+height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+}

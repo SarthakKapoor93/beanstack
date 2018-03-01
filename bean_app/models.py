@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.template.defaultfilters import slugify
+from bean_app.google_maps_api import Mapper
 
 '''
     *** NOTES: ***
@@ -9,6 +10,8 @@ from django.template.defaultfilters import slugify
     to the models.
     - We may need to include slugs for some of the objects
 '''
+
+mapper = Mapper()
 
 
 class Tag(models.Model):
@@ -73,18 +76,20 @@ class Vendor(models.Model):
     business_name = models.CharField(max_length=128, unique=True)
     # password = models.CharField()
     url_online_shop = models.URLField(blank=True)
-    address = models.CharField(max_length=128, blank=True)
+    address = models.CharField(max_length=128)
     # telephone = models.CharField()
-    description = models.TextField(max_length=128, blank=True)
+    description = models.TextField(max_length=1000, blank=True)
     products_in_stock = models.ManyToManyField(CoffeeBean)
     # In order to display the vendor on the map we need to save the lat and long coordinates
-    lat = models.FloatField(default=None)
-    long = models.FloatField(default=None)
+    lat = models.FloatField(default=None, blank=True)
+    long = models.FloatField(default=None, blank=True)
 
-    # Override the save method of this class as with CoffeeBean so that
-    # each time the vendors addresss is saved, we convert the address into coordinates
-    # The googlemap has a way of getting the coords from the address (Geocoding). This function
-    # could be built into the google_maps_api.py file and imported to use here
+    # Before saving, take the address and get the formatted address
+    # and the coordinates for the cafe
+    def save(self, *args, **kwargs):
+        data = mapper.geocode(address=self.address)
+        self.address, self.lat, self.long = data
+        super(Vendor, self).save(*args, **kwargs)
 
 
     # This could be useful, if we can implement it

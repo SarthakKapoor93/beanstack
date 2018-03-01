@@ -1,5 +1,13 @@
 import requests
+import re
 
+"""
+NOTE: This class is not being used at the moment because the javascript that we downloaded from 
+google is static and not dymanic, meaning that it was possible to just download it and store in the 
+static file: beanstack/static/assets/js/googlemaps-api.js
+
+I haven't deleted the class yet because we may want to use it in the future for other api calls eg GeoCoding.
+"""
 
 class Mapper:
     """
@@ -46,11 +54,57 @@ class Mapper:
 
         return self.javascript
 
-    def get_coordinates(self, address):
+    def geocode(self, address=None, lat=None, lng=None):
         """
-        Use the  google geocoding api to convert the address into
-        lat and long coordinates.
-        :param address:
-        :return: lat, long
+        If an address is passed in, the method tries to get the coordinates,
+        if there is no address but there are coordinates, it tries to get the address.
+        If no arguments are passed in None values are returned.
+
+        Raises a GeolocationException if no results are found. This passes back the error
+        from the Google API.
+
+        :param address: the address as a string
+        :param lat: the latitude as a float
+        :param lng: the longitude as a float
+        :return: the formatted address, the lat and the lng or (None, None, None)
         """
-        pass
+
+        if address:
+            formatted_address = ",+".join(re.split("[,\s]+", address))
+
+            url = "https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}"
+            formatted_url = url.format(formatted_address, self.get_api_key())
+
+            response = requests.get(formatted_url)
+            json = response.json()
+
+            if json['status'] != 'OK':
+                raise GeolocationException(json['status'])
+
+            lat = json['results'][0]['geometry']['location']['lat']
+            lng = json['results'][0]['geometry']['location']['lng']
+            address = json['results'][0]['formatted_address']
+
+        elif lat and lng:
+
+            url = "https://maps.googleapis.com/maps/api/geocode/json?latlng={},{}&key={}"
+            formatted_url = url.format(lat, lng, self.get_api_key())
+
+            response = requests.get(formatted_url)
+            json = response.json()
+
+            if json['status'] != 'OK':
+                raise GeolocationException(json['status'])
+
+            address = json['results'][0]['formatted_address']
+
+        return address, lat, lng
+
+
+class GeolocationException(Exception):
+    pass
+
+
+
+
+
