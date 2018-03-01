@@ -7,43 +7,25 @@
 {% endblock %}
 
 {% block body_block %}
-    <!--<div class="register-photo">-->
-        <!--<div class="form-container">-->
-            <!--<div class="image-holder"><img src="assets/img/BeanStackLogo3.png">-->
-                <!--<div class="swiper-slide" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500);"></div>-->
-            <!--</div>-->
-            <!--<form method="post">-->
-                <!--{% csrf_token %}-->
-
-                <!--<h2 class="text-center"><strong>Create</strong> an account.</h2>-->
-                <!--<div class="form-group">-->
-                    <!--<input class="form-control" type="email" name="email" placeholder="Email">-->
-                <!--</div>-->
-
-                <!--<div class="form-group">-->
-                    <!--<input class="form-control" type="password" name="password" placeholder="Password">-->
-                <!--</div>-->
-
-                <!--<div class="form-group">-->
-                    <!--<input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)">-->
-                <!--</div>-->
-
-                <!--<div class="form-group">-->
-                    <!--<div class="checkbox">-->
-                        <!--<label class="control-label">-->
-                            <!--<input type="checkbox">I agree to the license terms.</label>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="form-group">-->
-                    <!--<button class="btn btn-primary btn-block" type="submit">Sign Up</button>-->
-                <!--</div><a href="#" class="already">You already have an account? Login here.</a></form>-->
-        <!--</div>-->
-    <!--</div>-->
-   <h1>Register here</h1>
-    <form action="." method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="submit">
-    </form>
+    <div class="register-photo">
+        <div class="form-container">
+           <div class="image-holder"><img src="{% static 'assets/img/BeanStackLogo3.png' %}">
+                <div class="swiper-slide" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500);"></div>
+            </div>
+            <form action="." method="post">
+                <h2 class="text-center"><strong>Create</strong> an account.</h2>
+                {% csrf_token %}
+                {{ form.as_p }}
+              <div class="form-group">
+                    <div class="checkbox">
+                        <label class="control-label">
+                            <input type="checkbox">I agree to the license terms.</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+                </div><a href="#" class="already">You already have an account? Login here.</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}
