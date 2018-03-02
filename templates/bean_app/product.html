@@ -1,133 +1,103 @@
-<!DOCTYPE html>
+{% extends 'bean_app/base.html' %}
 {% load staticfiles %}
-<html>
+{% load bean_app_template_tags %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beanstack product</title>
-    <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
-    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/fonts/ionicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Article-Dual-Column.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Contact-Form-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Footer-Clean.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Header-Blue.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Profile-Edit1.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Registration-Form-with-Photo.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Reviewbtn1.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Slides_home.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Tag-cloud.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Team-Grid.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/User-Chat.css' %}">
-</head>
+{% block title_block %}
+    Product details
+{% endblock %}
 
-<body>
-    <div>
-        <div class="header-blue">
-            <nav class="navbar navbar-default navigation-clean-search">
-                <div class="container">
-                    <div class="navbar-header"><a class="navbar-brand navbar-link" href="{% url 'home' %}">Bean Stack</a>
-                        <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navcol-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active" role="presentation"><a href="{% url 'about' %}">About </a></li>
-                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="{% url 'browse' %}">Beans <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation"><a href="{% url 'browse' %}">Reviews and Ratings</a></li>
-                                    <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
-                                    <li role="presentation"><a href="#">Brewing </a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="navbar-form navbar-left" target="_self">
-                            <div class="form-group">
-                                <label class="control-label" for="search-field"><i class="glyphicon glyphicon-search"></i></label>
-                                <input class="form-control search-field" type="search" name="search" id="search-field">
-                            </div>
-                        </form>
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'myaccount' %}">My Account</a> <a class="btn btn-default action-button" role="button" href="{% url 'home' %}">Log out </a></p>
-                    </div>
-                </div>
-            </nav>
-            <div class="container hero">
-                <div class="row">
-                    <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-                        <h1>About the product.</h1>
-                        <p>Details of the product.</p>
-                        <p>Rating of product.</p>
-                        <button class="btn btn-default btn-lg action-button" type="button">Add a review</button>
-                    </div>
-                    <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder"><img class="img-responsive" src="assets/img/BeanType2.png">
-                        <div class="iphone-mockup">
-                            <div class="screen"></div>
-                        </div>
-                    </div>
+{% block head_block %}
+    <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block banner_block %}
+    <div class="container hero">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <h2>{{ bean.name }}</h2>
+                <p>{{ bean.description }}</p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
+                <div class="iphone-mockup">
+                    <div class="screen"></div>
                 </div>
             </div>
         </div>
+        <div class="row">
+             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <p>{{ bean.location }}</p>
+                <p>£{{ bean.price }}</p>
+                <p>
+                    average rating: {{ average_rating }}
+                    {% autoescape off %}
+                        <span>{% get_stars bean.average_rating white %}</span>
+                    {% endautoescape %}
+                </p>
+             </div>
+             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                 <p>
+                    {% for tag in tags %}
+                        <span class="btn btn-default action-button">{{ tag }}</span>
+                    {% endfor %}
+                </p>
+                <button id="review-button" class="btn btn-default btn-lg action-button" type="button">Write a review</button>
+                <button id="add-button" class="btn btn-default btn-lg action-button" type="button">Add to my BeanStack</button>
+                <button id="vendor-button" class="btn btn-default btn-lg action-button" type="button">Find vendor</button>
+             </div>
+        </div>
     </div>
-    <div class="article-list">
+{% endblock %}
+
+{% block body_block %}
+    <div id="vendor-heading">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center">Find a Vendor</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class ="center panel panel-default" style="max-width: 750px; margin: auto;">
+
+            <div class="panel-body">
+                <div class="btn-group">
+                    <button id="select-cafe" class="btn btn-secondary btn-md">Select Cafe</button>
+                    <button id="beanstack-cafes" class="btn btn-secondary btn-md">BeanStack Cafes</button>
+                    <button id="other-cafes" class="btn btn-secondary btn-md">Other Cafes</button>
+                </div>
+                <div id="map-canvas" style="background: transparent url({% static 'assets/img/source.gif' %}) no-repeat center center;">
+                    <div id="map" style="width: 100%; height: 450px; margin: auto;"></div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div id="map-message" class=""></div>
+            </div>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <div id="review-heading" class="article-list">
         <div class="container">
             <div class="intro">
                 <h2 class="text-center">Reviews </h2>
-                <p class="text-center">This section will show the top three coffee beans </p>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="media">
-                        <div class="media-left">
-                            <a><img></a>
+                {% for review in reviews %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ review.customer }}</div>
+                        <div class="panel-body">
+                             {% autoescape off %}
+                                <span>{% get_stars review.rating '#D17581' %}</span>
+                            {% endautoescape %}
+                            <p>{{ review.comment }}</p>
                         </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">User 1</h4>
-                            <p>Review 1. </p>
-                        </div>
-                    </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="media">
-                        <div class="media-left">
-                            <a><img></a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">User 2</h4>
-                            <p>Review 2. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="media">
-                        <div class="media-left">
-                            <a><img></a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">User 3</h4>
-                            <p>Review 3.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="media">
-                        <div class="media-left">
-                            <a><img></a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">User n</h4>
-                            <p>Review 4.</p>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -135,81 +105,172 @@
         <div class="container">
             <div class="intro">
                 <h2 class="text-center">Add your review! </h2>
-                <p class="text-center">This section will show the top three coffee beans </p>
             </div>
         </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="container">
-	<div class="row" style="margin-top:30px;">
-		<div class="col-md-12">
-    	<div class="well well-sm">
-            <div class="text-right">
-                <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Add Review</a>
-            </div>
-        
-            <div class="row" id="post-review-box" style="display:none;">
-                <div class="col-md-12">
-                    <form accept-charset="UTF-8" action="" method="post">
-                        <input id="ratings-hidden" name="rating" type="hidden"> 
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
-        
-                        <div class="text-right">
-                            <div class="stars starrr" data-rating="0"></div>
-                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
-                            <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                            <button class="btn btn-success btn-lg" type="submit">Save</button>
+                        <div class="row" style="margin-top:30px;">
+                            <div class="col-md-12">
+                                <div class="well well-sm">
+                                    <div class="text-right">
+                                        <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Add Review</a>
+                                    </div>
+                                    <div class="row" id="post-review-box" style="display:none;">
+                                        <div class="col-md-12">
+                                            <form accept-charset="UTF-8" action="" method="post">
+                                                <input id="ratings-hidden" name="rating" type="hidden">
+                                                <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+                                                <div class="text-right">
+                                                    <div class="stars starrr" data-rating="0"></div>
+                                                    <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                                                    <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                                                    <button class="btn btn-success btn-lg" type="submit">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div> 
-         
-		</div>
-	</div>
-</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="footer-clean">
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-4 item">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><a href="{% url 'contact' %}">Contact us</a></li>
-                            <li><a href="{% url 'browse' %}">Reviews </a></li>
-                            <li><a href="#">Bean Types</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-sm-4 item">
-                        <ul>
-                            <li><a href="https://www.gla.ac.uk/schools/computing/">School of Computing Science, University of Glasgow </a></li>
-                            <li><a href="{% url 'about' %}">Team</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-sm-4 item">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
-                        <p class="copyright">All rights reserved &nbsp; </p>
-                        <p class="copyright">Bean Stack © 2018 </p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
-    <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'assets/js/Profile-Edit.js' %}"></script>
-    <script src="{% static 'assets/js/Reviewbtn.js' %}"></script>
-</body>
 
-</html>
+    <!-- Modal -->
+    <div id="my-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">My BeanStack</h4>
+          </div>
+          <div class="modal-body">
+              <div class="panel-group" id="accordion">
+                  <div id="class-to-add" class="panel panel-primary">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        {{ bean.name }}</a>
+                      </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                          <p>{{ bean.description }}</p>
+                            <p>{{ bean.location }}</p>
+                            <p>£{{ bean.price }}</p>
+                            <p>
+                                average rating: {{ average_rating }}
+                                {% autoescape off %}
+                                    <span>{% get_stars bean.average_rating white %}</span>
+                                {% endautoescape %}
+                            </p>
+                            <p>
+                                {% for tag in tags %}
+                                    <span class="btn btn-default action-button">{{ tag }}</span>
+                                {% endfor %}
+                            </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="spacer" class="center panel-collapse" style="height: 40px"><span id="arrow-glyph" class="glyphicon glyphicon-circle-arrow-down" style="position: center; font-size: 35px; color: #DDDDDD"></span></div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        Coffee Type</a>
+                      </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                      commodo consequat.</div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                        Coffee Type</a>
+                      </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                      commodo consequat.</div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="modal-footer">
+              <p id="modal-message" class="pull-left">
+                  The coffee has been added to your BeanStack!
+              </p>
+              <a class="pull-left" href="">Go to my account</a>
+              <div class="btn-group">
+                  <button id="modal-add" type="button" class="btn btn-default">Add</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of modal -->
+
+    <!-- This is the vendor detail modal  -->
+
+    <div id="vendor-detail-modal" class="modal fade" tabindex="-1" role="dialog">
+
+      <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+
+          <div class="modal-body">
+              <p id="description"></p>
+              <p id="online-shop"></p>
+              <p id="address"></p>
+              Coffees on sale:
+              <ul id="products">
+                  <!--insert products here via jQuery-->
+              </ul>
+          </div>
+
+          <div class="modal-footer">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default">Close</button>
+                <button type="button" class="btn btn-default">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--End of modal-->
+
+    <script type="text/javascript">
+        var coffeeKey = {{ bean.pk }};
+        var selectedCoffee = "{{ bean.name }}";
+    </script>
+
+    <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present
+    on the main base.html page. We need to change the order of the imports to fix this-->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/maps.js' %}"></script>
+
+    <!--We have a static copy of the js for the google api in the project but it seems to have stopped working
+     back to using the dynamic version-->
+    <!--<script src="{% static 'assets/js/googlemaps-api.js' %}"></script>-->
+    <script src="{% url 'load_api' %}"></script>
+    <script src="{% static 'assets/js/product.js' %}"></script>
+{% endblock %}

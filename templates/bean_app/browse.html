@@ -31,8 +31,8 @@
                 <!--</div>-->
              </div>
 
-<div class="col-md-2">
-               <div class="dropdown open">
+            <div class="col-md-2">
+               <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true" type="button">Sort by <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
                         <li role="presentation"><a href="#">Alphabatical Order</a></li>
@@ -41,23 +41,25 @@
                  </div>
              </div>
 
-              </div>
+        </div>
      </div>
 
 <!--list of products after the filters -->
     <div class="container hero">
-
         {% for bean in beans %}
             <div class="row">
                 <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
                     <h2 class="text-left">{{ bean.name }}</h2>
                     <p>{{ bean.description }}</p>
-                    <p>
+                    <span>
                         {% autoescape off %}
-                            {% get_stars bean.average_rating %}
+                            {% get_stars bean.average_rating '#D17581' %}
                         {% endautoescape %}
-                        <button class="btn btn-default btn-lg action-button pull-right" type="button">Add a review</button>
-                    </p>
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'product' bean.slug %}"><button class="btn btn-default btn-lg action-button" type="button">Details</button></a>
+                            <a href=""><button class="btn btn-default btn-lg action-button pull-right" type="button">Add review</button></a>
+                        </div>
+                    </span>
                 </div>
                 <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
                     <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
@@ -67,12 +69,23 @@
                     <div class="clearfix"></div>
                  </div>
              </div>
-{% endfor %}
-
-    <nav>
-       <ul class="pager">
-            <li><a href="#">Older</a></li>
-            <li><a href="#">Newer</a></li>
-        </ul>
-    </nav>
+        <br>
+        <br>
+        <br>
+        {% endfor %}
+    </div>
+    <br>
+    <div class="pager">
+        <div>
+        {% if beans.has_previous %}
+            <a href="?page={{ beans.previous_page_number }}"><button class="btn action-button" type="button">Previous</button></a>
+        {% endif %}
+        {% if beans.has_next %}
+            <a href="?page={{ beans.next_page_number }}"><button class="btn action-button" type="button">Next</button></a>
+        {% endif %}
+        </div>
+    <span style="color: white;">
+        Page {{ beans.number }} of {{ beans.paginator.num_pages }}
+    </span>
+    </div>
 {% endblock %}

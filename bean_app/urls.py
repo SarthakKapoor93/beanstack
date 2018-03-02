@@ -13,8 +13,8 @@ urlpatterns = [
     url(r'^signup', views.signup, name='signup'),
     url(r'^vendorsignup', views.signup, name='vendorsignup'),
     url(r'^signupselection', views.signupselection, name='signupselection'),
-    url(r'^maps', views.maps, name='maps'),
-    url(r'^load_api', views.load_api, name='load_api')
-    ]
+    url(r'^load_api', views.load_api, name='load_api'),
+    url(r'^product/[\w\-]+/get-cafes', views.get_beanstack_cafes, name="get_cafes"),
+]
 
 

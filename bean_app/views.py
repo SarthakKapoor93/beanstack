@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm
 from bean_app.google_maps_api import Mapper
+from django.core.paginator import Paginator
+import json
 
 mapper = Mapper()
 
@@ -25,8 +27,18 @@ def contact(request):
 
 
 def browse(request):
-    beans = CoffeeBean.objects.all()
-    return render(request, 'bean_app/browse.html', {'beans': beans})
+    # Get all the beans from the database ordered by the rating
+    beans = CoffeeBean.objects.order_by('-average_rating')
+
+    #  Pagination
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(beans, 5, orphans=2)
+    page = paginator.page(page_number)
+
+    context = {
+        "beans": page
+    }
+    return render(request, 'bean_app/browse.html', context)
 
 
 def login(request):
@@ -54,7 +66,7 @@ def signup(request):
             account.user = user
 
             if 'picture' in request.FILES:
-                account.picture = request.FLIES['picture']
+                account.picture = request.FILES['picture']
             account.save()
 
             signup_complete = True
@@ -115,6 +127,7 @@ def vendorsignup(request):
 
 
 def product(request, coffee_name_slug):
+
     bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': bean,
                'tags': bean.tags.all(),
@@ -123,42 +136,48 @@ def product(request, coffee_name_slug):
     return render(request, 'bean_app/product.html', context)
 
 
-def maps(request):
-    positions = None
-
-    # If they want to see all the beanstack cafes on the map
-    beanstack_cafes = request.GET.get('beanstack-cafes', False)
-    if beanstack_cafes:
-        # Access the lat and long values from all cafes in the database
-        positions = [{'lat': vendor.lat, 'lng': vendor.long} for vendor in Vendor.objects.all()]
-
-    # If they want to see a specific beanstack cafe on the map,
-    # get the id from the request
-    selected_cafe_id = request.GET.get('selected-cafe', None)
-    selected_cafe = bool(selected_cafe_id)
-    if selected_cafe_id:
-        # retrieve the cafe from the database
-        cafe = Vendor.objects.get(pk=selected_cafe_id)
-        positions = [{'lat': cafe.lat, 'lng': cafe.long}]
-
-    context = {
-        'beanstack_cafes': beanstack_cafes,
-        'selected_cafe': selected_cafe,
-        'selected_cafe_id': selected_cafe_id,
-        'other_cafes': request.GET.get('other-cafes', False),
-        'positions': positions
-    }
-    return render(request, 'bean_app/maps.html', context)
-
-
 def load_api(request):
     """
-    Takes makes a call to the mapper object in order
+    Makes a call to the mapper object in order
     to retrieve javascript from the api.
     :param request:
     :return:
     """
     return HttpResponse(mapper.get_javascript())
+
+
+def get_beanstack_cafes(request):
+    """
+    Checks if there is a coffee_id
+    :param request:
+    :return:
+    """
+
+    # Get either the selected vendor objects
+    coffee_id = request.GET.get('coffee_id', None)
+    if coffee_id:
+        vendors = []
+        for vendor in Vendor.objects.all():
+            coffee = vendor.products_in_stock.filter(pk=coffee_id).first()
+            if coffee:
+                vendors.append(vendor)
+    else:
+        # Or all of the vendor objects
+        vendors = Vendor.objects.all()
+
+    data = []
+    # Arrange the vendor information
+    for vendor in vendors:
+        vendor_data = {"business_name": vendor.business_name,
+                       "description": vendor.description,
+                       "online-shop": vendor.url_online_shop,
+                       "address": vendor.address,
+                       "products": [coffee_bean.name for coffee_bean in vendor.products_in_stock.all()],
+                       "lat": vendor.lat,
+                       "lng": vendor.long
+                       }
+        data.append(vendor_data)
+    return HttpResponse(json.dumps(data))
 
 
 def user_login(request):
