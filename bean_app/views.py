@@ -174,7 +174,11 @@ def product(request, coffee_name_slug):
                 print(tag)
 
                 # update the tag value
-                tag.value = value
+                if value == '+':
+                    tag.value += 1
+                elif value == '-':
+                    tag.value -= 1
+
                 tag.save()
 
         # Create the review

@@ -65,10 +65,15 @@ function activate_modal(marker){
 // each time they are updated
 
 $('.plus').click(function(){
-    // get the value from the hidden field and increment it by one
+    // Get the name of tag that has been pushed
     var tag = $(this).attr('data-tag');
-    var value = $("#" + tag + "-input").attr('value');
-    value ++
-    // Put the value back into the hidden input
-    $("#" + tag + "-input").attr('value', value);
+    // Insert the '+' character into the data attribute
+    $("#" + tag + "-input").attr('value', '+');
+});
+
+$('.minus').click(function(){
+    // Get the name of tag that has been pushed
+    var tag = $(this).attr('data-tag');
+    // Insert the '-' character into the data attribute
+    $("#" + tag + "-input").attr('value', '-');
 });
