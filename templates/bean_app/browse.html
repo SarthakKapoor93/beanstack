@@ -57,7 +57,7 @@
                         {% endautoescape %}
                         <div class="btn-group pull-right">
                             <a href="{% url 'product' bean.slug %}"><button class="btn btn-default btn-lg action-button" type="button">Details</button></a>
-                            <a href=""><button class="btn btn-default btn-lg action-button pull-right" type="button">Add review</button></a>
+                            <a href="{% url 'product' bean.slug %}?reviews=True"><button class="btn btn-default btn-lg action-button pull-right" type="button">Add review</button></a>
                         </div>
                     </span>
                 </div>

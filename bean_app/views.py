@@ -187,10 +187,16 @@ def product(request, coffee_name_slug):
                 tag.save()
 
     # The user has made a get request
+
+    # This boolean flag contols some javascript that automatically scrolls
+    # to the reviews section on page load
+    display_reviews = bool(request.GET.get('reviews', False))
+
     coffee_bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': coffee_bean,
                'tags': coffee_bean.tags.all(),
-               'reviews': Review.objects.filter(coffee_bean=coffee_bean)
+               'reviews': Review.objects.filter(coffee_bean=coffee_bean),
+               'display_reviews': display_reviews
                }
     return render(request, 'bean_app/product.html', context)
 

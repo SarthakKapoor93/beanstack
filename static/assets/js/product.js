@@ -1,5 +1,10 @@
 $(function(){
     $('#modal-message').hide();
+
+    // If the boolean flag exists on page load scroll to the reviews section
+    if (displayReviews){
+        document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
+    }
 });
 
 // Resizes the window took this from stack overflow
@@ -13,7 +18,7 @@ $(window).bind('resize', function(e)
 });
 
 $('#review-button').click(function(event){
-    document.getElementById('review-heading').scrollIntoView({behavior: "smooth"});
+    document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
 });
 
 $('#vendor-button').click(function(event){

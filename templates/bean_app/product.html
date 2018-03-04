@@ -174,7 +174,7 @@
     <br>
     <br>
     <br>
-    <div id="review-heading" class="article-list">
+    <div id="reviews" class="article-list">
         <div class="container">
             <div class="intro">
                 <h2 class="text-center">Reviews </h2>
@@ -373,6 +373,7 @@
     <script type="text/javascript">
         var coffeeKey = {{ bean.pk }};
         var selectedCoffee = "{{ bean.name }}";
+        var displayReviews = {{ display_reviews|lower }};
     </script>
 
     <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present
