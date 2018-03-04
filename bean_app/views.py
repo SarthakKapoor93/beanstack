@@ -142,10 +142,11 @@ def radar(request):
 
     return render(request, 'bean_app/radar-chart.html', context=context)
 
-'''
-The product method should also return a list of the coffee shops that 
-sell this product. Then you don't need to do another ajax call for it.
 
+'''
+NOTE: When we have users up and running with authentication etc, in this view, we need to make sure that
+a users can only leave one review for each coffee.
+NOTE: It is also important that the review is made before the upvotes are registered. 
 '''
 
 
@@ -154,9 +155,6 @@ def product(request, coffee_name_slug):
     # If the user is posting a review
     if request.method == 'POST':
 
-        # We need to make sure that the user hasn't already left a review for this coffee
-        # we can do this until we have the user system up an running.
-
         # Just take any customer for the time being
         customer = Customer.objects.all().first()
         comment = request.POST.get('comment')
@@ -164,16 +162,22 @@ def product(request, coffee_name_slug):
         rating = request.POST.get('rating', 0)
         coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
 
-        # Get all of the tag types
+        # Create the review
+        review = Review(customer=customer,
+                        comment=comment,
+                        coffee_bean=coffee_bean,
+                        rating=rating
+                        )
+        review.save()
+
+        # Update the tags with the values from the post data
         tag_types = TagType.objects.all()
         # loop over the tag types and use the name to get the values from the post
         for tag_type in tag_types:
             value = request.POST.get(tag_type.name)
             if value:
-
                 # now we need to access the tag. How do we get a specific tag?
                 tag = Tag.objects.filter(tag_type=tag_type, coffee_bean=coffee_bean).first()
-
                 # update the tag value
                 if value == '+':
                     tag.value += 1
@@ -182,19 +186,7 @@ def product(request, coffee_name_slug):
 
                 tag.save()
 
-        # Create the review
-        coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
-
-        review = Review(customer=customer,
-                        comment=comment,
-                        coffee_bean=coffee_bean,
-                        rating=rating
-                        )
-        review.save()
-
-
-    # Or they just want the details page
-
+    # The user has made a get request
     coffee_bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': coffee_bean,
                'tags': coffee_bean.tags.all(),
