@@ -488,6 +488,7 @@ def populate_extra_tag_types():
 if __name__ == "__main__":
     print("Stacking up the beans....")
     populate_main_models(review_texts[:15])
+    names = names[::-1]
     populate_main_models(review_texts[15:])
     populate_extra_tag_types()
     print("Populating vendors may take a few seconds because the script accesses Googlemaps' geocoding api ...")

@@ -154,6 +154,8 @@ def product(request, coffee_name_slug):
     # If the user is posting a review
     if request.method == 'POST':
 
+        # We need to make sure that the user hasn't already left a review for this coffee
+        # we can do this until we have the user system up an running.
 
         # Just take any customer for the time being
         customer = Customer.objects.all().first()
