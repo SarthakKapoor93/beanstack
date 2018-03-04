@@ -154,12 +154,12 @@ def product(request, coffee_name_slug):
     # If the user is posting a review
     if request.method == 'POST':
 
+
         # Just take any customer for the time being
         customer = Customer.objects.all().first()
         comment = request.POST.get('comment')
         coffee_bean_slug = request.POST.get('coffee-bean')
-        # rating = request.POST.get('rating')
-
+        rating = request.POST.get('rating', 0)
         coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
 
         # Get all of the tag types
@@ -168,10 +168,9 @@ def product(request, coffee_name_slug):
         for tag_type in tag_types:
             value = request.POST.get(tag_type.name)
             if value:
-                print(value)
+
                 # now we need to access the tag. How do we get a specific tag?
                 tag = Tag.objects.filter(tag_type=tag_type, coffee_bean=coffee_bean).first()
-                print(tag)
 
                 # update the tag value
                 if value == '+':
@@ -187,9 +186,8 @@ def product(request, coffee_name_slug):
         review = Review(customer=customer,
                         comment=comment,
                         coffee_bean=coffee_bean,
-                        rating=1
+                        rating=rating
                         )
-
         review.save()
 
 

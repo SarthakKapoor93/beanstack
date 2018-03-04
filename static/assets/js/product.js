@@ -66,14 +66,14 @@ function activate_modal(marker){
 
 $('.plus').click(function(){
     // Get the name of tag that has been pushed
-    var tag = $(this).attr('data-tag');
+    var tag_id = $(this).attr('data-tag');
     // Insert the '+' character into the data attribute
-    $("#" + tag + "-input").attr('value', '+');
+    $("#" + tag_id).attr('value', '+');
 });
 
 $('.minus').click(function(){
     // Get the name of tag that has been pushed
-    var tag = $(this).attr('data-tag');
+    var tag_id = $(this).attr('data-tag');
     // Insert the '-' character into the data attribute
-    $("#" + tag + "-input").attr('value', '-');
+    $("#" + tag_id).attr('value', '-');
 });

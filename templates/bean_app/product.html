@@ -217,7 +217,7 @@
                                     <div class="col-md-12">
                                         <form accept-charset="UTF-8" action="." method="post">
                                             {% csrf_token %}
-                                            <input id="ratings-hidden" name="rating" type="hidden">
+                                            <input id="ratings-hidden" name="rating" type="hidden" value="0">
                                             <input id="coffee-name-hidden" name="coffee-bean" type="hidden" value="{{ bean.slug }}">
                                             <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5" style="background: rgba(0, 0, 0, 0); color: white; margin-top: 50px; margin-bottom: 50px;"></textarea>
 
@@ -226,11 +226,11 @@
                                             <div>
                                                 {% for tag in tags %}
                                                 <span class="btn-group">
-                                                    <button class="minus btn btn-default action-button btn-sm" type="button" data-tag="{{tag}}">-</button>
+                                                    <button class="minus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}">-</button>
                                                     <label class="btn btn-default action-button btn-sm">{{tag}}</label>
-                                                    <button class="plus btn btn-default action-button btn-sm" type="button" data-tag="{{tag}}">+</button>
+                                                    <button class="plus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}">+</button>
                                                 </span>
-                                                <input id="{{tag}}-input" type="hidden" name="{{tag}}" value="0">
+                                                <input id="{{tag.id}}" type="hidden" name="{{tag}}" value="0">
                                                 {% endfor %}
                                             </div>
 
