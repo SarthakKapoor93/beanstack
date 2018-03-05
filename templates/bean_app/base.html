@@ -82,7 +82,18 @@
                                 <input class="form-control search-field" type="search" name="search" id="search-field" placeholder="Search ...">
                             </div>
                         </form>
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'login' %}">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
+                        <p class="navbar-text navbar-right">
+                            <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+                            <a class="navbar-link login" href="{% url 'auth_login' %}">Log In</a>
+                            <a class="navbar-link login" href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a>
+                            <a class="navbar-linlk login" href="{% url 'auth_password_change' %}">Change password</a>
+                            <a class="btn btn-default action-button" role="button" href="{% url 'registration_register' %}">Sign Up</a>
+                            {% if user.is_authenticated %}
+                                {{ user.username }} 
+                            {% endif %}
+
+
+                        </p>
                     </div>
                 </div>
             </nav>

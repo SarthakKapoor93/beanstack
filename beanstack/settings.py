@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bean_app',
+    'registration',
+    'social_django'
+
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'beanstack.urls'
@@ -68,6 +72,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -105,6 +111,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = (
+    # 'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -128,3 +142,18 @@ STATICFILES_DIRS = [STATIC_DIR]
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+REGISTRATION_OPEN = True    # If true the users can log in
+ACCOUNT_ACTIVATION_DAYS = True  # activation window in days
+REGISTRATION_AUTO_LOGIN = True  # the user will be automatically logged in
+LOGIN_REDIRECT_URL = '/bean_app/home/'  # Redirect to this page after a successful login
+LOGIN_URL = '/accounts/login/'  # Redirect to this page after unsuccessful login
+
+
+# LOGIN_URL = 'login'
+# LOGOUT_URL = 'logout'
+# LOGIN_REDIRECT_URL = 'home'
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '821468518056385'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '7752c149f2b5cc05b27eb085c8402e6e'  # App Secret

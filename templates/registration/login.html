@@ -1,0 +1,44 @@
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+{% load bean_app_template_tags %}
+
+{% block title_block %}
+    Login
+{% endblock %}
+
+{% block body_block_alt %}
+    <div class="login-dark">
+        <form method="post" action=".">
+
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+             <form method="post" action=".">
+                 {% csrf_token %}
+                 {{ form.as_p }}
+             <input class="form-control" type="email" name="email" placeholder="Email">
+             </form>
+             <form method="post" action=".">
+                 {% csrf_token %}
+                 {{ form.as_p }}
+                 <input class="form-control" type="password" name="password" placeholder="Password"></form>
+
+            <form method="post" action=".">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary btn-block" >Log In</button>
+               <a href="#" class="forgot">Forgot your email or password?</a></form>
+                <input type="hidden" name="next" value="{{ next }}">
+              {{ form.as_p }}
+                <a href="{% url 'registration_register' %}">Register</a>
+              {{ form.as_p }}
+            <p>
+            Not a member?
+
+    </p>
+        </div>
+
+{% endblock %}
+
+
+
+
+

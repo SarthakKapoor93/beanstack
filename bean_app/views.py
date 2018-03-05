@@ -77,7 +77,7 @@ def signup(request):
         signup_form = SignupForm()
         account_form = AccountForm()
 
-    return render(request, 'bean_app/signup.html', {
+    return render(request, 'bean_app/registration_form.html', {
         'SignupForm': signup_form,
         'AccountForm': account_form,
         'signup_complete': signup_complete})
