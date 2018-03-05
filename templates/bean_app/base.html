@@ -87,6 +87,9 @@
                             <a class="navbar-link login" href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a>
                             <a class="navbar-linlk login" href="{% url 'auth_password_change' %}">Change password</a>
                             <a class="btn btn-default action-button" role="button" href="{% url 'registration_register' %}">Sign Up</a>
+                            {% if user.is_authenticated %}
+                                {{ user.username }} 
+                            {% endif %}
 
 
                         </p>
