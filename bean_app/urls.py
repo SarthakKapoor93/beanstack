@@ -16,8 +16,9 @@ urlpatterns = [
     url(r'^signupselection', views.signupselection, name='signupselection'),
     url(r'^load_api', views.load_api, name='load_api'),
     url(r'^product/[\w\-]+/get-cafes', views.get_beanstack_cafes, name="get_cafes"),
+    url(r'^product/[\w\-]+/update-my-beanstack', views.update_my_beanstack, name="update_my_beanstack"),
     # url(r'^registration-redirect', views.registration_redirect, name='registration_redirect'),
-    url(r'^mybeanstack', views.my_beanstack, name='my_beanstack'),
+    url(r'^my-beanstack', views.my_beanstack, name='my_beanstack'),
 ]
 
 

@@ -210,9 +210,18 @@ def vendor_signup(request):
 def product(request, coffee_name_slug):
 
     bean = CoffeeBean.objects.get(slug=coffee_name_slug)
+
+    # This view also needs to pass back the users, saved coffees in the context
+    # (we could also do this via an ajax request)
+    profile = UserProfile.objects.get(user=request.user)
+
+    coffees = list(profile.saved_coffees.all())
+    saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
+
     context = {'bean': bean,
                'tags': bean.tags.all(),
-               'reviews': Review.objects.filter(coffee_bean=bean)
+               'reviews': Review.objects.filter(coffee_bean=bean),
+               'saved_coffees': saved_coffees
                }
     return render(request, 'bean_app/product.html', context)
 
@@ -259,6 +268,17 @@ def get_beanstack_cafes(request):
                        }
         data.append(vendor_data)
     return HttpResponse(json.dumps(data))
+
+
+def update_my_beanstack(request):
+    # Take the bean slug from the get request
+    bean_slug = request.GET.get('bean_slug', None)
+    bean = CoffeeBean.objects.get(slug=bean_slug)
+
+    # Get the user profile for the current user and add the bean
+    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile.saved_coffees.add(bean)
+    return HttpResponse()
 
 
 # def user_login(request):

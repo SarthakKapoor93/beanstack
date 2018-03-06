@@ -47,27 +47,13 @@ function next(userPosition){
         zoom: 15
     });
 
-    // Place the user's position on the map as a marker
+    // Place the users position on the map as a marker
     var marker = new google.maps.Marker({
         icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
         map: map,
         position: userPosition
     });
 
-    // Create an info window for the user
-    var infowindow = new google.maps.InfoWindow({
-        content: "<b>You are here</b>",
-        });
-
-    // Action listener on the users marker
-    marker.addListener('mouseover', function(){
-        infowindow.open(map, marker);
-    });
-
-    // Make sure the infowindow closes again when the mouse rolls out
-    marker.addListener('mouseout', function() {
-        infowindow.close();
-    });
 
     // As default the selected cafes should be shown.
     doAjax(coffeeKey, function(){
@@ -185,22 +171,6 @@ function doAjax(coffee_id, myCallBack){
                 products: vendor_data[i]['products']
             });
 
-
-            // Create an info window for each of the beanstack cafes
-            var infowindow = new google.maps.InfoWindow();
-
-            // Put action listeners on each of the markers and set the text to be displayed
-            google.maps.event.addListener(marker, 'mouseover', function(){
-                var content = "<b>" + this.name + "</b><br> <small>click marker for info</small>"
-                infowindow.setContent(content);
-                infowindow.open(map, this);
-            });
-
-            // Make sure the infowindow closes again when the mouse rolls out
-            google.maps.event.addListener(marker, 'mouseout', function() {
-                infowindow.close();
-            });
-
             // Create an event listener for each of the markers
             google.maps.event.addListener(marker, 'click', function() {
                 activate_modal(this);
@@ -263,22 +233,6 @@ function createMarker(place) {
         position: place.geometry.location
         }
     );
-
-    // Create an info window for the marker diplaying the name of the cafe
-    var infowindow = new google.maps.InfoWindow({
-        content: "<b>" + place.name + "</b>",
-        });
-
-    // Action listener on the marker
-    marker.addListener('mouseover', function(){
-        infowindow.open(map, marker);
-    });
-
-    // Make sure the infowindow closes again when the mouse rolls out
-    marker.addListener('mouseout', function() {
-        infowindow.close();
-    });
-
 
     google.maps.event.addListener(marker, 'click', function() {
         alert("marker clicked");
