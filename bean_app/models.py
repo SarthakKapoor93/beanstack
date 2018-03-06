@@ -58,6 +58,15 @@ class Customer(models.Model):
     def __str__(self):
         return "Customer: {} - {}".format(self.pk, self.fullname)
 
+# This class, combined with the standard user class will eventually replace the customer object above
+#
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    saved_coffees = models.ManyToManyField(CoffeeBean)
+
+    def __str__(self):
+        return self.user.username
+
 
 class Review(models.Model):
     customer = models.ForeignKey(Customer)

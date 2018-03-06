@@ -4,7 +4,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag, UserProfile, User
 from bean_app.google_maps_api import Mapper
 from bean_app.forms import VendorForm
 from django.core.paginator import Paginator
@@ -310,3 +310,12 @@ def get_server_side_cookie(request, cookie, default_val=None):
     if not val:
         val = default_val
     return val
+
+
+def my_beanstack(request):
+    # Get the user profile for the user
+    profile = UserProfile.objects.get(user=request.user)
+    saved_coffees = profile.saved_coffees.all()
+
+
+    return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})
