@@ -1,0 +1,70 @@
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+{% load bean_app_template_tags %}
+
+{% block title_block %}
+    Sign Up
+{% endblock %}
+
+{% block body_block_alt %}
+    <div class="login-dark">
+        <div class="form-container">
+           <div class="image-holder">
+                <div class="swiper-slide" style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=68&amp;txt=Slideshow+Image&amp;w=1920&amp;h=500);"></div>
+            </div>
+            <form action="." method="post" style="min-height: 600px;">
+
+                <div class="illustration"><i class="icon ion-ios-contact-outline"></i></div>
+
+                {% csrf_token %}
+
+
+                <p class="required">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="username" maxlength="150" required id="id_username" placeholder="username"/>
+                    </div>
+                </p>
+
+                <p class="required">
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" required id="id_email" placeholder="email"/>
+                    </div>
+                </p>
+
+                <p class="required">
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password1" required id="id_password1" placeholder="password"/>
+
+                    </div>
+                </p>
+
+                <p class="required">
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password2" required id="id_password2" placeholder="password repeat"/>
+                    </div>
+                </p>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label class="control-label">
+                            <input type="checkbox">I agree to the license terms.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+                </div>
+                <a href="{% url 'auth_login' %}" class="already">You already have an account? Login here.</a>
+                <a href="{% url 'vendorsignup' %}" class="already">Register as a BeanStack Vendor here</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+

@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag
 from bean_app.google_maps_api import Mapper
+from bean_app.forms import VendorForm
 from django.core.paginator import Paginator
 
 from django.db.models import Q
@@ -141,7 +142,7 @@ def signup(request):
         signup_form = SignupForm()
         account_form = AccountForm()
 
-    return render(request, 'bean_app/signup.html', {
+    return render(request, 'bean_app/registration_form.html', {
         'SignupForm': signup_form,
         'AccountForm': account_form,
         'signup_complete': signup_complete})
@@ -155,39 +156,55 @@ def signupselection(request):
     return render(request, 'bean_app/signupselection.html', {})
 
 
-def vendorsignup(request):
-    vendor_signup_complete = False
+def vendor_signup(request):
 
     if request.method == 'POST':
-        vendor_signup_form = VendorSignupForm(data=request.POST)
-        vendor_account_form = VendorAccountForm(data=request.POST)
+        form = VendorForm(request.POST)
 
-        if vendor_signup_form.is_valid():
-
-            user = vendor_account_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            account = vendor_account_form.save(commit=False)
-            account.user = user
-
-            if 'picture' in request.FILES:
-                account.picture = request.FLIES['picture']
-            account.save()
-
-            vendor_signup_complete = True
-
+        if form.is_valid():
+            form.save(commit=True)
+            return render(request, 'bean_app/home.html', {})
         else:
-            print(vendor_signup_form.errors, vendor_account_form.errors)
-
+            print(form.errors)
     else:
-        vendor_signup_form = VendorSignupForm()
-        vendor_account_form = VendorAccountForm()
+        # Get the list of coffee shops and pks to display in the menu
+        bean_data = [(bean.pk, bean.name) for bean in CoffeeBean.objects.all()]
+        return render(request, 'bean_app/vendorsignup.html', {'bean_data': bean_data})
 
-    return render(request, 'bean_app/vendorsignup.html', {
-        'vendor_signup_form': vendor_signup_form,
-        'vendor_account_form': vendor_account_form,
-        'vendor_signup_complete': vendor_signup_complete})
+
+# def vendorsignup(request):
+#     vendor_signup_complete = False
+#
+#     if request.method == 'POST':
+#         vendor_signup_form = VendorSignupForm(data=request.POST)
+#         vendor_account_form = VendorAccountForm(data=request.POST)
+#
+#         if vendor_signup_form.is_valid():
+#
+#             user = vendor_account_form.save()
+#             user.set_password(user.password)
+#             user.save()
+#
+#             account = vendor_account_form.save(commit=False)
+#             account.user = user
+#
+#             if 'picture' in request.FILES:
+#                 account.picture = request.FLIES['picture']
+#             account.save()
+#
+#             vendor_signup_complete = True
+#
+#         else:
+#             print(vendor_signup_form.errors, vendor_account_form.errors)
+#
+#     else:
+#         vendor_signup_form = VendorSignupForm()
+#         vendor_account_form = VendorAccountForm()
+#
+#     return render(request, 'bean_app/vendorsignup.html', {
+#         'vendor_signup_form': vendor_signup_form,
+#         'vendor_account_form': vendor_account_form,
+#         'vendor_signup_complete': vendor_signup_complete})
 
 
 def product(request, coffee_name_slug):
@@ -244,23 +261,23 @@ def get_beanstack_cafes(request):
     return HttpResponse(json.dumps(data))
 
 
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect(reverse('index'))
-            else:
-                return HttpResponse("Please create a Beanstack account. Your credentials does not exits.")
-        else:
-            print("Invalid login details: {0}, {1}".format(username, password))
-            return HttpResponse("Invalid login details supplied.")
-    else:
-        return render(request, 'bean_app/login.html', {})
+# def user_login(request):
+#     if request.method == 'POST':
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         user = authenticate(username=username, password=password)
+#
+#         if user:
+#             if user.is_active:
+#                 login(request, user)
+#                 return HttpResponseRedirect(reverse('index'))
+#             else:
+#                 return HttpResponse("Please create a Beanstack account. Your credentials does not exits.")
+#         else:
+#             print("Invalid login details: {0}, {1}".format(username, password))
+#             return HttpResponse("Invalid login details supplied.")
+#     else:
+#         return render(request, 'bean_app/login.html', {})
 
 
 @login_required
