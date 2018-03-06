@@ -270,6 +270,7 @@ def get_beanstack_cafes(request):
     return HttpResponse(json.dumps(data))
 
 
+# This might need to check if the coffee is already on the saved coffees list and let them know
 def update_my_beanstack(request):
     # Take the bean slug from the get request
     bean_slug = request.GET.get('bean_slug', None)
