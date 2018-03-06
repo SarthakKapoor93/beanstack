@@ -101,6 +101,8 @@
             </div>
         </div>
     </div>
+
+    {% if user.is_authenticated %}
     <div class="article-list">
         <div class="container">
             <div class="intro">
@@ -139,6 +141,18 @@
             </div>
         </div>
     </div>
+    {% else %}
+        <br>
+        <br>
+        <div class="container">
+            <div class="intro">
+                <h4 class="text-center"><a href="{% url 'auth_login' %}">Log in to leave a review</a></h4>
+            </div>
+        </div>
+
+    {% endif %}
+
+
 
     <!-- Modal -->
     <div id="my-modal" class="modal fade" role="dialog">
@@ -247,10 +261,8 @@
           </div>
 
           <div class="modal-footer">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default">Close</button>
-                <button type="button" class="btn btn-default">Save changes</button>
-            </div>
+
+
           </div>
         </div>
       </div>
@@ -273,4 +285,4 @@
     <!--<script src="{% static 'assets/js/googlemaps-api.js' %}"></script>-->
     <script src="{% url 'load_api' %}"></script>
     <script src="{% static 'assets/js/product.js' %}"></script>
-{% endblock %}
+{% endblock %}ee

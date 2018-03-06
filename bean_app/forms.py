@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from bean_app.models import Tag, CoffeeBean, Customer, Review
+from bean_app.models import Tag, CoffeeBean, Customer, Review, Vendor
 
 
 class Tag(forms.ModelForm):
@@ -36,22 +36,30 @@ class CoffeeBean(forms.ModelForm):
             return cleaned_data
 
 
-class Customer(forms.ModelForm):
+# class Customer(forms.ModelForm):
+#     class Meta:
+#         model = Customer
+#         fields = ('',)
+
+
+# class Review(forms.ModelForm):
+#     class Meta:
+#         model = Review
+#         fields = ('',)
+
+
+class VendorForm(forms.ModelForm):
+    owner_name = forms.CharField(max_length=128)
+    email = forms.EmailField()
+    business_name = forms.CharField(max_length=128)
+    url_online_shop = forms.URLField()
+    address = forms.CharField(max_length=128)
+    description = forms.CharField(max_length=1000)
+    products_in_stock = forms.SelectMultiple()
+
     class Meta:
-        model = Customer
-        fields = ('',)
-
-
-class Review(forms.ModelForm):
-    class Meta:
-        model = Review
-        fields = ('',)
-
-
-class Vendor(forms.ModelForm):
-    class Meta:
-        model = Review
-        fields = ('',)
+        model = Vendor
+        fields = ('owner_name', 'email', 'business_name', 'url_online_shop', 'address', 'description', 'products_in_stock')
 
 
 class UserForm(forms.ModelForm):
@@ -61,8 +69,8 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'email', 'password')
 
-
-class UserAccount(forms.ModelForm):
-    class Meta:
-        model = UserAccount
-        fields = ('website', 'picture')
+#
+# class UserAccount(forms.ModelForm):
+#     class Meta:
+#         model = UserAccount
+#         fields = ('website', 'picture')

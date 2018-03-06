@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm
 from bean_app.google_maps_api import Mapper
+from bean_app.forms import VendorForm
 from django.core.paginator import Paginator
 import json
 
@@ -91,39 +92,55 @@ def signupselection(request):
     return render(request, 'bean_app/signupselection.html', {})
 
 
-def vendorsignup(request):
-    vendor_signup_complete = False
+def vendor_signup(request):
 
     if request.method == 'POST':
-        vendor_signup_form = VendorSignupForm(data=request.POST)
-        vendor_account_form = VendorAccountForm(data=request.POST)
+        form = VendorForm(request.POST)
 
-        if vendor_signup_form.is_valid():
-
-            user = vendor_account_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            account = vendor_account_form.save(commit=False)
-            account.user = user
-
-            if 'picture' in request.FILES:
-                account.picture = request.FLIES['picture']
-            account.save()
-
-            vendor_signup_complete = True
-
+        if form.is_valid():
+            form.save(commit=True)
+            return render(request, 'bean_app/home.html', {})
         else:
-            print(vendor_signup_form.errors, vendor_account_form.errors)
-
+            print(form.errors)
     else:
-        vendor_signup_form = VendorSignupForm()
-        vendor_account_form = VendorAccountForm()
+        # Get the list of coffee shops and pks to display in the menu
+        bean_data = [(bean.pk, bean.name) for bean in CoffeeBean.objects.all()]
+        return render(request, 'bean_app/vendorsignup.html', {'bean_data': bean_data})
 
-    return render(request, 'bean_app/vendorsignup.html', {
-        'vendor_signup_form': vendor_signup_form,
-        'vendor_account_form': vendor_account_form,
-        'vendor_signup_complete': vendor_signup_complete})
+
+# def vendorsignup(request):
+#     vendor_signup_complete = False
+#
+#     if request.method == 'POST':
+#         vendor_signup_form = VendorSignupForm(data=request.POST)
+#         vendor_account_form = VendorAccountForm(data=request.POST)
+#
+#         if vendor_signup_form.is_valid():
+#
+#             user = vendor_account_form.save()
+#             user.set_password(user.password)
+#             user.save()
+#
+#             account = vendor_account_form.save(commit=False)
+#             account.user = user
+#
+#             if 'picture' in request.FILES:
+#                 account.picture = request.FLIES['picture']
+#             account.save()
+#
+#             vendor_signup_complete = True
+#
+#         else:
+#             print(vendor_signup_form.errors, vendor_account_form.errors)
+#
+#     else:
+#         vendor_signup_form = VendorSignupForm()
+#         vendor_account_form = VendorAccountForm()
+#
+#     return render(request, 'bean_app/vendorsignup.html', {
+#         'vendor_signup_form': vendor_signup_form,
+#         'vendor_account_form': vendor_account_form,
+#         'vendor_signup_complete': vendor_signup_complete})
 
 
 def product(request, coffee_name_slug):
