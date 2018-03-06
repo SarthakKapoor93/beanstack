@@ -190,6 +190,7 @@ def signupselection(request):
 
 
 def product(request, coffee_name_slug):
+
     bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': bean,
                'tags': bean.tags.all(),

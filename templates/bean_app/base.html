@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
-
-
 <html>
 
 <head>
@@ -55,6 +53,8 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{% static 'images/favicon-96x96.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
     <link rel="manifest" href="{% static 'images/manifest.json' %}">
+
+
 </head>
 
 <body>
@@ -75,6 +75,8 @@
                                     <li role="presentation"><a href="#">Reviews and Ratings</a></li>
                                     <li role="presentation"><a href="{% url 'browse' %}">Bean Types </a></li>
                                     <li role="presentation"><a href="#">Brewing </a></li>
+                                    <li role="presentation"><a href="{% url 'maps' %}">Maps</a></li>
+
                                 </ul>
                             </li>
                         </ul>
@@ -84,21 +86,7 @@
                                 <input class="form-control search-field" type="search" name="search" id="search-field" placeholder="Search ...">
                             </div>
                         </form>
-
-
-                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="#">Log In</a>
-                            <a class="btn btn-default action-button" role="button" href="#">Sign Up</a>
-                            {% if user.is_authenticated %}{{ user.username }}{% else %}{% endif %}</p>
-
-                        <p class="navbar-text navbar-right">
-                            <a class="navbar-link login" href="{% url 'auth_login' %}">Log In</a>
-                            <a class="navbar-link login" href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a>
-                            <a class="navbar-linlk login" href="{% url 'auth_password_change' %}">Change password</a>
-                            <a class="btn btn-default action-button" role="button" href="{% url 'registration_register' %}">Sign Up</a>
-
-
-                        </p>
-
+                        <p class="navbar-text navbar-right"><a class="navbar-link login" href="{% url 'login' %}">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
                     </div>
                 </div>
             </nav>
@@ -163,6 +151,7 @@
             </div>
         </footer>
     </div>
+
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/Profile-Edit.js' %}"></script>

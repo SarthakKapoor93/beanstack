@@ -1,5 +1,6 @@
 {% extends 'bean_app/base.html' %}
 {% load staticfiles %}
+{% load bean_app_template_tags %}
 
 {% block title_block %}
  Beanstack Account Login!
@@ -9,6 +10,7 @@
 
 
 
+{% block body_block_alt %}
     <div class="login-dark">
         <form id="login_form" method="post" action="{% url 'login' %}" enctype="multipart/form-data">
             {% csrf_token %}
@@ -25,3 +27,4 @@
             </div><a href="#" class="forgot">Forgot your email or password?</a></form>
     </div>
      {% endblock %}
+{% endblock %}

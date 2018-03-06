@@ -1,6 +1,6 @@
 {% extends 'bean_app/base.html' %}
-{% load staticfiles %}
-{% block title_block %}
+ {% load staticfiles %}
+ {% block title_block %}
      BeanStack
 {% endblock %}
 
@@ -8,27 +8,26 @@
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
 {% endblock %}
 
-<!--This will probably be the only page that will use the banner-->
-{% block banner_block %}
- <div class="container hero">
-     <div class="row">
-         <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-             <h1>What's your favourite coffee!</h1>
-             <p> </p>
-             <button class="btn btn-default btn-lg action-button" type="button">
-                 Rate and review your favourite coffee beans!
-             </button>
-         </div>
-         <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
-             <img src="{% static 'assets/img/BeanStackLogo3.png'%}">
-             <div class="iphone-mockup">
-                 <div class="screen"></div>
+ <!--This will probably be the only page that will use the banner-->
+ {% block banner_block %}
+     <div class="container hero">
+         <div class="row">
+             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                 <h1>What's your favourite coffee!</h1>
+                 <p> </p>
+                 <button class="btn btn-default btn-lg action-button" type="button">
+                     Rate and review your favourite coffee beans!
+                 </button>
+             </div>
+             <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                 <img src="{% static 'assets/img/BeanStackLogo3.png'%}">
+                 <div class="iphone-mockup">
+                     <div class="screen"></div>
+                 </div>
              </div>
          </div>
      </div>
- </div>
-<span id="arrowbutton" class="glyphicon glyphicon-circle-arrow-down" style="font-size: 50px; margin-top: 100px; margin-left: 47%; color: white; opacity: 0.2;"></span>
-{% endblock %}
+ {% endblock %}
 
 {% block body_block %}
 
@@ -41,7 +40,7 @@
          <div class="row articles">
              {% for bean in beans %}
                  <div class="col-md-4 col-sm-6 item">
-                     <a href="#"><img class="img-responsive" src="{% static 'assets/img/Daterra Sunrise.png'%}" width="293px" height="195px"></a>
+                     <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px"></a>
                      <h3 class="name">{{ bean.name }}</h3>
                      <p class="description">{{ bean.description }}</p>
 
@@ -54,3 +53,156 @@
      </div>
     <script src="{% static 'assets/js/home.js' %}"></script>
 {% endblock %}
+
+
+
+
+
+<!--Old version of the complete home page-->
+
+
+<!--<!DOCTYPE html>-->
+<!--{% load staticfiles %}-->
+
+<!--<html>-->
+
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <!--<title>beanstack home</title>-->
+    <!--<link rel="stylesheet" href="{% static '/assets/bootstrap/css/bootstrap.min.css' %}" >-->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora" >-->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">-->
+    <!--<link rel="stylesheet" href="{% static '/assets/fonts/font-awesome.min.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static '/assets/fonts/ionicons.min.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Article-Dual-Column.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Contact-Form-Clean.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Footer-Clean.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static '/assets/css/Header-Blue.css' %}" media="screen">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Profile-Edit.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Profile-Edit1.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Registration-Form-with-Photo.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Reviewbtn.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Reviewbtn1.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Slides_home.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Tag-cloud.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/Team-Grid.css' %}">-->
+    <!--<link rel="stylesheet" href="{% static 'assets/css/User-Chat.css' %}">-->
+<!--</head>-->
+
+<!--<body>-->
+
+    <!--&lt;!&ndash;header div&ndash;&gt;-->
+    <!--<div>-->
+        <!--<div class="header-blue">-->
+            <!--<nav class="navbar navbar-default navigation-clean-search">-->
+                <!--<div class="container">-->
+                    <!--<div class="navbar-header"><a class="navbar-brand navbar-link" href="{% url 'home' %}">Bean Stack</a>-->
+                        <!--<button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>-->
+                    <!--</div>-->
+                    <!--<div class="collapse navbar-collapse" id="navcol-1">-->
+                        <!--<ul class="nav navbar-nav">-->
+                            <!--<li role="presentation"><a href="{% url 'about' %}">About </a></li>-->
+                            <!--<li class="dropdown open"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">Beans <span class="caret"></span></a>-->
+                                <!--<ul class="dropdown-menu" role="menu">-->
+                                    <!--<li role="presentation"><a href="{% url 'browse' %}">Reviews and Ratings</a></li>-->
+                                    <!--<li role="presentation"><a href="#">Bean Types </a></li>-->
+                                    <!--<li role="presentation"><a href="#">Brewing </a></li>-->
+                                <!--</ul>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                        <!--<form class="navbar-form navbar-left" target="_self">-->
+                            <!--<div class="form-group">-->
+                                <!--<label class="control-label" for="search-field"><i class="glyphicon glyphicon-search"></i></label>-->
+                                <!--<input class="form-control search-field" type="search" name="search" id="search-field">-->
+                            <!--</div>-->
+                        <!--</form>-->
+                        <!--<p class="navbar-text navbar-right"><a class="navbar-link login" href="#">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</nav>-->
+            <!--<div class="container hero">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">-->
+                        <!--<h1>What's your favourite coffee!</h1>-->
+                        <!--<p> </p>-->
+                        <!--<button class="btn btn-default btn-lg action-button" type="button">Rate and review your favourite coffee beans!</button>-->
+                    <!--</div>-->
+                    <!--<div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder"><img src="{% static 'assets/img/BeanStackLogo3.png'%}">-->
+                        <!--<div class="iphone-mockup">-->
+                            <!--<div class="screen"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;body div&ndash;&gt;-->
+    <!--<div class="article-list">-->
+        <!--<div class="container">-->
+            <!--<div class="intro">-->
+                <!--<h2 class="text-center">Most popular coffee beans!</h2>-->
+                <!--<p class="text-center">This section will show the top three coffee beans </p>-->
+            <!--</div>-->
+            <!--<div class="row articles">-->
+                <!--<div class="col-md-4 col-sm-6 item">-->
+                    <!--<a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType1.png'%}" width="293px" height="195px"></a>-->
+                    <!--<h3 class="name">Coffee Bean 1</h3>-->
+                    <!--<p class="description">About the bean 1.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>-->
+                <!--<div class="col-md-4 col-sm-6 item">-->
+                    <!--<a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px">-->
+                    <!--<h3 class="name">Coffee Bean 2</h3>-->
+                    <!--<p class="description">About the bean 2.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>-->
+                <!--<div class="col-md-4 col-sm-6 item">-->
+                    <!--<a href="#"></a><img class="img-responsive" src="{% static 'assets/img/BeanType3.png' %}" width="293px" height="195px">-->
+                    <!--<h3 class="name">Coffee Bean 3</h3>-->
+                    <!--<p class="description">About the bean 3.</p><a href="#" class="action"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;footer div&ndash;&gt;-->
+    <!--<div class="footer-clean">-->
+        <!--<footer>-->
+            <!--<div class="container">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-md-3 col-sm-4 item">-->
+                        <!--<h3>Quick Links</h3>-->
+                        <!--<ul>-->
+                            <!--<li><a href="{% url 'contact' %}">Contact us</a></li>-->
+                            <!--<li><a href="#">Reviews </a></li>-->
+                            <!--<li><a href="#">Bean Types</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3 col-sm-4 item">-->
+                        <!--<ul>-->
+                            <!--<li><a href="#">School of Computing Science, University of Glasgow </a></li>-->
+                            <!--<li><a href="#">Team</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3 col-sm-4 item">-->
+                        <!--<ul>-->
+                            <!--<li></li>-->
+                            <!--<li></li>-->
+                            <!--<li></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>-->
+                        <!--<p class="copyright">All rights reserved &nbsp; </p>-->
+                        <!--<p class="copyright">Bean Stack © 2018 </p>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</footer>-->
+    <!--</div>-->
+    <!--<script src="{% static 'assets/js/jquery.min.js' %}"></script>-->
+    <!--<script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>-->
+    <!--<script src="{% static 'assets/js/Profile-Edit.js' %}"></script>-->
+    <!--<script src="{% static 'assets/js/Reviewbtn.js' %}"></script>-->
+<!--</body>-->
+
+<!--</html>-->
