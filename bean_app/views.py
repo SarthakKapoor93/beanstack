@@ -213,10 +213,14 @@ def product(request, coffee_name_slug):
 
     # This view also needs to pass back the users, saved coffees in the context
     # (we could also do this via an ajax request)
-    profile = UserProfile.objects.get(user=request.user)
 
-    coffees = list(profile.saved_coffees.all())
-    saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
+    saved_coffees = []
+    user = request.user
+    if user.is_authenticated():
+        profile = UserProfile.objects.get(user=user)
+
+        coffees = list(profile.saved_coffees.all())
+        saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
     context = {'bean': bean,
                'tags': bean.tags.all(),
