@@ -166,6 +166,7 @@
           </div>
           <div class="modal-body">
               <div class="panel-group" id="accordion">
+
                   <div id="class-to-add" class="panel panel-primary">
                     <div class="panel-heading">
                       <h4 class="panel-title">
@@ -192,36 +193,38 @@
                       </div>
                     </div>
                   </div>
+
                   <div id="spacer" class="center panel-collapse" style="height: 40px"><span id="arrow-glyph" class="glyphicon glyphicon-circle-arrow-down" style="position: center; font-size: 35px; color: #DDDDDD"></span></div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                        Coffee Type</a>
-                      </h4>
-                    </div>
-                    <div id="collapse2" class="panel-collapse collapse">
-                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                      commodo consequat.</div>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                        Coffee Type</a>
-                      </h4>
-                    </div>
-                    <div id="collapse3" class="panel-collapse collapse">
-                      <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                      commodo consequat.</div>
-                    </div>
-                  </div>
-                </div>
+
+                  {% for index, bean in saved_coffees %}
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <h4 class="panel-title">
+                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ index }}">
+                                      {{ bean.name }}
+                                  </a>
+                              </h4>
+                          </div>
+                          <div id="collapse{{ index }}" class="panel-collapse collapse">
+                              <div class="panel-body">
+                                  <p>{{ bean.description }}</p>
+                                  <p>{{ bean.location }}</p>
+                                  <p>£{{ bean.price }}</p>
+                                  <p>
+                                      average rating: {{ average_rating }}
+                                      {% autoescape off %}
+                                        <span>{% get_stars bean.average_rating white %}</span>
+                                      {% endautoescape %}
+                                  </p>
+                                  <p>
+                                      {% for tag in tags %}
+                                        <span class="btn btn-default action-button">{{ tag }}</span>
+                                      {% endfor %}
+                                    </p>
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
           </div>
           <div class="modal-footer">
               <p id="modal-message" class="pull-left">
@@ -235,6 +238,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
     <!-- End of modal -->
 
@@ -273,6 +277,7 @@
     <script type="text/javascript">
         var coffeeKey = {{ bean.pk }};
         var selectedCoffee = "{{ bean.name }}";
+        var beanSlug = "{{ bean.slug }}";
     </script>
 
     <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present

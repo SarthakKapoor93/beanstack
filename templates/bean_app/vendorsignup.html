@@ -16,37 +16,37 @@
 
                 <p class="required">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="owner_name" maxlength="128" required id="id_owner_name" placeholder="Owner name"/>
+                        <input class="form-control" type="text" name="owner_name" maxlength="128" required id="id_owner_name" placeholder="owner name"/>
                     </div>
                 </p>
                 <p class="required">
                     <div class="form-group">
-                        <input class="form-control" type="email" name="email" required id="id_email" placeholder="Email"/>
+                        <input class="form-control" type="email" name="email" required id="id_email" placeholder="email"/>
                     </div>
                 </p>
 
                  <p class="required">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="business_name" maxlength="128" required id="id_business_name" placeholder="Business name"/>
+                        <input class="form-control" type="text" name="business_name" maxlength="128" required id="id_business_name" placeholder="business name"/>
                     </div>
                 </p>
 
                 <p class="required">
                     <div class="form-group">
-                        <input class="form-control" type="url" name="url_online_shop" required id="id_url_online_shop" placeholder="Url of online shop"/>
+                        <input class="form-control" type="url" name="url_online_shop" required id="id_url_online_shop" placeholder="url of online shop"/>
                     </div>
                 </p>
                 <p class="required">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="address" maxlength="128" required id="id_address" placeholder="Address of business"/>
+                        <input class="form-control" type="text" name="address" maxlength="128" required id="id_address" placeholder="address of business"/>
                     </div>
                 </p>
                 <p class="required">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="description" maxlength="1000" required id="id_description" placeholder="Description"/>
+                        <input class="form-control" type="text" name="description" maxlength="1000" required id="id_description" placeholder="description"/>
                     </div>
                 </p>
-                <span style="color: #999999; margin-left:11px;">Coffees stocked:</span>
+                <span style="color: #999999; margin-left:11px;">coffees stocked:</span>
                 <select class="form-control" name="products_in_stock" required id="id_products_in_stock" multiple="multiple" type="checkbox">
                     {% for pk, bean in bean_data %}
                         <option value="{{ pk }}">{{ bean }}</option>

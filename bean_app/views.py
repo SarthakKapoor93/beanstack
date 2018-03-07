@@ -4,7 +4,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag
+from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag, UserProfile, User
 from bean_app.google_maps_api import Mapper
 from bean_app.forms import VendorForm
 from django.core.paginator import Paginator
@@ -210,9 +210,22 @@ def vendor_signup(request):
 def product(request, coffee_name_slug):
 
     bean = CoffeeBean.objects.get(slug=coffee_name_slug)
+
+    # This view also needs to pass back the users, saved coffees in the context
+    # (we could also do this via an ajax request)
+
+    saved_coffees = []
+    user = request.user
+    if user.is_authenticated():
+        profile = UserProfile.objects.get(user=user)
+
+        coffees = list(profile.saved_coffees.all())
+        saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
+
     context = {'bean': bean,
                'tags': bean.tags.all(),
-               'reviews': Review.objects.filter(coffee_bean=bean)
+               'reviews': Review.objects.filter(coffee_bean=bean),
+               'saved_coffees': saved_coffees
                }
     return render(request, 'bean_app/product.html', context)
 
@@ -259,6 +272,18 @@ def get_beanstack_cafes(request):
                        }
         data.append(vendor_data)
     return HttpResponse(json.dumps(data))
+
+
+# This might need to check if the coffee is already on the saved coffees list and let them know
+def update_my_beanstack(request):
+    # Take the bean slug from the get request
+    bean_slug = request.GET.get('bean_slug', None)
+    bean = CoffeeBean.objects.get(slug=bean_slug)
+
+    # Get the user profile for the current user and add the bean
+    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile.saved_coffees.add(bean)
+    return HttpResponse()
 
 
 # def user_login(request):
@@ -310,3 +335,12 @@ def get_server_side_cookie(request, cookie, default_val=None):
     if not val:
         val = default_val
     return val
+
+
+def my_beanstack(request):
+    # Get the user profile for the user
+    profile = UserProfile.objects.get(user=request.user)
+    saved_coffees = profile.saved_coffees.all()
+
+
+    return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})

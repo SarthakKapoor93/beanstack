@@ -42,6 +42,14 @@ $('#arrow-glyph, #modal-add').hover(function(){
     $('#modal-add').removeClass('btn-primary');
 });
 
+$('#arrow-glyph, #modal-add').click(function(){
+    //Ajax call to add the coffee to the user's saved coffees
+    $.get('update-my-beanstack', {bean_slug: beanSlug }, function(){
+        // do nothing on callback
+    });
+
+});
+
 
 // This is called from the maps.js script
 function activate_modal(marker){

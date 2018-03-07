@@ -280,9 +280,10 @@ function createMarker(place) {
     });
 
 
-    google.maps.event.addListener(marker, 'click', function() {
-        alert("marker clicked");
-    });
+//    google.maps.event.addListener(marker, 'click', function() {
+//      DONT NEED THIS
+//        alert("marker clicked");
+//    });
     nonBeanstackMarkers.push(marker);
 
 google.maps.event.addListener(marker, 'click', function() {

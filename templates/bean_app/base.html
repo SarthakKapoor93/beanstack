@@ -87,7 +87,7 @@
                             {% if user.is_authenticated %}
                                 <a class="navbar-link login" href="{% url 'auth_password_change' %}">Change password</a>
                                 <a class="navbar-link login" href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a>
-                                <a class="navbar-link login" href="">my BeanStack</a>
+                                <a class="navbar-link login" href="{% url 'my_beanstack' %}">my BeanStack</a>
                                 <span class="btn btn-default action-button" >{{ user.username }}</span>
                             {% else %}
                                 <a class="navbar-link login" href="{% url 'auth_login' %}">Log In</a>

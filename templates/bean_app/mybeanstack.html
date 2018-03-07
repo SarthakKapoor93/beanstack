@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Hello {{user}}<br>
+    Here are your saved coffees:
+    <ul>
+    {% for coffee in saved_coffees %}
+        <li><a href="{% url 'product' coffee.slug %}">{{ coffee }}</a></li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>
