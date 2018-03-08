@@ -191,8 +191,7 @@ coffee_beans = [
                        "in the 1970s the has been a beacon for quality and sustainability for many years. "
                        "Before being renamed Irmãs Pereira (The Pereira Sisters) to represent the sisters' "
                        "joint management, the farm won several awards in the Cup of Excellence programme under "
-                       "it's original name Fazenda do Serrado. The commitment to quality that led to these awards "
-                       "continues and the quality produced on the farm represents the very best that Brazil produces.",
+                       "it's original name Fazenda do Serrado.",
         'location': "Brazil",
         'price': 6.27,
         'average_rating': 3,
@@ -297,9 +296,7 @@ coffee_beans = [
                        "from the criss-cross of cobbled streets Antigua’s unique geography that defines the coffee "
                        "from the micro-region is inescapable. Three vast volcanoes, Fuego, Agua, and Acetenango "
                        "form a ring around the region and their shelter provides a cool and dry micro-climate perfect "
-                       "for coffee growing. The edge of the city merges seamlessly with the surrounding coffee "
-                       "farms which rise up onto the lower slopes of the volcanoes to heights of around 1900m above "
-                       "sea level.  ",
+                       "for coffee growing.  ",
         'location': "Guatemala",
         'price': 7.50,
         'average_rating': 2,
