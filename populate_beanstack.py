@@ -4,17 +4,21 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanstack.settings')
 import django
 
 django.setup()
-from bean_app.models import CoffeeBean, Review, Customer, Vendor, Tag
+from bean_app.models import CoffeeBean, Review, Customer, Vendor, TagType, Tag
 
 tag_groups = [
-    ("sweet", "salt", "mellow"),
-    ("acidic", "wine", "sour"),
-    ("flowery", "fruity", "herby"),
-    ("nutty", "caramel", "chocolate"),
-    ("spicy", "honey", "buttery", "bitter"),
-    ("pepper", "cedar", "dark chocolate", "roasted peanuts")
+    ('sour', 'sweet', 'salt', 'bitter', 'enzymatic', 'sugar', 'browning', 'dry distillation', 'flowery', 'fruity',),
+    ('herby', 'nutty', 'caramel', 'chocolate', 'carbon', 'spicy', 'carbon', 'harsh', 'sharp', 'bland', 'pungent'),
+    ('mellow', 'acid', 'wine', 'sour', 'floral', 'fragrant', 'citrus', 'berry-like', 'leguminous', 'nut', 'malt', 'candy'),
+    ('syrup', 'vanilla', 'turpin', 'medicinal', 'warming', 'smokey', 'ashey', 'rough', 'neutral', 'soft', 'delicate'),
+    ('mild', 'nippy', 'piquant', 'tangy', 'tart', 'hard', 'acrid', 'coffee blossom', 'tea rose', 'cardamon', 'caraway'),
+    ('coriander seeds', 'lemon', 'apple', 'apricot', 'black berry', 'onion', 'garlic', 'cucumber', 'garden peas')
 ]
-
+extra_tags = [
+    'roasted peanuts', 'walnuts', 'balsamic rice', 'toast', 'roasted hazelnut', 'roasted almond', 'honey', 'maple',
+    'syrup', 'dark chocolate', 'swiss chocolate', 'butter', 'pine', 'black-current', 'cedar', 'pepper', 'clove',
+    'thyme', 'pipe tobacco', 'burnt', 'charred'
+]
 names = ["Frank", "Phil J", "Utku", "Andrew P", "Valerie W", "Ingrid M", "Dave", "Susan", "Maggie", "Alpha",
          "John", "Paul", "George", "Ringo", "Samantha"]
 
@@ -432,10 +436,20 @@ def populate_main_models(reviews):
                                              location=bean['location'],
                                              price=bean['price'],
                                              average_rating=bean['average_rating'])[0]
-        for tag in bean['tags']:
-            t = Tag.objects.get_or_create(name=tag)[0]
-            b.tags.add(t)
+
+        # Create the tags and tag types for the bean
+        for tag_name in bean['tags']:
+            tag_type = TagType.objects.get_or_create(name=tag_name)[0]
+            tag = Tag.objects.get_or_create(tag_type=tag_type,
+                                            value=len(tag_name),
+                                            coffee_bean=b)[0]
+            # b.tags.add(tag)
         b.save()
+
+        # for tag in bean['tags']:
+        #     t = Tag.objects.get_or_create(name=tag)[0]
+        #     b.tags.add(t)
+        # b.save()
 
         # Now create the customer
         c = Customer.objects.get_or_create(fullname=customer_name,
@@ -463,10 +477,21 @@ def populate_vendors():
         v.save()
 
 
+def populate_extra_tag_types():
+    # The extra tags were not needed to be associated with any particular coffee
+    # but it is probably good to have them in the system anyway. If we give the
+    # user the option to add tags to a coffee, then they have a much bigger choice
+    for tag in extra_tags:
+        TagType.objects.get_or_create(name=tag)
+
+
 if __name__ == "__main__":
     print("Stacking up the beans....")
     populate_main_models(review_texts[:15])
+    names = names[::-1]
     populate_main_models(review_texts[15:])
+    populate_extra_tag_types()
     print("Populating vendors may take a few seconds because the script accesses Googlemaps' geocoding api ...")
     populate_vendors()
     print("... beans all stacked up nice and high!")
+

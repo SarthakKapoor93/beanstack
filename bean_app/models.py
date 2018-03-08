@@ -14,11 +14,21 @@ from bean_app.google_maps_api import Mapper
 mapper = Mapper()
 
 
-class Tag(models.Model):
+class TagType(models.Model):
     name = models.CharField(max_length=128, unique=True)
 
     def __str__(self):
-        return "Tag: {} - {}".format(self.pk, self.name)
+        return "Tag Type: {} pk: {}".format(self.name, self.pk)
+
+
+class Tag(models.Model):
+    tag_type = models.ForeignKey(TagType, blank=True, default=None)
+    value = models.IntegerField(default=0)
+    coffee_bean = models.ForeignKey('CoffeeBean', default=None,
+                                    blank=True, related_name='tags')
+
+    def __str__(self):
+        return "{}".format(self.tag_type.name)
 
 
 class CoffeeBean(models.Model):
@@ -30,7 +40,7 @@ class CoffeeBean(models.Model):
     average_rating = models.FloatField(default=0)
     t_type = models.CharField(max_length=128,
                               blank=True)  # what is type exactly? Need different name/ clashes with python built in type
-    tags = models.ManyToManyField(Tag, related_name='coffee_beans')
+    # tags = models.ForeignKey(Tag, related_name='coffee_beans')
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):

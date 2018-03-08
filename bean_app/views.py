@@ -4,7 +4,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from bean_app.models import CoffeeBean, Review, Vendor, VendorAccountForm, VendorSignupForm, AccountForm, SignupForm, Tag, UserProfile, User
+from bean_app.models import *
 from bean_app.google_maps_api import Mapper
 from bean_app.forms import VendorForm
 from django.core.paginator import Paginator
@@ -94,11 +94,14 @@ def search(request):
         beans = CoffeeBean.objects.filter(Q(name__icontains=term) | Q(location__icontains=term))
         name_matches |= set(beans)
 
-    # Filter by the tags and then get all the coffees associated with each tag
+    # Filter the tag types by the query terms
     tag_matches = set()
-    for tag in Tag.objects.filter(build_query(query_terms)):
-        beans = tag.coffee_beans.all()
-        tag_matches |= set(beans)
+    for tag_type in TagType.objects.filter(build_query(query_terms)):
+
+        # Use the tag type to get the tags for each of the types
+        for tag in Tag.objects.filter(tag_type=tag_type):
+            # Iterate over the tags and put the coffee objects into the result set
+            tag_matches.add(tag.coffee_bean)
 
     results = name_matches | tag_matches
     context = {'beans': results}
@@ -225,6 +228,65 @@ def product(request, coffee_name_slug):
                'tags': bean.tags.all(),
                'reviews': Review.objects.filter(coffee_bean=bean),
                'saved_coffees': saved_coffees
+            }
+
+    return render(request, 'bean_app/radar-chart.html', context=context)
+
+
+'''
+NOTE: When we have users up and running with authentication etc, in this view, we need to make sure that
+a users can only leave one review for each coffee.
+NOTE: It is also important that the review is made before the upvotes are registered. 
+'''
+
+
+def product(request, coffee_name_slug):
+
+    # If the user is posting a review
+    if request.method == 'POST':
+
+        # Just take any customer for the time being
+        customer = Customer.objects.all().first()
+        comment = request.POST.get('comment')
+        coffee_bean_slug = request.POST.get('coffee-bean')
+        rating = request.POST.get('rating', 0)
+        coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
+
+        # Create the review
+        review = Review(customer=customer,
+                        comment=comment,
+                        coffee_bean=coffee_bean,
+                        rating=rating
+                        )
+        review.save()
+
+        # Update the tags with the values from the post data
+        tag_types = TagType.objects.all()
+        # loop over the tag types and use the name to get the values from the post
+        for tag_type in tag_types:
+            value = request.POST.get(tag_type.name)
+            if value:
+                # now we need to access the tag. How do we get a specific tag?
+                tag = Tag.objects.filter(tag_type=tag_type, coffee_bean=coffee_bean).first()
+                # update the tag value
+                if value == '+':
+                    tag.value += 1
+                elif value == '-':
+                    tag.value -= 1
+
+                tag.save()
+
+    # The user has made a get request
+
+    # This boolean flag contols some javascript that automatically scrolls
+    # to the reviews section on page load
+    display_reviews = bool(request.GET.get('reviews', False))
+
+    coffee_bean = CoffeeBean.objects.get(slug=coffee_name_slug)
+    context = {'bean': coffee_bean,
+               'tags': coffee_bean.tags.all(),
+               'reviews': Review.objects.filter(coffee_bean=coffee_bean),
+               'display_reviews': display_reviews
                }
     return render(request, 'bean_app/product.html', context)
 

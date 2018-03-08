@@ -1,5 +1,10 @@
 $(function(){
     $('#modal-message').hide();
+
+    // If the boolean flag exists on page load scroll to the reviews section
+    if (displayReviews){
+        document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
+    }
 });
 
 // Resizes the window took this from stack overflow
@@ -13,11 +18,16 @@ $(window).bind('resize', function(e)
 });
 
 $('#review-button').click(function(event){
-    document.getElementById('review-heading').scrollIntoView({behavior: "smooth"});
+    document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
 });
 
 $('#vendor-button').click(function(event){
     document.getElementById('vendor-heading').scrollIntoView({behavior: "smooth"});
+});
+
+
+$('#radar-button').click(function(event){
+    document.getElementById('radar-heading').scrollIntoView({behavior: "smooth"});
 });
 
 $('#add-button').click(function(){
@@ -64,3 +74,19 @@ function activate_modal(marker){
     $('#vendor-detail-modal').modal('toggle');
 }
 
+// This function will listen to the tag buttons and update the hidden values for the form
+// each time they are updated
+
+$('.plus').click(function(){
+    // Get the name of tag that has been pushed
+    var tag_id = $(this).attr('data-tag');
+    // Insert the '+' character into the data attribute
+    $("#" + tag_id).attr('value', '+');
+});
+
+$('.minus').click(function(){
+    // Get the name of tag that has been pushed
+    var tag_id = $(this).attr('data-tag');
+    // Insert the '-' character into the data attribute
+    $("#" + tag_id).attr('value', '-');
+});

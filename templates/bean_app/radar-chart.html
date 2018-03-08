@@ -1,0 +1,114 @@
+{% extends 'bean_app/product.html' %}
+{% load staticfiles %}
+{% load bean_app_template_tags %}
+
+
+<!--{% block head_block %}-->
+	<!--<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>-->
+	<!--<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";-->
+		<!--ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];-->
+	<!--</script>-->
+<!--{% endblock %}-->
+
+
+
+{% block radar_block %}
+
+        	<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+	<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+	</script>
+
+		<div id='myChart' style="min-height: 500px" ><a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a></div>
+        Taste data for bean {{ bean }}<br>
+        Tags: <br>
+        {% for tag in tags %}
+            {{ tag }} <br>
+        {% endfor %}
+        <style>
+            html, body {
+				height:100%;
+  				width:100%;
+			}
+			#myChart {
+  				height:100%;
+  				width:100%;
+  				min-height:250px;
+			}
+			.zc-ref {
+  				display:none;
+			}
+        </style>
+        <script>
+            var myConfig = {
+			  type : 'radar',
+			  plot : {
+				aspect : 'area',
+				animation: {
+				  effect:3,
+				  sequence:1,
+				  speed:700
+				}
+			  },
+			  scaleV : {
+				visible : false
+			  },
+			  scaleK : {
+				values : '',
+				labels : [
+				    <!--'Nutty','Fruity','Caramel','Chocolate', 'Spicy', 'Smokey', 'Vanilla', 'Bitter', 'berry', 'sweet'-->
+				    {% for tag in tags %}
+				        '{{ tag }}',
+				    {% endfor %}
+				],
+				item : {
+				  fontColor : '#607D8B',
+				  backgroundColor : "white",
+				  borderColor : "#aeaeae",
+				  borderWidth : 1,
+				  padding : '5 10',
+				  borderRadius : 10
+				},
+				refLine : {
+				  lineColor : '#c10000'
+				},
+				tick : {
+				  lineColor : '#59869c',
+				  lineWidth : 2,
+				  lineStyle : 'dotted',
+				  size : 20
+				},
+				guide : {
+				  lineColor : "#607D8B",
+				  lineStyle : 'solid',
+				  alpha : 0.3,
+				  backgroundColor : "#c5c5c5 #718eb4"
+				}
+			  },
+			  series : [
+				{
+				  values : [
+				    {% for tag in tags %}
+				        {{ tag.value }},
+				    {% endfor %}
+
+				  ],
+				  text:'farm',
+				  backgoundColor: '#21A3AC'
+				},
+				<!--{-->
+				  <!--values : [20, 20, 54],-->
+				  <!--lineColor : '#53a534',-->
+				  <!--backgroundColor : '#689F38'-->
+				<!--}-->
+			  ]
+			};
+
+			zingchart.render({
+				id : 'myChart',
+				data : myConfig,
+				height: '100%',
+				width: '100%'
+			});
+        </script>
+{% endblock %}

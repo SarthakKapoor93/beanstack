@@ -51,6 +51,100 @@
 {% endblock %}
 
 {% block body_block %}
+
+    <!--This is the start of the radar stuff-->
+    <div id="radar-heading">
+        <h2 class="text-center">Taste Analysis</h2>
+    </div>
+
+    <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+	<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
+	</script>
+
+    <div id='myChart' style="min-height: 500px" ><a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a></div>
+    <style>
+        html, body {
+            height:100%;
+            width:100%;
+        }
+        #myChart {
+            height:100%;
+            width:100%;
+            min-height:250px;
+        }
+        .zc-ref {
+            display:none;
+        }
+    </style>
+    <script>
+        var myConfig = {
+          type : 'radar',
+          plot : {
+            aspect : 'area',
+            animation: {
+              effect:3,
+              sequence:1,
+              speed:700
+            }
+          },
+          scaleV : {
+            visible : false
+          },
+          scaleK : {
+            values : '',
+            labels : [
+                {% for tag in tags %}
+                    '{{ tag.tag_type.name }}',
+                {% endfor %}
+            ],
+            item : {
+              fontColor : '#607D8B',
+              backgroundColor : "white",
+              borderColor : "#aeaeae",
+              borderWidth : 1,
+              padding : '5 10',
+              borderRadius : 10
+            },
+            refLine : {
+              lineColor : '#c10000'
+            },
+            tick : {
+              lineColor : '#59869c',
+              lineWidth : 2,
+              lineStyle : 'dotted',
+              size : 20
+            },
+            guide : {
+              lineColor : "#607D8B",
+              lineStyle : 'solid',
+              alpha : 0.3,
+              backgroundColor : "#c5c5c5 #718eb4"
+            }
+          },
+          series : [
+            {
+              values : [
+                {% for tag in tags %}
+                    {{ tag.value }},
+                {% endfor %}
+              ],
+              text:'farm',
+              backgoundColor: '#21A3AC'
+            },
+          ]
+        };
+
+        zingchart.render({
+            id : 'myChart',
+            data : myConfig,
+            height: '100%',
+            width: '100%'
+        });
+    </script>
+
+    <!--End of the radar chart stuff -->
+
     <div id="vendor-heading">
         <div class="container">
             <div class="intro">
@@ -79,7 +173,7 @@
     <br>
     <br>
     <br>
-    <div id="review-heading" class="article-list">
+    <div id="reviews" class="article-list">
         <div class="container">
             <div class="intro">
                 <h2 class="text-center">Reviews </h2>
@@ -102,6 +196,7 @@
         </div>
     </div>
 
+    <!-- This is the write a review section -->
     {% if user.is_authenticated %}
     <div class="article-list">
         <div class="container">
@@ -115,23 +210,38 @@
                     <div class="container">
                         <div class="row" style="margin-top:30px;">
                             <div class="col-md-12">
-                                <div class="well well-sm">
-                                    <div class="text-right">
-                                        <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Add Review</a>
-                                    </div>
-                                    <div class="row" id="post-review-box" style="display:none;">
-                                        <div class="col-md-12">
-                                            <form accept-charset="UTF-8" action="" method="post">
-                                                <input id="ratings-hidden" name="rating" type="hidden">
-                                                <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
-                                                <div class="text-right">
-                                                    <div class="stars starrr" data-rating="0"></div>
-                                                    <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
-                                                    <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                                                    <button class="btn btn-success btn-lg" type="submit">Save</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                <div class="text-center">
+                                    <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Add Review</a>
+                                </div>
+                                <div class="row header-blue" id="post-review-box" style="display:none; border-radius: 15px;">
+                                    <div class="col-md-12">
+                                        <form accept-charset="UTF-8" action="." method="post">
+                                            {% csrf_token %}
+                                            <input id="ratings-hidden" name="rating" type="hidden" value="0">
+                                            <input id="coffee-name-hidden" name="coffee-bean" type="hidden" value="{{ bean.slug }}">
+                                            <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5" style="background: rgba(0, 0, 0, 0); color: white; margin-top: 50px; margin-bottom: 50px;"></textarea>
+
+                                            <p>How accurate do find the taste analysis?</p>
+
+                                            <div>
+                                                {% for tag in tags %}
+                                                <span class="btn-group">
+                                                    <button class="minus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}">-</button>
+                                                    <label class="btn btn-default action-button btn-sm">{{tag}}</label>
+                                                    <button class="plus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}">+</button>
+                                                </span>
+                                                <input id="{{tag.id}}" type="hidden" name="{{tag}}" value="0">
+                                                {% endfor %}
+                                            </div>
+
+
+                                            <div class="text-right">
+                                                <div id="star-animation" class="stars starrr" data-rating="0"></div>
+                                                <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                                                <span class="glyphicon glyphicon-remove"></span>Cancel</a>
+                                                <button class="btn btn-success btn-lg" type="submit">Save</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +276,6 @@
           </div>
           <div class="modal-body">
               <div class="panel-group" id="accordion">
-
                   <div id="class-to-add" class="panel panel-primary">
                     <div class="panel-heading">
                       <h4 class="panel-title">
@@ -193,7 +302,6 @@
                       </div>
                     </div>
                   </div>
-
                   <div id="spacer" class="center panel-collapse" style="height: 40px"><span id="arrow-glyph" class="glyphicon glyphicon-circle-arrow-down" style="position: center; font-size: 35px; color: #DDDDDD"></span></div>
 
                   {% for index, bean in saved_coffees %}
@@ -278,6 +386,7 @@
         var coffeeKey = {{ bean.pk }};
         var selectedCoffee = "{{ bean.name }}";
         var beanSlug = "{{ bean.slug }}";
+        var displayReviews = {{ display_reviews|lower }};
     </script>
 
     <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present
@@ -286,4 +395,4 @@
     <script src="{% static 'assets/js/maps.js' %}"></script>
     <script src="{% url 'load_api' %}"></script>
     <script src="{% static 'assets/js/product.js' %}"></script>
-{% endblock %}ee
+{% endblock %}
