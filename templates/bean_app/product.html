@@ -216,33 +216,36 @@
                                 <div class="text-center">
                                     <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Add Review</a>
                                 </div>
-                                <div class="row header-blue" id="post-review-box" style="display:none; border-radius: 15px;">
+                                <div class="row header-blue" id="post-review-box" style="display:none; border-radius: 15px; background: #1E2833; max-height: 350px;">
+
                                     <div class="col-md-12">
+
                                         <form accept-charset="UTF-8" action="." method="post">
+                                            <a class="btn btn-defualt btn-sm pull-right" href="#" id="close-review-box" style="display:none; margin-top: 15px;">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </a>
                                             {% csrf_token %}
                                             <input id="ratings-hidden" name="rating" type="hidden" value="0">
                                             <input id="coffee-name-hidden" name="coffee-bean" type="hidden" value="{{ bean.slug }}">
                                             <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5" style="background: rgba(0, 0, 0, 0); color: white; margin-top: 50px; margin-bottom: 50px;"></textarea>
 
-                                            <p>How accurate do find the taste analysis?</p>
+                                            <p>How would you rate the taste?</p>
 
                                             <div>
                                                 {% for tag in tags %}
                                                 <span class="btn-group">
-                                                    <button class="minus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}">-</button>
-                                                    <label class="btn btn-default action-button btn-sm">{{tag}}</label>
-                                                    <button class="plus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}">+</button>
+                                                    <button id="{{tag.id}}-minus" class="minus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}" style="border-color: #209FAA; color: #209FAA;">-</button>
+                                                    <label id="{{tag.id}}-label" class=" tag-label btn btn-default action-button btn-sm" data-tag="{{tag.id}}" data-selected="false" style="border-color: #209FAA; color: #209FAA;">{{tag}}</label>
+                                                    <button id="{{tag.id}}-plus" class="plus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}" style="border-color: #209FAA; color: #209FAA;">+</button>
                                                 </span>
                                                 <input id="{{tag.id}}" type="hidden" name="{{tag}}" value="0">
                                                 {% endfor %}
                                             </div>
 
 
-                                            <div class="text-right">
-                                                <div id="star-animation" class="stars starrr" data-rating="0"></div>
-                                                <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
-                                                <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                                                <button class="btn btn-success btn-lg" type="submit">Save</button>
+                                            <div class="pull-right">
+                                                <span id="star-animation" class="stars starrr" data-rating="0"></span>
+                                                <button class="btn btn-primary btn-md" type="submit">Submit</button>
                                             </div>
                                         </form>
                                     </div>

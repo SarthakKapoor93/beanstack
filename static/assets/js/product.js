@@ -78,15 +78,118 @@ function activate_modal(marker){
 // each time they are updated
 
 $('.plus').click(function(){
-    // Get the name of tag that has been pushed
-    var tag_id = $(this).attr('data-tag');
-    // Insert the '+' character into the data attribute
-    $("#" + tag_id).attr('value', '+');
+
+    var item = $(this);
+    var id = item.attr('data-tag')
+    if ($('#' + id + '-label').attr('data-selected') == 'false'){
+        // Get the name of tag that has been pushed
+        var tag_id = $(this).attr('data-tag');
+
+        //change the color of the label
+        var label = $("#" + tag_id + "-label");
+        label.css('color', 'white');
+        label.css('border-color', 'white');
+        label.attr('data-selected', 'true');
+
+        // and the plus
+        var item = $(this);
+        item.css('color', 'white');
+        item.css('border-color', 'white');
+
+        // Insert the '+' character into the data attribute
+        $("#" + tag_id).attr('value', '+');
+     }
 });
 
 $('.minus').click(function(){
-    // Get the name of tag that has been pushed
-    var tag_id = $(this).attr('data-tag');
-    // Insert the '-' character into the data attribute
-    $("#" + tag_id).attr('value', '-');
+
+    var item = $(this);
+    var id = item.attr('data-tag')
+    if ($('#' + id + '-label').attr('data-selected') == 'false'){
+
+        // Get the name of tag that has been pushed
+        var tag_id = $(this).attr('data-tag');
+
+        //change the color of the label
+        var label = $("#" + tag_id + "-label");
+        label.attr('data-selected', 'True');
+
+        label.css('color', 'white');
+        label.css('border-color', 'white');
+        label.attr('data-selected', 'true');
+
+        // and the minus
+        var item = $(this);
+        item.css('color', 'white');
+        item.css('border-color', 'white');
+
+        // Insert the '-' character into the data attribute
+        $("#" + tag_id).attr('value', '-');
+     }
 });
+
+$('.plus').hover(function(){
+
+    var item = $(this);
+    //Rollover disabled if tag is already selected
+    var id = item.attr('data-tag')
+    if ($('#' + id + '-label').attr('data-selected') == 'false'){
+        item.css('color', 'white');
+        item.css('border-color', 'white');
+    }
+}, function(){
+    // only do the mouse leave if the button is not selected
+    var tag_id = $(this).attr('data-tag');
+    if ($('#' + tag_id + "-label").attr('data-selected') == 'false'){
+        console.log('this sldkf jaslfk j');
+        var item = $(this);
+        item.css('color', '#209FAA');
+        item.css('border-color', '#209FAA');
+    }
+});
+
+$('.minus').hover(function(){
+    var item = $(this);
+    //Rollover disabled if tag is already selected
+    var id = item.attr('data-tag')
+    if ($('#' + id + '-label').attr('data-selected') == 'false'){
+        item.css('color', 'white');
+        item.css('border-color', 'white');
+    }
+}, function(){
+    // only do the mouse leave if the button is not selected
+    var tag_id = $(this).attr('data-tag');
+    if ($('#' + tag_id + "-label").attr('data-selected') == 'false'){
+        var item = $(this);
+        item.css('color', '#209FAA');
+        item.css('border-color', '#209FAA');
+    }
+});
+
+// You can also click on teh label to unselect your selection
+$('.tag-label').click(function(){
+    // is is selected?
+    if ($(this).attr('data-selected') == 'true'){
+      var tag = $(this);
+      tag.css('color', '#209FAA');
+      tag.css('border-color', '#209FAA');
+
+      // reset the color of the plus and minus too
+       var id = tag.attr('data-tag')
+       var plus = $('#' + id + '-plus');
+       plus.css('color', '#209FAA');
+       plus.css('border-color', '#209FAA');
+
+       var minus = $('#' + id + '-minus');
+       minus.css('color', '#209FAA');
+       minus.css('border-color', '#209FAA');
+
+       $(this).attr('data-selected', 'false');
+
+       // make sure that no value is recorded for the tag
+       $("#" + id).attr('value', 'None');
+
+    }
+});
+
+// disable rollover if the thing is selectdd
