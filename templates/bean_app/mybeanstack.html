@@ -1,17 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    Hello {{user}}<br>
-    Here are your saved coffees:
-    <ul>
-    {% for coffee in saved_coffees %}
-        <li><a href="{% url 'product' coffee.slug %}">{{ coffee }}</a></li>
-    {% endfor %}
-    </ul>
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+{% load bean_app_template_tags %}
 
-</body>
-</html>
+{% block title_block %}
+    BeanStack About
+{% endblock %}
+
+{% block body_block_alt %}
+
+    <div class="container hero">
+
+        <div style="color: white; opacity: 0.6;">
+            <h3>{{ user }}'s BeanStack</h3>
+            <h4>Here are your saved coffees</h4>
+        </div>
+
+        <div class="panel-group">
+            {% for index, bean in saved_coffees %}
+            <div class="panel panel" style="background-color: #1E2833;">
+                <div class="panel-heading">
+                    <h4 class="panel-title" >
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ index }}" style="color: white;">
+                            {{ bean.name }}
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse{{ index }}" class="panel-collapse collapse">
+                    <div class="panel-body" style="background-color: #1E2833;">
+                        <p style="color:#1B638E;">{{ bean.description }}</p>
+                        <p>{{ bean.location }}</p>
+                        <p>£{{ bean.price }}</p>
+                        <p>
+                            average rating: {{ average_rating }}
+                            {% autoescape off %}
+                                <span>{% get_stars bean.average_rating white %}</span>
+                            {% endautoescape %}
+                        </p>
+                        <p>
+                            {% for tag in tags %}
+                            <span class="btn btn-default action-button">{{ tag }}</span>
+                            {% endfor %}
+                        </p>
+                        <a href="{% url 'product' bean.slug %}">More info including taste analysis, reviews and finding vendors</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+
+
+
+{% endblock %}

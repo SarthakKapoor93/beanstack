@@ -352,6 +352,7 @@ def get_server_side_cookie(request, cookie, default_val=None):
 def my_beanstack(request):
     # Get the user profile for the user
     profile = UserProfile.objects.get(user=request.user)
-    saved_coffees = profile.saved_coffees.all()
+    coffees = list(profile.saved_coffees.all())
+    saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
     return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})
