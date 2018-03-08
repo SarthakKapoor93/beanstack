@@ -87,7 +87,7 @@ class Review(models.Model):
     comment = models.TextField(max_length=240, blank=True)
 
     def __str__(self):
-        return "Review: {} of {} by {}".format(self.pk, self.coffee_bean, self.customer)
+        return "Review: {} of {} by {}".format(self.pk, self.coffee_bean, self.user)
 
 
 class Vendor(models.Model):
