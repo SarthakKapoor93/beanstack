@@ -9,7 +9,6 @@ class CoffeeBeanAdmin(admin.ModelAdmin):
 admin.site.register(Tag)
 admin.site.register(TagType)
 admin.site.register(CoffeeBean)
-admin.site.register(Customer)
 admin.site.register(Review)
 admin.site.register(Vendor)
 admin.site.register(AccountForm)

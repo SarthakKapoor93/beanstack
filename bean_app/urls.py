@@ -11,7 +11,6 @@ urlpatterns = [
     url(r'^myaccount', views.my_account, name='my_account'),
     url(r'^addproduct', views.addproduct, name='addproduct'),
     url(r'^product/(?P<coffee_name_slug>[\w\-]+)/$', views.product, name='product'),
-    url(r'^signup', views.signup, name='signup'),
     url(r'^vendorsignup', views.vendor_signup, name='vendorsignup'),
     url(r'^signupselection', views.signupselection, name='signupselection'),
     url(r'^load_api', views.load_api, name='load_api'),

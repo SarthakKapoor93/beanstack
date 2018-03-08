@@ -43,7 +43,8 @@ def browse(request):
     page = paginator.page(page_number)
 
     context = {
-        "beans": page
+        "beans": page,
+        'len_results': len(beans) # This is a hack to make the pagination work
     }
     return render(request, 'bean_app/browse.html', context)
 
@@ -86,27 +87,43 @@ def build_query(query_terms):
 
 def search(request):
 
-    query_terms = request.GET.get('q').split()
+    query = request.GET.get('q').strip()
+    # Check if an empty string was entered
+    if query:
+        query_terms = query.split()
 
-    # Filter by name or location of the coffee beans
-    name_matches = set()
-    for term in query_terms:
-        beans = CoffeeBean.objects.filter(Q(name__icontains=term) | Q(location__icontains=term))
-        name_matches |= set(beans)
+        # Filter by name or location of the coffee beans
+        name_matches = set()
+        for term in query_terms:
+            beans = CoffeeBean.objects.filter(Q(name__icontains=term) | Q(location__icontains=term))
+            name_matches |= set(beans)
 
-    # Filter the tag types by the query terms
-    tag_matches = set()
-    for tag_type in TagType.objects.filter(build_query(query_terms)):
+        # Filter the tag types by the query terms
+        tag_matches = set()
+        for tag_type in TagType.objects.filter(build_query(query_terms)):
 
-        # Use the tag type to get the tags for each of the types
-        for tag in Tag.objects.filter(tag_type=tag_type):
-            # Iterate over the tags and put the coffee objects into the result set
-            tag_matches.add(tag.coffee_bean)
+            # Use the tag type to get the tags for each of the types
+            for tag in Tag.objects.filter(tag_type=tag_type):
+                # Iterate over the tags and put the coffee objects into the result set
+                tag_matches.add(tag.coffee_bean)
 
-    results = name_matches | tag_matches
-    context = {'beans': results}
+        results = name_matches | tag_matches
+    else:
+        # If an empty string was entered return all results
+        results = CoffeeBean.objects.order_by('-average_rating')
+        query = None
 
-    return render(request, 'bean_app/search.html', context)
+    # Pagination
+    page_number = request.GET.get('page', 1)
+    paginator = Paginator(list(results), 5, orphans=2)
+    page = paginator.page(page_number)
+
+    context = {'beans': page,
+               'search_term': query,
+               'len_results': len(results)
+               }
+
+    return render(request, 'bean_app/browse.html', context)
 
 
 def login(request):
@@ -117,38 +134,38 @@ def my_account(request):
     return render(request, 'bean_app/myaccount.html', {})
 
 
-def signup(request):
-    signup_complete = False
-
-    if request.method == 'POST':
-        signup_form = SignupForm(data=request.POST)
-        account_form = AccountForm(data=request.POST)
-
-        if signup_form.is_valid() and account_form.is_valid():
-
-            user = account_form.save()
-            user.set_password(user.password)
-            user.save()
-
-            account = account_form.save(commit=False)
-            account.user = user
-
-            if 'picture' in request.FILES:
-                account.picture = request.FILES['picture']
-            account.save()
-
-            signup_complete = True
-        else:
-
-            print(signup_form.errors, account_form.errors)
-    else:
-        signup_form = SignupForm()
-        account_form = AccountForm()
-
-    return render(request, 'bean_app/registration_form.html', {
-        'SignupForm': signup_form,
-        'AccountForm': account_form,
-        'signup_complete': signup_complete})
+# def signup(request):
+#     signup_complete = False
+#
+#     if request.method == 'POST':
+#         signup_form = SignupForm(data=request.POST)
+#         account_form = AccountForm(data=request.POST)
+#
+#         if signup_form.is_valid() and account_form.is_valid():
+#
+#             user = account_form.save()
+#             user.set_password(user.password)
+#             user.save()
+#
+#             account = account_form.save(commit=False)
+#             account.user = user
+#
+#             if 'picture' in request.FILES:
+#                 account.picture = request.FILES['picture']
+#             account.save()
+#
+#             signup_complete = True
+#         else:
+#
+#             print(signup_form.errors, account_form.errors)
+#     else:
+#         signup_form = SignupForm()
+#         account_form = AccountForm()
+#
+#     return render(request, 'bean_app/registration_form.html', {
+#         'SignupForm': signup_form,
+#         'AccountForm': account_form,
+#         'signup_complete': signup_complete})
 
 
 def addproduct(request):
@@ -175,64 +192,6 @@ def vendor_signup(request):
         return render(request, 'bean_app/vendorsignup.html', {'bean_data': bean_data})
 
 
-# def vendorsignup(request):
-#     vendor_signup_complete = False
-#
-#     if request.method == 'POST':
-#         vendor_signup_form = VendorSignupForm(data=request.POST)
-#         vendor_account_form = VendorAccountForm(data=request.POST)
-#
-#         if vendor_signup_form.is_valid():
-#
-#             user = vendor_account_form.save()
-#             user.set_password(user.password)
-#             user.save()
-#
-#             account = vendor_account_form.save(commit=False)
-#             account.user = user
-#
-#             if 'picture' in request.FILES:
-#                 account.picture = request.FLIES['picture']
-#             account.save()
-#
-#             vendor_signup_complete = True
-#
-#         else:
-#             print(vendor_signup_form.errors, vendor_account_form.errors)
-#
-#     else:
-#         vendor_signup_form = VendorSignupForm()
-#         vendor_account_form = VendorAccountForm()
-#
-#     return render(request, 'bean_app/vendorsignup.html', {
-#         'vendor_signup_form': vendor_signup_form,
-#         'vendor_account_form': vendor_account_form,
-#         'vendor_signup_complete': vendor_signup_complete})
-
-
-def product(request, coffee_name_slug):
-
-    bean = CoffeeBean.objects.get(slug=coffee_name_slug)
-
-    # This view also needs to pass back the users, saved coffees in the context
-    # (we could also do this via an ajax request)
-
-    saved_coffees = []
-    if request.user.is_authenticated():
-        profile = UserProfile.objects.get(user=request.user)
-
-        coffees = list(profile.saved_coffees.all())
-        saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
-
-    context = {'bean': bean,
-               'tags': bean.tags.all(),
-               'reviews': Review.objects.filter(coffee_bean=bean),
-               'saved_coffees': saved_coffees
-            }
-
-    return render(request, 'bean_app/radar-chart.html', context=context)
-
-
 '''
 NOTE: When we have users up and running with authentication etc, in this view, we need to make sure that
 a users can only leave one review for each coffee.
@@ -246,14 +205,14 @@ def product(request, coffee_name_slug):
     if request.method == 'POST':
 
         # Just take any customer for the time being
-        customer = Customer.objects.all().first()
+        user = request.user
         comment = request.POST.get('comment')
         coffee_bean_slug = request.POST.get('coffee-bean')
         rating = request.POST.get('rating', 0)
         coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
 
         # Create the review
-        review = Review(customer=customer,
+        review = Review(user=user,
                         comment=comment,
                         coffee_bean=coffee_bean,
                         rating=rating
@@ -276,7 +235,17 @@ def product(request, coffee_name_slug):
 
                 tag.save()
 
-    # The user has made a get request
+    # Otherwise - The user has made a get request
+
+    # This view also needs to pass back the users' saved coffees in the context
+    # (we could also do this via an ajax request)
+
+    saved_coffees = []
+    if request.user.is_authenticated():
+        profile = UserProfile.objects.get(user=request.user)
+
+        coffees = list(profile.saved_coffees.all())
+        saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
     # This boolean flag contols some javascript that automatically scrolls
     # to the reviews section on page load
@@ -286,7 +255,8 @@ def product(request, coffee_name_slug):
     context = {'bean': coffee_bean,
                'tags': coffee_bean.tags.all(),
                'reviews': Review.objects.filter(coffee_bean=coffee_bean),
-               'display_reviews': display_reviews
+               'display_reviews': display_reviews,
+               'saved_coffees': saved_coffees,
                }
     return render(request, 'bean_app/product.html', context)
 
@@ -347,25 +317,6 @@ def update_my_beanstack(request):
     return HttpResponse()
 
 
-# def user_login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(username=username, password=password)
-#
-#         if user:
-#             if user.is_active:
-#                 login(request, user)
-#                 return HttpResponseRedirect(reverse('index'))
-#             else:
-#                 return HttpResponse("Please create a Beanstack account. Your credentials does not exits.")
-#         else:
-#             print("Invalid login details: {0}, {1}".format(username, password))
-#             return HttpResponse("Invalid login details supplied.")
-#     else:
-#         return render(request, 'bean_app/login.html', {})
-
-
 @login_required
 def restricted(request):
     return render(request, 'bean_app/restricted.html', {})
@@ -402,6 +353,5 @@ def my_beanstack(request):
     # Get the user profile for the user
     profile = UserProfile.objects.get(user=request.user)
     saved_coffees = profile.saved_coffees.all()
-
 
     return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})

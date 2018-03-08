@@ -53,24 +53,24 @@ class CoffeeBean(models.Model):
     def __str__(self):
         return "Coffee bean: {} - {}".format(self.pk, self.name)
 
+# THIS CLASS IS NO LONGER NEEDED
 
-class Customer(models.Model):
-    # We don't need a customer id number do? Just use to pk?
-    fullname = models.CharField(max_length=128)
-    email = models.EmailField()
-    # password = models.CharField()   This would store the password as a string, Django handles this for us
-    # address = models.CharField()      Do we need their address?
-    # telephone = models.CharField()   Do we need the telephone?
-    favourite_coffee = models.ForeignKey(CoffeeBean)
+# class Customer(models.Model):
+#     # We don't need a customer id number do? Just use to pk?
+#     fullname = models.CharField(max_length=128)
+#     email = models.EmailField()
+#     # password = models.CharField()   This would store the password as a string, Django handles this for us
+#     # address = models.CharField()      Do we need their address?
+#     # telephone = models.CharField()   Do we need the telephone?
+#     favourite_coffee = models.ForeignKey(CoffeeBean)
+#
+#     # Makes more sense to have the link here, rather than the char field?
+#
+#     def __str__(self):
+#         return "Customer: {} - {}".format(self.pk, self.fullname)
 
-    # Makes more sense to have the link here, rather than the char field?
-
-    def __str__(self):
-        return "Customer: {} - {}".format(self.pk, self.fullname)
 
 # This class, combined with the standard user class will eventually replace the customer object above
-
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     saved_coffees = models.ManyToManyField(CoffeeBean)
@@ -80,7 +80,7 @@ class UserProfile(models.Model):
 
 
 class Review(models.Model):
-    customer = models.ForeignKey(Customer)
+    user = models.ForeignKey(User, blank=True, default=None)
     coffee_bean = models.ForeignKey(CoffeeBean)
     # Don't need to use '_id' in the variable name. ORM allows us to just treat this as the object rather than a pk
     rating = models.IntegerField()  # Why float field? I just assumed we would be using a star system or something?

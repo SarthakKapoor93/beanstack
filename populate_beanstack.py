@@ -4,7 +4,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanstack.settings')
 import django
 
 django.setup()
-from bean_app.models import CoffeeBean, Review, Customer, Vendor, TagType, Tag
+from bean_app.models import CoffeeBean, Review, Customer, Vendor, TagType, Tag, UserProfile
+from django.contrib.auth.models import User
 
 tag_groups = [
     ('sour', 'sweet', 'salt', 'bitter', 'enzymatic', 'sugar', 'browning', 'dry distillation', 'flowery', 'fruity',),
@@ -452,11 +453,18 @@ def populate_main_models(reviews):
         # b.save()
 
         # Now create the customer
-        c = Customer.objects.get_or_create(fullname=customer_name,
-                                           email=customer_name.replace(' ', '').lower() + "@gmail.com",
-                                           favourite_coffee=b)[0]
+        # c = Customer.objects.get_or_create(fullname=customer_name,
+        #                                    email=customer_name.replace(' ', '').lower() + "@gmail.com",
+        #                                    favourite_coffee=b)[0]
+
+        u = User.objects.get_or_create(username=customer_name,
+                                       email=customer_name.replace(' ', '').lower() + "@gmail.com",
+                                       password='password123')[0]
+        # Create the user profile
+        up = UserProfile.objects.get_or_create(user=u)[0]
+
         # And the review
-        r = Review.objects.get_or_create(customer=c,
+        r = Review.objects.get_or_create(user=u,
                                          coffee_bean=b,
                                          rating=5,
                                          comment=review)[0]

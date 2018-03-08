@@ -44,13 +44,32 @@
         </div>
      </div>
 
+
+
     <!--list of products after the filters -->
     <div class="container hero">
+
+        <!--Show some extra information if we are making showing search results-->
+        {% if search_term %}
+            {% if len_results < 1 %}
+                <h3 style="color: white; opacity: 0.4;">Sorry no results for "{{ search_term }}"</h3>
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                        <div style="color: white; opacity: 0.4;">
+                            <h3 >Search results for "{{ search_term }}"</h3>
+                            <h4>Showing results {{ beans.start_index }} to {{ beans.end_index }} of {{ len_results }}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
         {% for bean in beans %}
             <div class="row">
                 <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
                     <h2 style="color:#FFFFFF", class="text-left">{{ bean.name }}</h2>
-                    <p>{{ bean.description }}</p>
+                    <p style="opacity: 0.7;">{{ bean.description }}</p>
                     <span>
                         {% autoescape off %}
                             {% get_stars bean.average_rating '#D17581' %}
@@ -77,17 +96,22 @@
         {% endfor %}
     </div>
     <br>
-    <div class="pager">
-        <div>
-        {% if beans.has_previous %}
-            <a href="?page={{ beans.previous_page_number }}"><button class="btn action-button" type="button">Previous</button></a>
-        {% endif %}
-        {% if beans.has_next %}
-            <a href="?page={{ beans.next_page_number }}"><button class="btn action-button" type="button">Next</button></a>
-        {% endif %}
+
+
+    {% if len_results > 0 %}
+        <div class="pager">
+            <div>
+            {% if beans.has_previous %}
+                <a href="?{% if search_term %}q={{ search_term }}&{% endif %}page={{ beans.previous_page_number }}"><button class="btn action-button" type="button">Previous</button></a>
+            {% endif %}
+            {% if beans.has_next %}
+                <a href="?{% if search_term %}q={{ search_term }}&{% endif %}page={{ beans.next_page_number }}"><button class="btn action-button" type="button">Next</button></a>
+            {% endif %}
+            </div>
+        <span style="color: white;">
+                Page {{ beans.number }} of {{ beans.paginator.num_pages }}
+        </span>
         </div>
-    <span style="color: white;">
-        Page {{ beans.number }} of {{ beans.paginator.num_pages }}
-    </span>
-    </div>
+    {% endif %}
+
 {% endblock %}

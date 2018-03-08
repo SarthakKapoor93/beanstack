@@ -15,8 +15,8 @@
     <div class="container hero">
         <div class="row">
             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-                <h2>{{ bean.name }}</h2>
-                <p>{{ bean.description }}</p>
+                <h2 style="color:#FFFFFF", class="text-left">{{ bean.name }}</h2>
+                <p style="opacity: 0.7;">{{ bean.description }}</p>
             </div>
             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
                 <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
@@ -41,10 +41,13 @@
                     {% for tag in tags %}
                         <span class="btn btn-default action-button">{{ tag }}</span>
                     {% endfor %}
-                </p>
-                <button id="review-button" class="btn btn-default btn-lg action-button" type="button">Write a review</button>
-                <button id="add-button" class="btn btn-default btn-lg action-button" type="button">Add to my BeanStack</button>
-                <button id="vendor-button" class="btn btn-default btn-lg action-button" type="button">Find vendor</button>
+                 </p>
+                 <button id="review-button" class="btn btn-default btn-lg action-button" type="button">Write a review</button>
+                 {% if user.is_authenticated %}
+                    <button id="add-button" class="btn btn-default btn-lg action-button" type="button">Add to my BeanStack</button>
+                 {% endif %}
+                 <button id="vendor-button" class="btn btn-default btn-lg action-button" type="button">Find vendor</button>
+                 <button id="radar-button" class="btn btn-default btn-lg action-button" type="button">Taste analysis</button>
              </div>
         </div>
     </div>
@@ -183,7 +186,7 @@
             <div class="row">
                 {% for review in reviews %}
                     <div class="panel panel-default">
-                        <div class="panel-heading">{{ review.customer }}</div>
+                        <div class="panel-heading">{{ review.user }}</div>
                         <div class="panel-body">
                              {% autoescape off %}
                                 <span>{% get_stars review.rating '#D17581' %}</span>
@@ -338,7 +341,7 @@
               <p id="modal-message" class="pull-left">
                   The coffee has been added to your BeanStack!
               </p>
-              <a class="pull-left" href="">Go to my account</a>
+              <a class="pull-left" href="{% url 'my_beanstack' %}">Go to my account</a>
               <div class="btn-group">
                   <button id="modal-add" type="button" class="btn btn-default">Add</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

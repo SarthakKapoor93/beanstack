@@ -75,7 +75,7 @@
                         <form class="navbar-form navbar-left" target="_self" method="get" action="{% url 'search' %}">
                             <div class="form-group">
                                 <label class="control-label"><i class="glyphicon glyphicon-search"></i></label>
-                                <input class="form-control search-field" type="search" name="q" value="{{ query }}" id="query" placeholder="Search ...">
+                                <input class="form-control search-field" type="search" name="q" {% if search_term %} value="{{ search_term }}" {% endif %} id="query" placeholder="Search ...">
                             </div>
                         </form>
 
