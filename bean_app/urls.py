@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^product/[\w\-]+/update-my-beanstack', views.update_my_beanstack, name="update_my_beanstack"),
     # url(r'^registration-redirect', views.registration_redirect, name='registration_redirect'),
     url(r'^my-beanstack', views.my_beanstack, name='my_beanstack'),
+    url(r'^get-saved-coffees/', views.get_saved_coffees, name='get_saved_coffees'),
 ]
 
 

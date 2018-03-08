@@ -356,3 +356,17 @@ def my_beanstack(request):
     saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
     return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})
+
+
+# Don't know to override the chagne password part of django auth
+# Do an ajax call from the accoount page to access the user's saved coffees
+def get_saved_coffees(request):
+    profile = UserProfile.objects.get(user=request.user)
+
+    data = []
+    for coffee in profile.saved_coffees.all():
+        coffee_data = {'name': coffee.name,
+                       'slug': coffee.slug}
+        data.append(coffee_data)
+
+    return HttpResponse(json.dumps(data))
