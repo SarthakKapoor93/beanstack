@@ -215,9 +215,8 @@ def product(request, coffee_name_slug):
     # (we could also do this via an ajax request)
 
     saved_coffees = []
-    user = request.user
-    if user.is_authenticated():
-        profile = UserProfile.objects.get(user=user)
+    if request.user.is_authenticated():
+        profile = UserProfile.objects.get(user=request.user)
 
         coffees = list(profile.saved_coffees.all())
         saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
