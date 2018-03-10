@@ -167,13 +167,13 @@ def my_account(request):
 #         'AccountForm': account_form,
 #         'signup_complete': signup_complete})
 
+#
+# def addproduct(request):
+#     return render(request, 'bean_app/addproduct.html', {})
 
-def addproduct(request):
-    return render(request, 'bean_app/addproduct.html', {})
 
-
-def signupselection(request):
-    return render(request, 'bean_app/signupselection.html', {})
+# def signupselection(request):
+#     return render(request, 'bean_app/signupselection.html', {})
 
 
 def vendor_signup(request):
@@ -189,7 +189,7 @@ def vendor_signup(request):
     else:
         # Get the list of coffee shops and pks to display in the menu
         bean_data = [(bean.pk, bean.name) for bean in CoffeeBean.objects.all()]
-        return render(request, 'bean_app/vendorsignup.html', {'bean_data': bean_data})
+        return render(request, 'bean_app/vendor.html', {'bean_data': bean_data})
 
 
 '''
@@ -198,56 +198,66 @@ a users can only leave one review for each coffee.
 NOTE: It is also important that the review is made before the upvotes are registered. 
 '''
 
-
 def product(request, coffee_name_slug):
 
     # If the user is posting a review
     if request.method == 'POST':
+        has_posted = True
 
-        # Just take any customer for the time being
         user = request.user
         comment = request.POST.get('comment')
         coffee_bean_slug = request.POST.get('coffee-bean')
         rating = request.POST.get('rating', 0)
         coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
 
-        # Create the review
-        review = Review(user=user,
-                        comment=comment,
-                        coffee_bean=coffee_bean,
-                        rating=rating
-                        )
-        review.save()
+        # Before doing anything else we should make sure that this user hasn't already
+        # left a review for this coffee.
+        reviews = Review.objects.filter(user=user, coffee_bean=coffee_bean)
+        if reviews:
+            successful_review = False
+        else:
+            successful_review = True
 
-        # Update the tags with the values from the post data
-        tag_types = TagType.objects.all()
-        # loop over the tag types and use the name to get the values from the post
-        for tag_type in tag_types:
-            value = request.POST.get(tag_type.name)
-            if value:
-                # now we need to access the tag. How do we get a specific tag?
-                tag = Tag.objects.filter(tag_type=tag_type, coffee_bean=coffee_bean).first()
-                # update the tag value
-                if value == '+':
-                    tag.value += 1
-                elif value == '-':
-                    tag.value -= 1
+            # Create the review
+            review = Review(user=user,
+                            comment=comment,
+                            coffee_bean=coffee_bean,
+                            rating=rating
+                            )
+            review.save()
 
-                tag.save()
+            # Update the tags with the values from the post data
+            tag_types = TagType.objects.all()
+            # loop over the tag types and use the name to get the values from the post
+            for tag_type in tag_types:
+                value = request.POST.get(tag_type.name)
+                if value:
+                    # now we need to access the tag. How do we get a specific tag?
+                    tag = Tag.objects.filter(tag_type=tag_type, coffee_bean=coffee_bean).first()
+                    # update the tag value
+                    if value == '+':
+                        tag.value += 1
+                    elif value == '-':
+                        tag.value -= 1
 
-    # Otherwise - The user has made a get request
+                    tag.save()
+
+    else:
+        # Otherwise - The user has made a get request
+        has_posted = False
+        successful_review = False
 
     # This view also needs to pass back the users' saved coffees in the context
     # (we could also do this via an ajax request)
 
     saved_coffees = []
     if request.user.is_authenticated():
-        profile = UserProfile.objects.get(user=request.user)
-
+        # Use get or create because we can't be sure that the users who have logged in via facebook have a user profile
+        profile = UserProfile.objects.get_or_create(user=request.user)[0]
         coffees = list(profile.saved_coffees.all())
         saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
-    # This boolean flag contols some javascript that automatically scrolls
+    # This boolean flag controls some javascript that automatically scrolls
     # to the reviews section on page load
     display_reviews = bool(request.GET.get('reviews', False))
 
@@ -257,7 +267,10 @@ def product(request, coffee_name_slug):
                'reviews': Review.objects.filter(coffee_bean=coffee_bean),
                'display_reviews': display_reviews,
                'saved_coffees': saved_coffees,
+               'has_posted': has_posted,
+               'successful_review': successful_review,
                }
+
     return render(request, 'bean_app/product.html', context)
 
 
@@ -305,6 +318,7 @@ def get_beanstack_cafes(request):
     return HttpResponse(json.dumps(data))
 
 
+@login_required
 # This might need to check if the coffee is already on the saved coffees list and let them know
 def update_my_beanstack(request):
     # Take the bean slug from the get request
@@ -312,7 +326,7 @@ def update_my_beanstack(request):
     bean = CoffeeBean.objects.get(slug=bean_slug)
 
     # Get the user profile for the current user and add the bean
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
     user_profile.saved_coffees.add(bean)
     return HttpResponse()
 
@@ -351,17 +365,17 @@ def get_server_side_cookie(request, cookie, default_val=None):
 
 def my_beanstack(request):
     # Get the user profile for the user
-    profile = UserProfile.objects.get(user=request.user)
+    profile = UserProfile.objects.get_or_create(user=request.user)[0]
     coffees = list(profile.saved_coffees.all())
     saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
     return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})
 
 
-# Don't know to override the chagne password part of django auth
-# Do an ajax call from the accoount page to access the user's saved coffees
+# Don't know to override the change password part of django auth
+# Do an ajax call from the account page to access the user's saved coffees
 def get_saved_coffees(request):
-    profile = UserProfile.objects.get(user=request.user)
+    profile = UserProfile.objects.get_or_create(user=request.user)[0]
 
     data = []
     for coffee in profile.saved_coffees.all():
