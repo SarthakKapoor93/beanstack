@@ -388,11 +388,39 @@
 
     <!--End of modal-->
 
+    <!--start of info modal display when the user tries to add more than one review to a coffee-->
+    <!-- Modal -->
+    <div id="review-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Information</h4>
+                </div>
+                <div class="modal-body">
+                    {% if successful_review %}
+                        <p>Thank you for reviewing {{ bean.name }}!</p>
+                    {% else %}
+                        <p>Sorry, you have already written a review for {{ bean.name }}.</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--End of modal-->
+
+
     <script type="text/javascript">
         var coffeeKey = {{ bean.pk }};
         var selectedCoffee = "{{ bean.name }}";
         var beanSlug = "{{ bean.slug }}";
         var displayReviews = {{ display_reviews|lower }};
+        var hasPosted = {{ has_posted|lower }};
     </script>
 
     <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present

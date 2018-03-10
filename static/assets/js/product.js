@@ -1,9 +1,14 @@
 $(function(){
     $('#modal-message').hide();
+    $('#review-modal').hide();
 
     // If the boolean flag exists on page load scroll to the reviews section
     if (displayReviews){
         document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
+    }
+
+    if(hasPosted){
+        $('#review-modal').modal('toggle');
     }
 });
 
@@ -32,6 +37,10 @@ $('#radar-button').click(function(event){
 
 $('#add-button').click(function(){
     $('#my-modal').modal('toggle');
+});
+
+$('#add-button').click(function(){
+    $('#review-modal').modal('toggle');
 });
 
 // This is the event listener for the accordian effect in the add to beanstack modal
