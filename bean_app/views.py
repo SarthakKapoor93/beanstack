@@ -189,7 +189,7 @@ def vendor_signup(request):
     else:
         # Get the list of coffee shops and pks to display in the menu
         bean_data = [(bean.pk, bean.name) for bean in CoffeeBean.objects.all()]
-        return render(request, 'bean_app/vendorsignup.html', {'bean_data': bean_data})
+        return render(request, 'bean_app/vendor.html', {'bean_data': bean_data})
 
 
 '''
@@ -252,8 +252,8 @@ def product(request, coffee_name_slug):
 
     saved_coffees = []
     if request.user.is_authenticated():
-        profile = UserProfile.objects.get(user=request.user)
-
+        # Use get or create because we can't be sure that the users who have logged in via facebook have a user profile
+        profile = UserProfile.objects.get_or_create(user=request.user)[0]
         coffees = list(profile.saved_coffees.all())
         saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
@@ -326,7 +326,7 @@ def update_my_beanstack(request):
     bean = CoffeeBean.objects.get(slug=bean_slug)
 
     # Get the user profile for the current user and add the bean
-    user_profile = UserProfile.objects.get(user=request.user)
+    user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
     user_profile.saved_coffees.add(bean)
     return HttpResponse()
 
@@ -365,17 +365,17 @@ def get_server_side_cookie(request, cookie, default_val=None):
 
 def my_beanstack(request):
     # Get the user profile for the user
-    profile = UserProfile.objects.get(user=request.user)
+    profile = UserProfile.objects.get_or_create(user=request.user)[0]
     coffees = list(profile.saved_coffees.all())
     saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
     return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})
 
 
-# Don't know to override the chagne password part of django auth
-# Do an ajax call from the accoount page to access the user's saved coffees
+# Don't know to override the change password part of django auth
+# Do an ajax call from the account page to access the user's saved coffees
 def get_saved_coffees(request):
-    profile = UserProfile.objects.get(user=request.user)
+    profile = UserProfile.objects.get_or_create(user=request.user)[0]
 
     data = []
     for coffee in profile.saved_coffees.all():

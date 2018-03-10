@@ -39,9 +39,6 @@ $('#add-button').click(function(){
     $('#my-modal').modal('toggle');
 });
 
-$('#add-button').click(function(){
-    $('#review-modal').modal('toggle');
-});
 
 // This is the event listener for the accordian effect in the add to beanstack modal
 $('#modal-add, #arrow-glyph').click(function(){
