@@ -147,7 +147,6 @@ $('.plus').hover(function(){
     // only do the mouse leave if the button is not selected
     var tag_id = $(this).attr('data-tag');
     if ($('#' + tag_id + "-label").attr('data-selected') == 'false'){
-        console.log('this sldkf jaslfk j');
         var item = $(this);
         item.css('color', '#209FAA');
         item.css('border-color', '#209FAA');
@@ -182,13 +181,17 @@ $('.tag-label').click(function(){
 
       // reset the color of the plus and minus too
        var id = tag.attr('data-tag')
+
        var plus = $('#' + id + '-plus');
        plus.css('color', '#209FAA');
        plus.css('border-color', '#209FAA');
 
+       console.log(plus.css('border-color'));
+
        var minus = $('#' + id + '-minus');
        minus.css('color', '#209FAA');
        minus.css('border-color', '#209FAA');
+
 
        $(this).attr('data-selected', 'false');
 
@@ -199,3 +202,6 @@ $('.tag-label').click(function(){
 });
 
 // disable rollover if the thing is selectdd
+
+
+

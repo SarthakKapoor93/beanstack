@@ -235,8 +235,8 @@
                                                 {% for tag in tags %}
                                                 <span class="btn-group">
                                                     <button id="{{tag.id}}-minus" class="minus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}" style="border-color: #209FAA; color: #209FAA;">-</button>
-                                                    <label id="{{tag.id}}-label" class=" tag-label btn btn-default action-button btn-sm" data-tag="{{tag.id}}" data-selected="false" style="border-color: #209FAA; color: #209FAA;">{{tag}}</label>
-                                                    <button id="{{tag.id}}-plus " class="plus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}" style="border-color: #209FAA; color: #209FAA;">+</button>
+                                                    <label id="{{tag.id}}-label" class="tag-label btn btn-default action-button btn-sm" data-tag="{{tag.id}}" data-selected="false" style="border-color: #209FAA; color: #209FAA;">{{tag}}</label>
+                                                    <button id="{{tag.id}}-plus" class="plus btn btn-default action-button btn-sm" type="button" data-tag="{{tag.id}}" style="border-color: #209FAA; color: #209FAA;">+</button>
                                                 </span>
                                                 <input id="{{tag.id}}" type="hidden" name="{{tag}}" value="0">
                                                 {% endfor %}

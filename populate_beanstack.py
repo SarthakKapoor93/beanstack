@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanstack.settings')
 import django
 
 django.setup()
-from bean_app.models import CoffeeBean, Review, Customer, Vendor, TagType, Tag, UserProfile
+from bean_app.models import CoffeeBean, Review, Vendor, TagType, Tag, UserProfile
 from django.contrib.auth.models import User
 
 tag_groups = [
