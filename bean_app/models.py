@@ -73,7 +73,7 @@ class CoffeeBean(models.Model):
 # This class, combined with the standard user class will eventually replace the customer object above
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    saved_coffees = models.ManyToManyField(CoffeeBean)
+    saved_coffees = models.ManyToManyField(CoffeeBean, blank=True)
 
     def __str__(self):
         return self.user.username

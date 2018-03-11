@@ -216,9 +216,9 @@
                                 <div class="text-center">
                                     <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Add Review</a>
                                 </div>
-                                <div class="row header-blue" id="post-review-box" style="display:none; border-radius: 15px; background: #1E2833; max-height: 350px;">
+                                <div class="row header-blue" id="post-review-box" style="display:none; background: none;">
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" style="border-radius: 15px; background: #1E2833;">
 
                                         <form accept-charset="UTF-8" action="." method="post">
                                             <a class="btn btn-defualt btn-sm pull-right" href="#" id="close-review-box" style="display:none; margin-top: 15px;">
@@ -243,7 +243,7 @@
                                             </div>
 
 
-                                            <div class="pull-right">
+                                            <div id="review-form-submit" class="pull-right-override">
                                                 <span id="star-animation" class="stars starrr" data-rating="0"></span>
                                                 <button class="btn btn-primary btn-md" type="submit">Submit</button>
                                             </div>

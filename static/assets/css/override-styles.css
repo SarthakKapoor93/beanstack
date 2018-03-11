@@ -62,3 +62,31 @@ height: 100%;
 margin: 0;
 padding: 0;
 }
+
+.to-hide {
+    display: none !important;
+}
+
+
+/* -- MEDIA QUERIES --- */
+
+/* This  is a custom overridable version of the bootstrap pull-right class.
+This is needed because the pull-right class itself can't be overridden. */
+.pull-right-override {
+    float: right;
+}
+
+@media only screen and (max-width: 1000px) {
+    .pull-right-override {
+        float: none;
+    }
+}
+
+@media only screen and (max-width: 764px) {
+    .to-hide {
+        display: inline !important;
+    }
+    #main-menu-dropdown{
+        display: none !important;
+    }
+}

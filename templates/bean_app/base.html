@@ -70,6 +70,15 @@
                         <ul class="nav navbar-nav">
                             <li role="presentation"><a href="{% url 'about' %}">About </a></li>
                             <li role="presentation"><a href="{% url 'browse' %}">Browse beans</a></li>
+                            <!--The following list item are normally not shown in the list, except at low screen widths. Otherwise they are in dropdown menu below-->
+                            {%  if user.is_authenticated %}
+                                <li class="to-hide" role="presentation"><a href="{% url 'my_beanstack' %}">My BeanStack</a></li>
+                                <li class="to-hide" role="presentation"><a href="{% url 'auth_password_change' %}">Account settings</a></li>
+                                <li class="to-hide" role="presentation"><a href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a></li>
+                            {% else %}
+                                <li class="to-hide" role="presentation"><a href="{% url 'auth_login' %}">Log In</a></li>
+                                <li class="to-hide" role="presentation"><a href="{% url 'registration_register' %}">Sign up</a></li>
+                            {% endif %}
                         </ul>
 
                         <form class="navbar-form navbar-left" target="_self" method="get" action="{% url 'search' %}">
@@ -80,24 +89,26 @@
                         </form>
 
 
-                        <p class="navbar-text navbar-right">
-                            {% if user.is_authenticated %}
-                                <div class="dropdown pull-right">
-                                    <a class="btn btn-default action-button" style="margin-top: 5px;" data-toggle="dropdown" aria-expanded="false" href="#">
-                                        {{ user.username }}
-                                        <span class="caret" style="margin-left: 5px;"></span>
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li role="presentation"><a href="{% url 'my_beanstack' %}">My BeanStack</a></li>
-                                        <li role="presentation"><a href="{% url 'auth_password_change' %}">Account settings</a></li>
-                                        <li role="presentation"><a href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a></li>
-                                    </ul>
-                                </div>
-                            {% else %}
-                                <a class="navbar-link login" href="{% url 'auth_login' %}">Log In</a>
-                                <a class="btn btn-default action-button" role="button" href="{% url 'registration_register' %}">Sign Up</a>
-                            {% endif %}
-                        </p>
+                        <div id="main-menu-dropdown">
+                            <p class="navbar-text navbar-right">
+                                {% if user.is_authenticated %}
+                                    <div class="dropdown pull-right">
+                                        <a class="btn btn-default action-button" style="margin-top: 5px;" data-toggle="dropdown" aria-expanded="false" href="#">
+                                            {{ user.username }}
+                                            <span class="caret" style="margin-left: 5px;"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="presentation"><a href="{% url 'my_beanstack' %}">My BeanStack</a></li>
+                                            <li role="presentation"><a href="{% url 'auth_password_change' %}">Account settings</a></li>
+                                            <li role="presentation"><a href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a></li>
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    <a class="navbar-link login" href="{% url 'auth_login' %}">Log In</a>
+                                    <a class="btn btn-default action-button" role="button" href="{% url 'registration_register' %}">Sign Up</a>
+                                {% endif %}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </nav>
