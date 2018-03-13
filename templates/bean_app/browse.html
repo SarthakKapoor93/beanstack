@@ -83,7 +83,11 @@
                     </span>
                 </div>
                 <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
-                    <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
+                    {% if bean.image %}
+                        <img class="img-responsive" src="{{ MEDIA_URL }}{{ bean.slug }}.jpeg">
+                    {% else %}
+                        <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
+                    {% endif %}
                     <div class="iphone-mockup">
                         <div class="screen"></div>
                      </div>
