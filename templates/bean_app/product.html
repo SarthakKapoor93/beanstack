@@ -15,7 +15,7 @@
     <div class="container hero">
         <div class="row">
             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-                <h2 style="color:#FFFFFF", class="text-left">{{ bean.name }}</h2>
+                <h2 style="color:#FFFFFF" class="text-left">{{ bean.name }}</h2>
                 <p style="opacity: 0.7;">{{ bean.description }}</p>
             </div>
             <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
@@ -69,88 +69,9 @@
 		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];
 	</script>
 
+
     <div id='myChart' style="min-height: 500px" ><a class="zc-ref" href="https://www.zingchart.com/">Powered by ZingChart</a></div>
-    <style>
-        html, body {
-            height:100%;
-            width:100%;
-        }
-        #myChart {
-            height:100%;
-            width:100%;
-            min-height:250px;
-        }
-        .zc-ref {
-            display:none;
-        }
-    </style>
-    <script>
-        var myConfig = {
-          type : 'radar',
-          plot : {
-            aspect : 'area',
-            animation: {
-              effect:3,
-              sequence:1,
-              speed:700
-            }
-          },
-          scaleV : {
-            visible : false
-          },
-          scaleK : {
-            values : '',
-            labels : [
-                {% for tag in tags %}
-                    '{{ tag.tag_type.name }}',
-                {% endfor %}
-            ],
-            item : {
-              fontColor : '#607D8B',
-              backgroundColor : "white",
-              borderColor : "#aeaeae",
-              borderWidth : 1,
-              padding : '5 10',
-              borderRadius : 10
-            },
-            refLine : {
-              lineColor : '#c10000'
-            },
-            tick : {
-              lineColor : '#59869c',
-              lineWidth : 2,
-              lineStyle : 'dotted',
-              size : 20
-            },
-            guide : {
-              lineColor : "#607D8B",
-              lineStyle : 'solid',
-              alpha : 0.3,
-              backgroundColor : "#c5c5c5 #718eb4"
-            }
-          },
-          series : [
-            {
-              values : [
-                {% for tag in tags %}
-                    {{ tag.value }},
-                {% endfor %}
-              ],
-              text:'farm',
-              backgoundColor: '#21A3AC'
-            },
-          ]
-        };
-
-        zingchart.render({
-            id : 'myChart',
-            data : myConfig,
-            height: '100%',
-            width: '100%'
-        });
-    </script>
-
-    <!--End of the radar chart stuff -->
+    <!-- The end of the radar graphs stuff -->
 
     <div id="vendor-heading">
         <div class="container">
@@ -177,7 +98,6 @@
                     Check internet connection or turn geolocation on in your browser to use BeanStack location features
                 </div>
             </div>
-
     </div>
     <br>
     <br>
@@ -432,6 +352,18 @@
         var beanSlug = "{{ bean.slug }}";
         var displayReviews = {{ display_reviews|lower }};
         var hasPosted = {{ has_posted|lower }};
+
+        var tagLabels = [
+                        {% for tag in tags %}
+                            '{{ tag.tag_type.name }}',
+                        {% endfor %}
+                        ];
+
+        var tagValues = [
+                        {% for tag in tags %}
+                            {{ tag.value }},
+                        {% endfor %}
+                        ];
     </script>
 
     <!--NOTE: This jquery script need to be imported first to avoid an error, but it is already present
@@ -440,4 +372,5 @@
     <script src="{% static 'assets/js/maps.js' %}"></script>
     <script src="{% url 'load_api' %}"></script>
     <script src="{% static 'assets/js/product.js' %}"></script>
+   <script src="{% static 'assets/js/radar_graph.js' %}"></script>
 {% endblock %}

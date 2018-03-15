@@ -68,6 +68,21 @@ padding: 0;
 }
 
 
+/* ---  Styles for the radar graph --- */
+html, body {
+    height:100%;
+    width:100%;
+}
+#myChart {
+    height:100%;
+    width:100%;
+    min-height:250px;
+}
+.zc-ref {
+    display:none;
+}
+
+
 /* -- MEDIA QUERIES --- */
 
 /* This  is a custom overridable version of the bootstrap pull-right class.
