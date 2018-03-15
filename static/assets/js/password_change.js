@@ -1,4 +1,6 @@
-// We need to do an ajax call to the server to get the saved coffees to display on this page
+// Because we are using Django redux to do password resetting, we don't have access
+// to the view that handles this. Instead we make an ajax call to retrieve the data
+// that we need.
 $(function(){
 
     $.get('/bean_app/get-saved-coffees', {}, function(data){
@@ -10,5 +12,4 @@ $(function(){
             selector.append("<option style='color: #999999;' value=''>" + name + "</option>");
         }
     });
-
 });

@@ -2,34 +2,33 @@ $(function(){
     $('#modal-message').hide();
     $('#review-modal').hide();
 
-    // If the boolean flag exists on page load scroll to the reviews section
+    // If the boolean flag exists on page load, scroll to the reviews section
     if (displayReviews){
         document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
     }
 
+    // If the user has already posted, show the modal
     if(hasPosted){
         $('#review-modal').modal('toggle');
     }
 });
 
+/*
+    This code is from stack overflow
+    In order to have the map adapt to the screen as the screen size changes
+    we reload the screen when ever the browser window size is changed, however
+    we don't want to do this when using a touch screen device as this causes
+    the page to constantly reload
+*/
 
-// This code is from stack overflow
-// In order to have the map adapt to the screen as the screen size changes
-// we reload the screen when ever the browser window size is changed, however
-// we don't want to do this when using a touch screen device as this causes
-// the page to constantly reload
 if (!('ontouchstart' in document)){
-    $(window).bind('resize', function(e)
-    {
-    if (window.RT) clearTimeout(window.RT);
-    window.RT = setTimeout(function()
-    {
-    this.location.reload(false);
-  }, 100);
-});
-
+    $(window).bind('resize', function(e){
+        if (window.RT) clearTimeout(window.RT);
+        window.RT = setTimeout(function(){
+            this.location.reload(false);
+        }, 100);
+    });
 }
-
 
 $('.review-button').click(function(event){
     document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
@@ -38,7 +37,6 @@ $('.review-button').click(function(event){
 $('#vendor-button').click(function(event){
     document.getElementById('vendor-heading').scrollIntoView({behavior: "smooth"});
 });
-
 
 $('#radar-button').click(function(event){
     document.getElementById('radar-heading').scrollIntoView({behavior: "smooth"});
@@ -75,7 +73,6 @@ $('#arrow-glyph, #modal-add').click(function(){
 
 });
 
-
 // This is called from the maps.js script
 function activate_modal(marker){
     $('#vendor-detail-modal .modal-title').html(marker.name);
@@ -92,7 +89,8 @@ function activate_modal(marker){
 // This function will listen to the tag buttons and update the hidden values for the form
 // each time they are updated
 
-$('.plus').click(function(){
+
+$('.plus, .minus').click(function(){
 
     var item = $(this);
     var id = item.attr('data-tag')
@@ -111,40 +109,20 @@ $('.plus').click(function(){
         item.css('color', 'white');
         item.css('border-color', 'white');
 
-        // Insert the '+' character into the data attribute
-        $("#" + tag_id).attr('value', '+');
+        // place the appropriate value in the form
+        var itemType = $(this).attr('id');
+        var value;
+        if (itemType.includes('plus')){
+            value = '+';
+        } else if (itemType.includes('minus')){
+            value = '-';
+        }
+        $("#" + tag_id).attr('value', value);
      }
 });
 
-$('.minus').click(function(){
 
-    var item = $(this);
-    var id = item.attr('data-tag')
-    if ($('#' + id + '-label').attr('data-selected') == 'false'){
-
-        // Get the name of tag that has been pushed
-        var tag_id = $(this).attr('data-tag');
-
-        //change the color of the label
-        var label = $("#" + tag_id + "-label");
-        label.attr('data-selected', 'True');
-
-        label.css('color', 'white');
-        label.css('border-color', 'white');
-        label.attr('data-selected', 'true');
-
-        // and the minus
-        var item = $(this);
-        item.css('color', 'white');
-        item.css('border-color', 'white');
-
-        // Insert the '-' character into the data attribute
-        $("#" + tag_id).attr('value', '-');
-     }
-});
-
-$('.plus').hover(function(){
-
+$('.minus, .plus').hover(function(){
     var item = $(this);
     //Rollover disabled if tag is already selected
     var id = item.attr('data-tag')
@@ -162,25 +140,7 @@ $('.plus').hover(function(){
     }
 });
 
-$('.minus').hover(function(){
-    var item = $(this);
-    //Rollover disabled if tag is already selected
-    var id = item.attr('data-tag')
-    if ($('#' + id + '-label').attr('data-selected') == 'false'){
-        item.css('color', 'white');
-        item.css('border-color', 'white');
-    }
-}, function(){
-    // only do the mouse leave if the button is not selected
-    var tag_id = $(this).attr('data-tag');
-    if ($('#' + tag_id + "-label").attr('data-selected') == 'false'){
-        var item = $(this);
-        item.css('color', '#209FAA');
-        item.css('border-color', '#209FAA');
-    }
-});
-
-// You can also click on teh label to unselect your selection
+// You can also click on the label to deselect your selection
 $('.tag-label').click(function(){
     // is is selected?
     if ($(this).attr('data-selected') == 'true'){
@@ -206,11 +166,5 @@ $('.tag-label').click(function(){
 
        // make sure that no value is recorded for the tag
        $("#" + id).attr('value', 'None');
-
     }
 });
-
-// disable rollover if the thing is selectdd
-
-
-

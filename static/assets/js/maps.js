@@ -1,6 +1,3 @@
-// So this is working a bit better now. There will still be one longer load time at the beginnning.
-// This behaviour means that it gets your location everytime you go onto the maps page. But I don't think you'll be
-// a lot of time there to be honest so that's probably fine.
 
 var map;
 var userPosition;
@@ -10,7 +7,6 @@ var selectedBeanstackMarkers = []
 var vendor_data = []
 
 function initMap(){
-
 
     changeMapMessage("BeanStack cafes that sell " + selectedCoffee );
 
@@ -193,7 +189,6 @@ function doAjax(coffee_id, myCallBack){
                 products: vendor_data[i]['products']
             });
 
-
             // Create an info window for each of the beanstack cafes
             var infowindow = new google.maps.InfoWindow();
 
@@ -228,7 +223,6 @@ function doAjax(coffee_id, myCallBack){
          myCallBack();
     });
 }
-
 
 // Gets the other non-beanstack cafes from google
 $('#other-cafes').click(function(event){
@@ -287,13 +281,7 @@ function createMarker(place) {
         infowindow.close();
     });
 
-
     nonBeanstackMarkers.push(marker);
-
-google.maps.event.addListener(marker, 'click', function() {
-//  infowindow.setContent(place.name);
-//  infowindow.open(map, this);
-});
 }
 
 function changeMapMessage(message){
