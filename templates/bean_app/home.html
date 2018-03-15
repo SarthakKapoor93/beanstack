@@ -14,10 +14,12 @@
      <div class="row">
          <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
              <h1>What's your favourite coffee?</h1>
-             <p> </p>
-             <button class="btn btn-default btn-lg action-button" type="button">
-                 Rate and review your favourite coffee beans!
-             </button>
+             <br>
+             <a href="{% url 'browse' %}">
+                 <button id="home-button" class="btn btn-default btn-lg action-button" type="text">
+                    <span>Rate and review your favourite coffee beans!</span>
+                </button>
+             </a>
          </div>
          <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
              <img src="{% static 'assets/img/BeanStackLogo3.png'%}">
@@ -27,7 +29,10 @@
          </div>
      </div>
  </div>
-<span id="arrowbutton" class="glyphicon glyphicon-circle-arrow-down" style="font-size: 50px; margin-top: 100px; margin-left: 47%; color: white; opacity: 0.2;"></span>
+<div class="text-center" style="margin-top: 100px;">
+    <span id="arrowbutton" class="glyphicon glyphicon-circle-arrow-down" style="font-size: 50px; color: white; opacity: 0.2;"></span>
+</div>
+
 {% endblock %}
 
 {% block body_block %}

@@ -60,7 +60,7 @@
     <!--Header Div-->
     <div>
         <!--nav bar-->
-        <div class="header-blue" style="min-height: 900px;">
+        <div class="header-blue" style="min-height: 100vh;{% if vendorsignup %} height:900px; {% endif%}">
             <nav class="navbar navbar-default navigation-clean-search">
                 <div class="container">
                     <div class="navbar-header"><a class="navbar-brand navbar-link" href="{% url 'home' %}">Bean Stack</a>

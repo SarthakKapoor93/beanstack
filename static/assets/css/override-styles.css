@@ -90,3 +90,13 @@ This is needed because the pull-right class itself can't be overridden. */
         display: none !important;
     }
 }
+
+@media only screen and (max-width: 400px) {
+
+    /* Adjust the size of the button on the home screen for very small screens */
+    #home-button {
+        font-size: 14px;
+        padding: 4px 8px;
+    }
+}
+

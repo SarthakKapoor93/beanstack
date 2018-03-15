@@ -189,7 +189,11 @@ def vendor_signup(request):
     else:
         # Get the list of coffee shops and pks to display in the menu
         bean_data = [(bean.pk, bean.name) for bean in CoffeeBean.objects.all()]
-        return render(request, 'bean_app/vendorsignup.html', {'bean_data': bean_data})
+        context = {
+            'bean_data': bean_data,
+            'vendorsignup': True,
+        }
+        return render(request, 'bean_app/vendorsignup.html', context)
 
 
 '''
