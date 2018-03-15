@@ -12,7 +12,11 @@
 
         <div style="color: white; opacity: 0.6;">
             <h3>{{ user }}'s BeanStack</h3>
-            <h4>Here are your saved coffees</h4>
+            {% if saved_coffees %}
+                <h4>Here are your saved coffees:</h4>
+            {% else %}
+                <h4>You don't have any saved coffees yet.</h4>
+            {% endif %}
         </div>
 
         <div class="panel-group">

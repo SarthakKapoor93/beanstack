@@ -2,6 +2,10 @@
 {% load staticfiles %}
 {% load bean_app_template_tags %}
 
+{% block head_block %}
+    <script src="{% static 'assets/js/form.js' %}"></script>
+{% endblock %}
+
 {% block title_block %}
     BeanStack Vendor Signup
 {% endblock %}
@@ -16,7 +20,7 @@
 
                 <p class="required">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="owner_name" maxlength="128" required id="id_owner_name" placeholder="owner name"/>
+                        <input class="focus-on-load form-control" type="text" name="owner_name" maxlength="128" required id="id_owner_name" placeholder="owner name"/>
                     </div>
                 </p>
                 <p class="required">
@@ -68,6 +72,37 @@
         </div>
     </div>
 <script src="{% static 'assets/js/vendorsignup.js' %}"></script>
+
+
+
+
+    <!-- Modal -->
+    <div id="vendor-info-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Why register with BeanStack?</h4>
+          </div>
+          <div class="modal-body">
+            <p>When you register your business and the coffees you stock with BeanStack, you open your cafe up to
+                our users. The next time someone searches for a coffee that you stock, your store is shown on the map
+                and the user is given a link to your online store.
+            </p>
+              <p>
+              It's a really easy way to let coffee lovers know who you are and where to find your coffee.
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--End of modal-->
 {% endblock %}
 
 

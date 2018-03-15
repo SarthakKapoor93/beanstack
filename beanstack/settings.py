@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from bean_app.facebook_api import FacebookKeyAccess
+
+fb_access_key = FacebookKeyAccess()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -165,5 +168,5 @@ LOGIN_URL = '/accounts/login/'  # Redirect to this page after unsuccessful login
 # LOGIN_REDIRECT_URL = 'home'
 
 
-SOCIAL_AUTH_FACEBOOK_KEY = '821468518056385'  # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '7752c149f2b5cc05b27eb085c8402e6e'  # App Secret
+SOCIAL_AUTH_FACEBOOK_KEY = fb_access_key.get_facebook_key()  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = fb_access_key.get_facebook_secret()  # App Secret

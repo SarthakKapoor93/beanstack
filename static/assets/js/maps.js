@@ -47,12 +47,20 @@ function next(userPosition){
         zoom: 15
     });
 
-    // Place the user's position on the map as a marker
-    var marker = new google.maps.Marker({
-        icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-        map: map,
-        position: userPosition
-    });
+    // Place the user's position on the map. User the standard red marker
+    // if on mobile devive otherwise use the custom blue one.
+    if (!('ontouchstart' in document)){
+        var marker = new google.maps.Marker({
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+            map: map,
+            position: userPosition
+        });
+    } else {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: userPosition
+        });
+    }
 
     // Create an info window for the user
     var infowindow = new google.maps.InfoWindow({
@@ -280,10 +288,6 @@ function createMarker(place) {
     });
 
 
-//    google.maps.event.addListener(marker, 'click', function() {
-//      DONT NEED THIS
-//        alert("marker clicked");
-//    });
     nonBeanstackMarkers.push(marker);
 
 google.maps.event.addListener(marker, 'click', function() {

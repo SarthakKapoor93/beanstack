@@ -13,8 +13,12 @@ $(function(){
 });
 
 
+// This code is from stack overflow
+// In order to have the map adapt to the screen as the screen size changes
+// we reload the screen when ever the browser window size is changed, however
+// we don't want to do this when using a touch screen device as this causes
+// the page to constantly reload
 if (!('ontouchstart' in document)){
-    // Resizes the window took this from stack overflow
     $(window).bind('resize', function(e)
     {
     if (window.RT) clearTimeout(window.RT);

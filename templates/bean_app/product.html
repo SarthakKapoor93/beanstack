@@ -173,7 +173,9 @@
                 </div>
             </div>
             <div class="panel-footer">
-                <div id="map-message" class=""></div>
+                <div id="map-message" class="">
+                    Check internet connection or turn geolocation on in your browser to use BeanStack location features
+                </div>
             </div>
 
     </div>
@@ -213,13 +215,15 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div>
                     <div class="container">
                         <div class="row" style="margin-top:30px;">
-                            <div class="col-md-12">
+                            <div>
                                 <div class="text-center">
                                     <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box">Add Review</a>
                                 </div>
+
+
                                 <div class="row header-blue" id="post-review-box" style="display:none; background: none;">
 
                                     <div class="col-md-12" style="border-radius: 15px; background: #1E2833;">
@@ -264,14 +268,17 @@
     {% else %}
         <br>
         <br>
-        <div class="container">
-            <div class="intro">
-                <h4 class="text-center"><a href="{% url 'auth_login' %}">Log in to leave a review</a></h4>
+        <div class="">
+            <div class="text-center">
+                <a href="{% url 'auth_login' %}"><button class="btn btn-success btn-green" type="button">Log in to leave a review</button></a>
             </div>
         </div>
 
     {% endif %}
 
+    <div class="text-center">
+        <a href="#top"><button class="btn action-button" type="button">Back to top</button></a>
+    </div>
 
 
     <!-- Modal -->
