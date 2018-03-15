@@ -12,15 +12,20 @@ $(function(){
     }
 });
 
-// Resizes the window took this from stack overflow
-$(window).bind('resize', function(e)
-{
-  if (window.RT) clearTimeout(window.RT);
-  window.RT = setTimeout(function()
-  {
+
+if (!('ontouchstart' in document)){
+    // Resizes the window took this from stack overflow
+    $(window).bind('resize', function(e)
+    {
+    if (window.RT) clearTimeout(window.RT);
+    window.RT = setTimeout(function()
+    {
     this.location.reload(false);
   }, 100);
 });
+
+}
+
 
 $('#review-button').click(function(event){
     document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
