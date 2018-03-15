@@ -27,7 +27,7 @@ if (!('ontouchstart' in document)){
 }
 
 
-$('#review-button').click(function(event){
+$('.review-button').click(function(event){
     document.getElementById('reviews').scrollIntoView({behavior: "smooth"});
 });
 

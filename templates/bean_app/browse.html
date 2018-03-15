@@ -68,11 +68,11 @@
         {% for bean in beans %}
             <div class="row">
                 <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
-                    <h2 style="color:#FFFFFF", class="text-left">{{ bean.name }}</h2>
+                    <a href="{% url 'product' bean.slug %}"><h2 style="color:#FFFFFF" class="text-left">{{ bean.name }}</h2></a>
                     <p style="opacity: 0.7;">{{ bean.description }}</p>
                     <span>
                         {% autoescape off %}
-                            {% get_stars bean.average_rating '#D17581' %}
+                            <a href="{% url 'product' bean.slug %}?reviews=True">{% get_stars bean.average_rating '#D17581' %}</a>
                         {% endautoescape %}
                         <div class="btn-group pull-right">
                             <a href="{% url 'product' bean.slug %}"><button class="btn btn-default btn-lg action-button" type="button">Details</button></a>
@@ -83,17 +83,19 @@
                     </span>
                 </div>
                 <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
-                    {% if bean.image %}
+                    <a href="{% url 'product' bean.slug %}">
+                        {% if bean.image %}
                         <img class="img-responsive" src="{{ MEDIA_URL }}{{ bean.slug }}.jpeg">
-                    {% else %}
+                        {% else %}
                         <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
-                    {% endif %}
+                        {% endif %}
+                    </a>
                     <div class="iphone-mockup">
                         <div class="screen"></div>
-                     </div>
+                    </div>
                     <div class="clearfix"></div>
-                 </div>
-             </div>
+                </div>
+            </div>
         <br>
         <br>
         <br>

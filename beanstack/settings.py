@@ -28,7 +28,17 @@ SECRET_KEY = 'wi1(p0wg+5b3&0*jzagc)n)*0amhb_!fam5svufs+7atmmopmr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['beanstack.pythonanywhere.com']
+# ALLOWED_HOSTS = ['beanstack.pythonanywhere.com']
+ALLOWED_HOSTS = []
+# SECURE_SSL_REDIRECT = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+
+"""
+When putting the project into production, switch the debug to false, the allowed hosts on 
+and the ssl redirect to true. The other two options might be good too.
+
+"""
 
 # Application definition
 
@@ -110,8 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-SECURE_SSL_REDIRECT = True
 
 AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.github.GithubOAuth2',
