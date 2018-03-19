@@ -31,6 +31,24 @@ def about(request):
 def brewing(request):
     return render(request, 'bean_app/brewing.html', {})
 
+def coffee_cone(request):
+    return render(request, 'bean_app/coffee_cone.html', {})
+
+def chemex(request):
+    return render(request, 'bean_app/chemex.html', {})
+
+def french_press(request):
+    return render(request, 'bean_app/french_press.html', {})
+
+def aeropress(request):
+    return render(request, 'bean_app/aeropress.html', {})
+	
+def stovetop_moka_pot(request):
+    return render(request, 'bean_app/stovetop_moka_pot.html', {})
+
+def siphon(request):
+    return render(request, 'bean_app/siphon.html', {})
+
 
 def contact(request):
     return render(request, 'bean_app/contact.html', {})
