@@ -271,10 +271,16 @@ function createMarker(place) {
         content: "<b>" + place.name + "</b>",
         });
 
-    // Action listener on the marker
-    marker.addListener('mouseover', function(){
+    // Function for click or rollover
+    clickRollover = function(){
         infowindow.open(map, marker);
-    });
+    };
+
+    // Action listener on the marker
+    marker.addListener('mouseover',  clickRollover);
+
+    // Additional click listener for touch screen devices
+    marker.addListener('click',  clickRollover);
 
     // Make sure the infowindow closes again when the mouse rolls out
     marker.addListener('mouseout', function() {

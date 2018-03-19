@@ -34,7 +34,7 @@ def browse(request):
 
     context = {
         "beans": page,
-        'len_results': len(beans) # This is a hack to make the pagination work
+        'len_results': len(beans)
     }
     return render(request, 'bean_app/browse.html', context)
 
@@ -107,12 +107,6 @@ def vendor_signup(request):
         return render(request, 'bean_app/vendorsignup.html', context)
 
 
-'''
-NOTE: When we have users up and running with authentication etc, in this view, we need to make sure that
-a users can only leave one review for each coffee.
-NOTE: It is also important that the review is made before the upvotes are registered. 
-'''
-
 def product(request, coffee_name_slug):
 
     # If the user is posting a review
@@ -125,8 +119,7 @@ def product(request, coffee_name_slug):
         rating = request.POST.get('rating', 0)
         coffee_bean = CoffeeBean.objects.get(slug=coffee_bean_slug)
 
-        # Before doing anything else we should make sure that this user hasn't already
-        # left a review for this coffee.
+        # Make sure that the user hasn't already left a review for this coffee
         reviews = Review.objects.filter(user=user, coffee_bean=coffee_bean)
         if reviews:
             successful_review = False
@@ -143,13 +136,12 @@ def product(request, coffee_name_slug):
 
             # Update the tags with the values from the post data
             tag_types = TagType.objects.all()
-            # loop over the tag types and use the name to get the values from the post
+            # Loop over the tag types and use the name to get the values from the post
             for tag_type in tag_types:
                 value = request.POST.get(tag_type.name)
                 if value:
-                    # now we need to access the tag. How do we get a specific tag?
                     tag = Tag.objects.filter(tag_type=tag_type, coffee_bean=coffee_bean).first()
-                    # update the tag value
+                    # Update the tag value
                     if value == '+':
                         tag.value += 1
                     elif value == '-':
@@ -161,9 +153,6 @@ def product(request, coffee_name_slug):
         # Otherwise - The user has made a get request
         has_posted = False
         successful_review = False
-
-    # This view also needs to pass back the users' saved coffees in the context
-    # (we could also do this via an ajax request)
 
     saved_coffees = []
     if request.user.is_authenticated():
@@ -178,7 +167,7 @@ def product(request, coffee_name_slug):
 
     coffee_bean = CoffeeBean.objects.get(slug=coffee_name_slug)
     context = {'bean': coffee_bean,
-               'tags': coffee_bean.tags.all(),
+               'tags': coffee_bean.tags.order_by('value')[::-1],
                'reviews': Review.objects.filter(coffee_bean=coffee_bean),
                'display_reviews': display_reviews,
                'saved_coffees': saved_coffees,
@@ -234,7 +223,6 @@ def get_beanstack_cafes(request):
 
 
 @login_required
-# This might need to check if the coffee is already on the saved coffees list and let them know
 def update_my_beanstack(request):
     # Take the bean slug from the get request
     bean_slug = request.GET.get('bean_slug', None)
@@ -244,6 +232,7 @@ def update_my_beanstack(request):
     user_profile = UserProfile.objects.get_or_create(user=request.user)[0]
     user_profile.saved_coffees.add(bean)
     return HttpResponse()
+
 
 @login_required
 def my_beanstack(request):

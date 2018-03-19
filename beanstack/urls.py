@@ -11,9 +11,11 @@ class MyRegistrationView(RegistrationView):
     def get_success_url(self, user):
         return '/bean_app/home/'
 
-    # This function overrides the django-redux function
-    # we need to do this to make sure there is a user profile
-    # associated with a user
+    '''
+    This function overrides the one in django-redux.
+    We need to do this to make sure that there is a
+    user profile associated with each user
+    '''
     def register(self, form):
         if form.is_valid():
             user = form.save()

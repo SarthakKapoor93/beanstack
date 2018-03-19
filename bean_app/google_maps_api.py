@@ -1,23 +1,14 @@
 import requests
 import re
 
-"""
-NOTE: This class is not being used at the moment because the javascript that we downloaded from 
-google is static and not dymanic, meaning that it was possible to just download it and store in the 
-static file: beanstack/static/assets/js/googlemaps-api.js
-
-I haven't deleted the class yet because we may want to use it in the future for other api calls eg GeoCoding.
-"""
-
 
 class Mapper:
     """
     This is just a simple class to separate out some of the
-    functionality of the google maps api. We may need to add to
-    it later. Although it is possible to make the api call directly
-    from the client side, a server side call avoids having to expose
-    the api in the html page. You can get your own key from here:
-    https://developers.google.com/maps/web-services/
+    functionality of the google maps api.Although it is possible
+    to make the api call directly from the client side,
+    a server side call avoids having to expose
+    the api keys in the html page.
     """
 
     def __init__(self):

@@ -29,6 +29,12 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'wi1(p0wg+5b3&0*jzagc)n)*0amhb_!fam5svufs+7atmmopmr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
+"""
+NOTE FOR DEPLOYMENT:
+    When deploying the the application, switch the debug to false, the allowed hosts on 
+    and the ssl redirect to true. The other two options might be good too.
+"""
 DEBUG = True
 
 # ALLOWED_HOSTS = ['beanstack.pythonanywhere.com']
@@ -37,11 +43,6 @@ ALLOWED_HOSTS = []
 # CSRF_COOKIE_SECURE = True
 # SECURE_SSL_REDIRECT = True
 
-"""
-When putting the project into production, switch the debug to false, the allowed hosts on 
-and the ssl redirect to true. The other two options might be good too.
-
-"""
 
 # Application definition
 
@@ -70,8 +71,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'beanstack.urls'
-
-STATICFILES_DIRS = [STATIC_DIR, ]
 
 TEMPLATES = [
     {
@@ -151,7 +150,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR]
+STATICFILES_DIRS = [STATIC_DIR, ]
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
@@ -162,11 +161,6 @@ REGISTRATION_AUTO_LOGIN = True  # the user will be automatically logged in
 LOGIN_REDIRECT_URL = '/bean_app/home/'  # Redirect to this page after a successful login
 LOGIN_URL = '/accounts/login/'  # Redirect to this page after unsuccessful login
 
-
-# LOGIN_URL = 'login'
-# LOGOUT_URL = 'logout'
-# LOGIN_REDIRECT_URL = 'home'
-
-
+# Read the facebook keys from file
 SOCIAL_AUTH_FACEBOOK_KEY = fb_access_key.get_facebook_key()  # App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = fb_access_key.get_facebook_secret()  # App Secret

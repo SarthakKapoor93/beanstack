@@ -13,7 +13,7 @@
 {% block body_block_alt %}
     <div class="login-dark">
 
-            <form action="{% url 'vendorsignup' %}" method="post" style="min-height: 780px; min-width: 400px;">
+            <form id="vendor-signup-form" action="{% url 'vendorsignup' %}" method="post" style="min-height: 780px;">
                 <div class="illustration"><i class="icon ion-coffee" ></i></div>
 
                 {% csrf_token %}

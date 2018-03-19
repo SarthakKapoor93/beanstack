@@ -82,6 +82,10 @@ html, body {
     display:none;
 }
 
+ #vendor-signup-form {
+        min-width: 400px;
+    }
+
 
 /* -- MEDIA QUERIES --- */
 
@@ -104,6 +108,10 @@ This is needed because the pull-right class itself can't be overridden. */
     #main-menu-dropdown{
         display: none !important;
     }
+
+    .product-image {
+        margin: auto;
+    }
 }
 
 @media only screen and (max-width: 400px) {
@@ -113,5 +121,11 @@ This is needed because the pull-right class itself can't be overridden. */
         font-size: 14px;
         padding: 4px 8px;
     }
+
+    #vendor-signup-form {
+        min-width: 350px;
+    }
+
+
 }
 

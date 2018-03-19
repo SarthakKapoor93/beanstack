@@ -11,35 +11,8 @@
         <div class="row">
             <div class="col-md-10">
 
-                <!--Temporarily hiding the filters until we know what to do with them-->
-
-                <!--<div class="checkbox">-->
-                    <!--<label>-->
-                        <!--<input type="checkbox">Filter 1</label>-->
-                <!--</div>-->
-                <!--<div class="checkbox">-->
-                    <!--<label>-->
-                        <!--<input type="checkbox">Filter 2</label>-->
-                <!--</div>-->
-                <!--<div class="checkbox">-->
-                    <!--<label>-->
-                        <!--<input type="checkbox"> Filter 3</label>-->
-                <!--</div>-->
-                <!--<div class="checkbox">-->
-                    <!--<label>-->
-                        <!--<input type="checkbox"> Filter 4</label>-->
-                <!--</div>-->
              </div>
 
-            <!--<div class="col-md-2">-->
-               <!--<div class="dropdown">-->
-                    <!--<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true" type="button">Sort by <span class="caret"></span></button>-->
-                    <!--<ul class="dropdown-menu dropdown-menu-right" role="menu">-->
-                        <!--<li role="presentation"><a href="#">Alphabatical Order</a></li>-->
-                        <!--<li role="presentation"><a href="#">Hightest Ratings</a></li>-->
-                    <!--</ul>-->
-                 <!--</div>-->
-             <!--</div>-->
 
         </div>
      </div>
@@ -120,8 +93,11 @@
         </div>
     {% endif %}
 
+    {% if len_results > 1 %}
     <div class="text-center">
         <a href="#top"><button class="btn action-button" type="button">Back to top</button></a>
     </div>
+    {% endif %}
+
 
 {% endblock %}
