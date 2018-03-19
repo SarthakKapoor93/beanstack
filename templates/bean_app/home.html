@@ -45,7 +45,18 @@
          <div class="row articles">
              {% for bean in beans %}
                  <div class="col-md-4 col-sm-6 item">
-                     <a href="#"><img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px"></a>
+                     <a href="#">
+                         <!--<img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px">-->
+                         <a href="{% url 'product' bean.slug %}">
+                        {% if bean.image %}
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ bean.image }}">
+                        {% else %}
+                            <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
+                        {% endif %}
+                    </a>
+
+
+                     </a>
                      <h3 class="name">{{ bean.name }}</h3>
                      <p class="description">{{ bean.description }}</p>
 
