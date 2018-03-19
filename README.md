@@ -13,3 +13,8 @@ and put the key in it.
 2. Change the basic app settings and set the domain and URL to localhost:8000. 
 3. Change the advanced settings and set the domain and URL to localhost:8000.
 4. Go to Facebook login link and it will redirect to Facebook login to check signin and should bring you back to our app after successful Facebook signin. 
+
+
+**PythonAnywhere URL for the app:**
+
+https://beanstack.pythonanywhere.com/
