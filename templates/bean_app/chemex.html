@@ -1,0 +1,45 @@
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+{% load bean_app_template_tags %}
+
+{% block title_block %}
+    Brewing details
+{% endblock %}
+
+{% block head_block %}
+    <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block banner_block %}
+    <div class="container hero">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <h2 style="color:#FFFFFF", class="text-left">Chemex</h2>
+                <p style="opacity: 0.7; color:#FFFFFF;">
+					Chemex is a beautifully designed and elegant pour over, glass flask that was invented in
+					1941 by Dr. Peter Schlumbohm. It uses a special Chemex paper filter that is 20-30% heavier
+					than other filters. Similar to the coffee cone, hot water is poured over coffee grounds in a
+					paper filter. The brewed coffee drips into the bottom of the flask which doubles as its own carafe.
+					<br>
+					<br>
+					<br>
+				    • &nbsp Grind of Beans: medium-coarse <br>
+                    • &nbsp Ground Coffee: 6 tablespoons of coffee (42g) <br>
+                    • &nbsp Brewing Time: 4 minutes <br>
+                    • &nbsp Flavour Profile: balanced, cleaner, refined, floral, sweet notes and non-acidic <br>
+                    • &nbsp Cost: $45-78 (extra cost for filters) <br>
+                    • &nbsp Different sizes yields up to 6 cups <br>                  
+                    • &nbsp Harder to clean and requires special brush <br>
+                    • &nbsp Portable but fragile <br>
+                    • &nbsp Requires Chemex paper filters <br>
+                </p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <img class="img-responsive" src="{% static 'assets/img/Chemex-Coffee-Brewing-300x300.jpg' %}">
+            </div>
+			
+        </div>
+    </div>
+{% endblock %}
+

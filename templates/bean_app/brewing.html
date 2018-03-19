@@ -1,0 +1,239 @@
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Brewing
+{% endblock %}
+
+{% block body_block_alt %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+
+                <!--Temporarily hiding the filters until we know what to do with them-->
+
+                <!--<div class="checkbox">-->
+                    <!--<label>-->
+                        <!--<input type="checkbox">Filter 1</label>-->
+                <!--</div>-->
+                <!--<div class="checkbox">-->
+                    <!--<label>-->
+                        <!--<input type="checkbox">Filter 2</label>-->
+                <!--</div>-->
+                <!--<div class="checkbox">-->
+                    <!--<label>-->
+                        <!--<input type="checkbox"> Filter 3</label>-->
+                <!--</div>-->
+                <!--<div class="checkbox">-->
+                    <!--<label>-->
+                        <!--<input type="checkbox"> Filter 4</label>-->
+                <!--</div>-->
+             </div>
+
+            <!--<div class="col-md-2">-->
+               <!--<div class="dropdown">-->
+                    <!--<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="true" type="button">Sort by <span class="caret"></span></button>-->
+                    <!--<ul class="dropdown-menu dropdown-menu-right" role="menu">-->
+                        <!--<li role="presentation"><a href="#">Alphabatical Order</a></li>-->
+                        <!--<li role="presentation"><a href="#">Hightest Ratings</a></li>-->
+                    <!--</ul>-->
+                 <!--</div>-->
+             <!--</div>-->
+
+        </div>
+     </div>
+
+
+
+    <!--list of products after the filters -->
+    <div class="container hero">
+
+        <!--Show some extra information if we are making showing search results-->
+        {% if search_term %}
+            {% if len_results < 1 %}
+                <h3 style="color: white; opacity: 0.4;">Sorry no results for "{{ search_term }}"</h3>
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                        <div style="color: white; opacity: 0.4;">
+                            <h3 >Search results for "{{ search_term }}"</h3>
+                            <h4>Showing results {{ beans.start_index }} to {{ beans.end_index }} of {{ len_results }}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+
+        
+            <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                    <h2 style="color:#FFFFFF", class="text-left">Coffee Cone</h2>
+                    <p style="opacity: 0.7;">
+						One of the oldest, simplest, fastest and cheapest ways to brew coffee is the drip method using
+						a coffee cone and paper filter. Hot water is poured evenly over coffee grounds in a paper filter. 
+						With gravity, the brewed coffee drips slowly and directly into a cup or pot. Coffee cones are 
+						made of plastic, glass, stainless steel or ceramic. The shape of the cone and their filters will 
+						influence the flavours. Popular brands include Melitta, Hario V60, Kalita Wave and Bee House.
+					</p>
+                    <span>
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'coffee_cone' %}"><button class="btn btn-default btn-lg action-button" type="button">See More</button></a>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                    <img class="img-responsive" src="{% static 'assets/img/Pour-Over-Coffee-Brewing-300x300.jpg' %}">
+                    <div class="iphone-mockup">
+                        <div class="screen"></div>
+                     </div>
+                    <div class="clearfix"></div>
+                 </div>
+             </div>
+             <br>
+             <br>
+             <br>
+			 
+			 <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                    <h2 style="color:#FFFFFF", class="text-left">Chemex</h2>
+                    <p style="opacity: 0.7;">
+                    Chemex is a beautifully designed and elegant pour over, glass flask that was invented in
+					1941 by Dr. Peter Schlumbohm. It uses a special Chemex paper filter that is 20-30% heavier
+					than other filters. Similar to the coffee cone, hot water is poured over coffee grounds in a
+					paper filter. The brewed coffee drips into the bottom of the flask which doubles as its own carafe.
+					</p>
+                    <span>
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'chemex' %}"><button class="btn btn-default btn-lg action-button" type="button">See More</button></a>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                    <img class="img-responsive" src="{% static 'assets/img/Chemex-Coffee-Brewing-300x300.jpg' %}">
+                    <div class="iphone-mockup">
+                        <div class="screen"></div>
+                     </div>
+                    <div class="clearfix"></div>
+                 </div>
+             </div>
+             <br>
+             <br>
+             <br>
+			 
+			 <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                    <h2 style="color:#FFFFFF", class="text-left">French Press</h2>
+                    <p style="opacity: 0.7;">
+						The French Press method, invented in 1929, is widely considered as the best and easiest
+						method for brewing superior and consistent coffee. It extracts, arguably, more superior 
+						flavours than any other method. In a press pot, ground coffee is soaked, steeped and 
+						strained in hot water; therefore, coffee’s flavourful essential oils, caffeine and 
+						antioxidants are better diffused and preserved leaving the purest flavours of the coffee. 
+						It is well suited for coffee drinkers that enjoy a luscious, expressive and complex taste experience.
+					</p>
+                    <span>
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'french_press' %}"><button class="btn btn-default btn-lg action-button" type="button">See More</button></a>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                    <img class="img-responsive" src="{% static 'assets/img/French-Press-Coffee-Brewing-300x300.jpg' %}">
+                    <div class="iphone-mockup">
+                        <div class="screen"></div>
+                     </div>
+                    <div class="clearfix"></div>
+                 </div>
+             </div>
+             <br>
+             <br>
+             <br>
+			 
+			 <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                    <h2 style="color:#FFFFFF", class="text-left">AeroPress</h2>
+                    <p style="opacity: 0.7;">
+                    Relatively new, the maker of Aerobie Frisbee (Alan Adler) created and launched the AeroPress in 2005. 
+					The AeroPress is plastic and comes in 3 parts. A filter sits in a coffee basket at the bottom of the 
+					brew chamber. Coffee grounds rest in the brew chamber where hot water is added then immerses/steeps 
+					the coffee. To extract the coffee, a plunger is pressed down creating air pressure to force brewed 
+					coffee through a filter and into a cup.
+					</p>
+                    <span>
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'aeropress' %}"><button class="btn btn-default btn-lg action-button" type="button">See More</button></a>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                    <img class="img-responsive" src="{% static 'assets/img/AeroPress-Coffee-Brewing-300x300.jpg' %}">
+                    <div class="iphone-mockup">
+                        <div class="screen"></div>
+                     </div>
+                    <div class="clearfix"></div>
+                 </div>
+             </div>
+             <br>
+             <br>
+             <br>
+			 
+			 <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                    <h2 style="color:#FFFFFF", class="text-left">Stovetop Moka Pot</h2>
+                    <p style="opacity: 0.7;">
+						Originally patented in 1933 by Alfonso Bialetti, stovetop style coffee makers use steam 
+						pressure from boiled water in the lower section to pass through coffee grounds in the mid 
+						chamber of the pot. Brewed coffee then sits in the higher chamber. A well designed stovetop 
+						pot will created better pressure. Common brands include Bialetti, Pedrini, and Kabalo.
+					</p>
+                    <span>
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'stovetop_moka_pot' %}"><button class="btn btn-default btn-lg action-button" type="button">See More</button></a>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                    <img class="img-responsive" src="{% static 'assets/img/Stovetop-Moka-Pot-Coffee-Brewing-300x300.jpg' %}">
+                    <div class="iphone-mockup">
+                        <div class="screen"></div>
+                     </div>
+                    <div class="clearfix"></div>
+                 </div>
+             </div>
+             <br>
+             <br>
+             <br>
+			 
+			 <div class="row">
+                <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                    <h2 style="color:#FFFFFF", class="text-left">Siphon</h2>
+                    <p style="opacity: 0.7;">
+                    The siphon is a fancy and flashy coffee maker. It can be a fun way to make coffee and impress 
+					friends at the same time, but it can be a fussy process. It was invented in Germany in the 1840s. 
+					Coffee grounds are added to the upper vessel and vapor pressure forces hot water up to immerse 
+					the coffee. Once the heat is removed, gravity pushes the brewed coffee back through a filter into 
+					the bottom vessel. Common brands include Hario, Yama and Bodum.
+					</p>
+                    <span>
+                        <div class="btn-group pull-right">
+                            <a href="{% url 'siphon' %}"><button class="btn btn-default btn-lg action-button" type="button">See More</button></a>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
+                    <img class="img-responsive" src="{% static 'assets/img/Siphon-Coffee-Brewing-300x300.jpg' %}">
+                    <div class="iphone-mockup">
+                        <div class="screen"></div>
+                     </div>
+                    <div class="clearfix"></div>
+                 </div>
+             </div>
+             <br>
+             <br>
+             <br>
+    
+    </div>
+    <br>
+
+
+{% endblock %}

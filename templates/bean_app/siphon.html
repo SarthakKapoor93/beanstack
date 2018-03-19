@@ -1,0 +1,46 @@
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+{% load bean_app_template_tags %}
+
+{% block title_block %}
+    Brewing details
+{% endblock %}
+
+{% block head_block %}
+    <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block banner_block %}
+    <div class="container hero">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <h2 style="color:#FFFFFF", class="text-left">Siphon</h2>
+                <p style="opacity: 0.7; color:#FFFFFF;">
+					The siphon is a fancy and flashy coffee maker. It can be a fun way to make coffee and impress 
+					friends at the same time, but it can be a fussy process. It was invented in Germany in the 1840s. 
+					Coffee grounds are added to the upper vessel and vapor pressure forces hot water up to immerse 
+					the coffee. Once the heat is removed, gravity pushes the brewed coffee back through a filter into 
+					the bottom vessel. Common brands include Hario, Yama and Bodum.
+					<br>
+					<br>
+					<br>
+				    • &nbsp Grind of Beans: Medium coarseness <br>
+                    • &nbsp Ground Coffee: 6 tablespoons of coffee (40g) <br>
+                    • &nbsp Brewing Time: 6 minutes <br>
+                    • &nbsp Flavour Profile: mellow and delicate flavours <br>
+                    • &nbsp Cost: $70-160 (extra cost for filters) <br>
+                    • &nbsp Produces several cups of coffee <br>                  
+                    • &nbsp Finicky to clean <br>
+                    • &nbsp Delicate and hard to store. Not portable. <br>
+                    • &nbsp Requires candle or butane burner (unless it has an electric heater), metal or cloth filter <br>
+                </p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <img class="img-responsive" src="{% static 'assets/img/Siphon-Coffee-Brewing-300x300.jpg' %}">
+            </div>
+			
+        </div>
+    </div>
+{% endblock %}
+
