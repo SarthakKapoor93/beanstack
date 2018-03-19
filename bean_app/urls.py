@@ -4,6 +4,7 @@ from bean_app import views
 urlpatterns = [
     url(r'^home', views.home, name='home'),
     url(r'^about', views.about, name='about'),
+    url(r'^brewing', views.brewing, name='brewing'),
     url(r'^contact', views.contact, name='contact'),
     url(r'^browse', views.browse, name='browse'),
     url(r'^search', views.search, name='search'),

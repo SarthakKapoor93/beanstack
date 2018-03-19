@@ -27,6 +27,9 @@ def home(request):
 
 def about(request):
     return render(request, 'bean_app/about.html', {})
+	
+def brewing(request):
+    return render(request, 'bean_app/brewing.html', {})
 
 
 def contact(request):
