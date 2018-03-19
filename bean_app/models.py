@@ -32,13 +32,13 @@ class Tag(models.Model):
 
 
 class CoffeeBean(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=500, unique=True)
     image = models.ImageField(blank=True)
     location = models.CharField(max_length=128)
-    description = models.CharField(max_length=1000, blank=True)
+    description = models.CharField(max_length=2000, blank=True)
     price = models.FloatField(default=None, blank=True, null=True)
     average_rating = models.FloatField(default=0)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=500, unique=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
