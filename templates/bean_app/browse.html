@@ -57,10 +57,10 @@
                 </div>
                 <div class="col-lg-5 col-lg-offset-0 col-md-5 col-md-offset-1 hidden-xs hidden-sm phone-holder">
                     <a href="{% url 'product' bean.slug %}">
-                    {% if bean.image %}
-                        <img class="img-responsive" src="{{ MEDIA_URL }}{{ bean.image }}">
+                        {% if bean.slug|image_exists %}
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ bean.slug }}.jpeg">
                         {% else %}
-                        <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
+                            <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
                         {% endif %}
                     </a>
                     <div class="iphone-mockup">

@@ -1,4 +1,5 @@
 {% extends 'bean_app/base.html' %}
+{% load bean_app_template_tags %}
 {% load staticfiles %}
 {% block title_block %}
      BeanStack
@@ -46,10 +47,8 @@
              {% for bean in beans %}
                  <div class="col-md-4 col-sm-6 item">
                      <a href="#">
-                         <!--<img class="img-responsive" src="{% static 'assets/img/BeanType2.png'%}" width="293px" height="195px">-->
-                         <a href="{% url 'product' bean.slug %}">
-                        {% if bean.image %}
-                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ bean.image }}">
+                        {% if bean.slug|image_exists %}
+                            <img class="img-responsive" src="{{ MEDIA_URL }}{{ bean.slug }}.jpeg">
                         {% else %}
                             <img class="img-responsive" src="{% static 'assets/img/BeanType2.png' %}">
                         {% endif %}
