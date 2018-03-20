@@ -77,7 +77,7 @@ $('#arrow-glyph, #modal-add').click(function(){
 function activate_modal(marker){
     $('#vendor-detail-modal .modal-title').html(marker.name);
     $('#vendor-detail-modal .modal-body #description').html(marker.description);
-    $('#vendor-detail-modal .modal-body #online-shop').html("<a href=" + marker.onlineshop + " >visit online shop</a>");
+    $('#vendor-detail-modal .modal-body #online-shop').html("<a target='_blank' href=" + marker.onlineshop + " >visit online shop</a>");
     $('#vendor-detail-modal .modal-body #address').html(marker.address);
     $('#vendor-detail-modal .modal-body #products').html("");
     for (i = 0; i < marker.products.length; i++){
