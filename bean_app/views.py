@@ -21,27 +21,20 @@ def home(request):
 
 def about(request):
     return render(request, 'bean_app/about.html', {})
-	
+
+
 def brewing(request):
-    return render(request, 'bean_app/brewing.html', {})
+    context = {
+        'brewing_guides': BrewingGuide.objects.all()
+    }
+    return render(request, 'bean_app/brewing.html', context=context)
 
-def coffee_cone(request):
-    return render(request, 'bean_app/coffee_cone.html', {})
 
-def chemex(request):
-    return render(request, 'bean_app/chemex.html', {})
-
-def french_press(request):
-    return render(request, 'bean_app/french_press.html', {})
-
-def aeropress(request):
-    return render(request, 'bean_app/aeropress.html', {})
-	
-def stovetop_moka_pot(request):
-    return render(request, 'bean_app/stovetop_moka_pot.html', {})
-
-def siphon(request):
-    return render(request, 'bean_app/siphon.html', {})
+def brewing_details(request, brewing_guide_slug):
+    context = {
+        'guide': BrewingGuide.objects.get(slug=brewing_guide_slug)
+    }
+    return render(request, 'bean_app/brewing_details.html', context=context)
 
 
 def browse(request):

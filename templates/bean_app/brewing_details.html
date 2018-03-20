@@ -1,0 +1,35 @@
+{% extends 'bean_app/base.html' %}
+{% load staticfiles %}
+{% load bean_app_template_tags %}
+
+{% block title_block %}
+    {{ guide.title }} Brewing Details
+{% endblock %}
+
+{% block head_block %}
+    <meta name="viewport" content="initial-scale=0.5, user-scalable=no">
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+{% endblock %}
+
+{% block banner_block %}
+    <div class="container hero">
+        <div class="row">
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <h2 style="color:#FFFFFF" class="text-left">{{ guide.title }}</h2>
+                <p style="opacity: 0.7; color:#FFFFFF;">
+                    {{ guide.description }}
+                <br>
+                <br>
+                <br>
+                    {% autoescape off %}
+                        {{ guide.formatted_steps }}
+                    {% endautoescape %}
+                </p>
+            </div>
+            <div class="col-lg-5 col-lg-offset-1 col-md-6 col-md-offset-0">
+                <img class="img-responsive" src="{% static 'assets/img/brewing/' %}{{guide.slug}}.jpg">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

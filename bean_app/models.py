@@ -96,3 +96,23 @@ class Vendor(models.Model):
     def __str__(self):
         return "Vendor: {} - {} - {}".format(self.pk, self.owner_name, self.business_name)
 
+
+class BrewingGuide(models.Model):
+    title = models.CharField(max_length=128)
+    description = models.CharField(max_length=2000)
+    steps = models.CharField(max_length=2000)
+    slug = models.SlugField(max_length=500, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(BrewingGuide, self).save(*args, **kwargs)
+
+    def formatted_steps(self):
+        html = ""
+        for step in self.steps.split('/')[:-1]:
+            html += "• &nbsp " + step + "<br>"
+        return html
+
+    def __str__(self):
+        return "Brewing Guide: {} - {}".format(self.pk, self.title)
+

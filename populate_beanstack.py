@@ -4,7 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beanstack.settings')
 import django
 
 django.setup()
-from bean_app.models import CoffeeBean, Review, Vendor, TagType, Tag, UserProfile
+from bean_app.models import CoffeeBean, Review, Vendor, TagType, Tag, UserProfile, BrewingGuide
 from django.contrib.auth.models import User
 
 tag_groups = [
@@ -428,6 +428,81 @@ vendors = [
 ]
 
 
+brewing_titles = [
+    'Aeropress', 'Chemex', 'Coffee Cone', 'French Press', 'Siphon', 'Stovetop Moka Pot'
+]
+
+brewing_descriptions = [
+    'Relatively new, the maker of Aerobie Frisbee (Alan Adler) created and launched the AeroPress in 2005. '
+    'The AeroPress is plastic and comes in 3 parts. A filter sits in a coffee basket at the bottom of the brew chamber.'
+    ' Coffee grounds rest in the brew chamber where hot water is added then immerses/steeps the coffee. '
+    'To extract the coffee, a plunger is pressed down creating air pressure to force brewed coffee through a '
+    'filter and into a cup.',
+
+    'Chemex is a beautifully designed and elegant pour over, glass flask that was invented in 1941 by Dr. Peter '
+    'Schlumbohm. It uses a special Chemex paper filter that is 20-30% heavier than other filters. Similar to '
+    'the coffee cone, hot water is poured over coffee grounds in a paper filter. The brewed coffee drips into '
+    'the bottom of the flask which doubles as its own carafe.',
+
+    'One of the oldest, simplest, fastest and cheapest ways to brew coffee is the drip method usin a coffee cone '
+    'and paper filter. Hot water is poured evenly over coffee grounds in a paper filter. With gravity, the brewed '
+    'coffee drips slowly and directly into a cup or pot. Coffee cones are made of plastic, glass, stainless steel or '
+    'ceramic. The shape of the cone and their filters will influence the flavours. Popular brands include Melitta, '
+    'Hario V60, Kalita Wave and Bee House.',
+
+    'The French Press method, invented in 1929, is widely considered as the best and easiest method for brewing '
+    'superior and consistent coffee. It extracts, arguably, more superior flavours than any other method. In a '
+    'press pot, ground coffee is soaked, steeped and strained in hot water; therefore, coffee’s flavourful essential '
+    'oils, caffeine and antioxidants are better diffused and preserved leaving the purest flavours of the coffee. '
+    'It is well suited for coffee drinkers that enjoy a luscious, expressive and complex taste experience.',
+
+    'The siphon is a fancy and flashy coffee maker. It can be a fun way to make coffee and impress friends at the '
+    'same time, but it can be a fussy process. It was invented in Germany in the 1840s. Coffee grounds are added to '
+    'the upper vessel and vapor pressure forces hot water up to immerse the coffee. Once the heat is removed, gravity '
+    'pushes the brewed coffee back through a filter into the bottom vessel. Common brands include Hario, '
+    'Yama and Bodum.',
+
+    'Originally patented in 1933 by Alfonso Bialetti, stovetop style coffee makers use steam pressure from boiled '
+    'water in the lower section to pass through coffee grounds in the mid chamber of the pot. Brewed coffee then sits '
+    'in the higher chamber. A well designed stovetop pot will created better pressure. Common brands include Bialetti, '
+    'Pedrini, and Kabalo.',
+]
+
+brewing_steps = [
+
+    'Grind of Beans: fine-medium/ Ground Coffee: 2.5 tablespoons of coffee (17g)/ Brewing Time: 1-2 minutes/ '
+    'Flavour Profile: sweet, full-bodied, espresso-style coffee/ Cost: $40-50 (extra cost for filters)/ '
+    'Produces a single cup of coffee/ Easy to clean/ Portable, especially popular with campers/ '
+    'Requires AeroPress micro paper filters (or a fine metal filter)/',
+
+    'Grind of Beans: medium-coarse/ Ground Coffee: 6 tablespoons of coffee (42g)/ Brewing Time: 4 minutes/ '
+    'Flavour Profile: balanced, cleaner, refined, floral, sweet notes and non-acidic/ '
+    'Cost: $45-78 (extra cost for filters)/ Different sizes yields up to 6 cups/ '
+    'Harder to clean and requires special brush/ Portable but fragile/ '
+    'Requires Chemex paper filters/',
+
+    'Grind of Beans: medium-fine to coarse/ Quantity of Coffee: 3 tablespoons of coffee (21g)/ '
+    'Brewing Time: 1-3 minutes/ Flavour Profile: Smooth, round body/ Cost: $8-$71 (extra cost for filters)/ '
+    'Produces a single cup of coffee/ Easy to clean/ Portable/ Requires paper filters that match the cone/',
+
+    'Grind of Beans: coarse / Ground Coffee: 2-2.5 tablespoons of coffee (14-17g) for one cup/ '
+    'Brewing Time: 4 minutes/ Flavour Profile: pure, clean flavour nuances that are complex and robust body/ '
+    'Cost: $8-112/ Various sizes producing up to 8 cups of coffee/ Easy to clean/ '
+    'Portable, especially the stainless steel thermal variety/ No filters required/',
+
+    'Grind of Beans: Medium coarseness/ Ground Coffee: 6 tablespoons of coffee (40g)/ '
+    'Brewing Time: 6 minutes/ Flavour Profile: mellow and delicate flavours/  Cost: $70-160 (extra cost for filters)/ '
+    'Produces several cups of coffee/ Finicky to clean/ Delicate and hard to store. Not portable./ '
+    'Requires candle or butane burner (unless it has an electric heater), metal or cloth filter/',
+
+    'Grind of Beans: Fine-Medium Coarse/ Ground Coffee: 2.5-3 tablespoons of coffee (17-22g)/ '
+    'Brewing Time: 5 minutes/ Flavour Profile: espresso-style coffee, strong and can be bitter/ '
+    'Cost: $20-60/ Requires a gas stove/ Produces the equivalent of a single or double shot/ '
+    'Easy to clean/ Portable and durable/ No extra filters required/',
+
+]
+
+
 def populate_main_models(reviews):
     for bean, customer_name, review in zip(coffee_beans, names, reviews):
 
@@ -493,6 +568,11 @@ def populate_extra_tag_types():
         TagType.objects.get_or_create(name=tag)
 
 
+def populate_brewing_guides():
+    for title, desc, steps in zip(brewing_titles, brewing_descriptions, brewing_steps):
+        BrewingGuide.objects.get_or_create(title=title, description=desc, steps=steps)
+
+
 if __name__ == "__main__":
     print("Stacking up the beans....")
     populate_main_models(review_texts[:15])
@@ -501,5 +581,6 @@ if __name__ == "__main__":
     populate_extra_tag_types()
     print("Populating vendors may take a few seconds because the script accesses Googlemaps' geocoding api ...")
     populate_vendors()
+    populate_brewing_guides()
     print("... beans all stacked up nice and high!")
 
