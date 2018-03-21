@@ -20,19 +20,21 @@ def home(request):
 
 
 def about(request):
-    return render(request, 'bean_app/about.html', {})
+    return render(request, 'bean_app/about.html', {'page_name': 'about'})
 
 
 def brewing(request):
     context = {
-        'brewing_guides': BrewingGuide.objects.all()
+        'brewing_guides': BrewingGuide.objects.all(),
+        'page_name': 'brewing'
     }
     return render(request, 'bean_app/brewing.html', context=context)
 
 
 def brewing_details(request, brewing_guide_slug):
     context = {
-        'guide': BrewingGuide.objects.get(slug=brewing_guide_slug)
+        'guide': BrewingGuide.objects.get(slug=brewing_guide_slug),
+        'page_name': 'brewing'
     }
     return render(request, 'bean_app/brewing_details.html', context=context)
 
@@ -48,7 +50,8 @@ def browse(request):
 
     context = {
         "beans": page,
-        'len_results': len(beans)
+        'len_results': len(beans),
+        'page_name': 'browse'
     }
     return render(request, 'bean_app/browse.html', context)
 
@@ -187,6 +190,7 @@ def product(request, coffee_name_slug):
                'saved_coffees': saved_coffees,
                'has_posted': has_posted,
                'successful_review': successful_review,
+               'page_name': 'browse'
                }
 
     return render(request, 'bean_app/product.html', context)
@@ -255,7 +259,11 @@ def my_beanstack(request):
     coffees = list(profile.saved_coffees.all())
     saved_coffees = [(coffees.index(bean) + 2, bean) for bean in coffees]
 
-    return render(request, 'bean_app/mybeanstack.html', {'saved_coffees': saved_coffees})
+    context = {
+        'saved_coffees': saved_coffees,
+        'page_name': 'beanstack',
+    }
+    return render(request, 'bean_app/mybeanstack.html', context=context)
 
 
 # Don't know how to override the change password part of django auth

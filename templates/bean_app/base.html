@@ -70,17 +70,17 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav">
-                            <li role="presentation"><a href="{% url 'about' %}">About </a></li>
-                            <li role="presentation"><a href="{% url 'browse' %}">Browse beans</a></li>
-                            <li role="presentation"><a href="{% url 'brewing' %}">Brewing Guides</a></li>
+                            <li id="about-tab" class="menu-tab" role="presentation"><a href="{% url 'about' %}">About </a></li>
+                            <li id="browse-tab" class="menu-tab" role="presentation"><a href="{% url 'browse' %}">Browse beans</a></li>
+                            <li id="brewing-tab" class="menu-tab" role="presentation"><a href="{% url 'brewing' %}">Brewing Guides</a></li>
                             <!--The following list item are normally not shown in the list, except at low screen widths. Otherwise they are in dropdown menu below-->
                             {%  if user.is_authenticated %}
-                                <li class="to-hide" role="presentation"><a href="{% url 'my_beanstack' %}">My BeanStack</a></li>
-                                <li class="to-hide" role="presentation"><a href="{% url 'auth_password_change' %}">Account settings</a></li>
-                                <li class="to-hide" role="presentation"><a href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a></li>
+                                <li id="beanstack-tab" class="to-hide menu-tab" role="presentation"><a href="{% url 'my_beanstack' %}">My BeanStack</a></li>
+                                <li id="account-tab" class="to-hide menu-tab" role="presentation"><a href="{% url 'auth_password_change' %}">Account settings</a></li>
+                                <li id="logout-tab" class="to-hide menu-tab" role="presentation"><a href="{% url 'auth_logout' %}?next=/bean_app/home/">Log out</a></li>
                             {% else %}
-                                <li class="to-hide" role="presentation"><a href="{% url 'auth_login' %}">Log In</a></li>
-                                <li class="to-hide" role="presentation"><a href="{% url 'registration_register' %}">Sign up</a></li>
+                                <li class="to-hide menu-tab" role="presentation"><a href="{% url 'auth_login' %}">Log In</a></li>
+                                <li class="to-hide menu-tab" role="presentation"><a href="{% url 'registration_register' %}">Sign up</a></li>
                             {% endif %}
                         </ul>
 
@@ -175,10 +175,17 @@
             </div>
         </footer>
     </div>
+      <style>
+        #{{ page_name }}-tab > a {
+            opacity: 1;
+        }
+        .menu-tab > a{
+            opacity: 0.5;
+        }
+    </style>
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
     <script src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/Profile-Edit.js' %}"></script>
     <script src="{% static 'assets/js/Reviewbtn.js' %}"></script>
-
 </body>
 </html>
