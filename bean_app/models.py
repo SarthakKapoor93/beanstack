@@ -3,13 +3,6 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from bean_app.google_maps_api import Mapper
 
-'''
-    *** NOTES: ***
-    - Remember to add new models to bean_app/admin.py
-    and to make migrations after making any changes 
-    to the models.
-    - We may need to include slugs for some of the objects
-'''
 
 mapper = Mapper()
 
